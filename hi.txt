@@ -1,3 +1,30 @@
 hello word 
 
-丰纳金融
+
+git init 建立一个目录,然后在这个目的,执行这个 命令, 把这个文件夹 xx 设为仓库
+
+git add  yyy.xxx  把yyy.xxx 添加到 暂存区. (yyy.xxx 必须在xx 文件夹)
+
+git commit -m "备注"  把 暂存区 的文件提交到仓库 master ,
+
+git status  查看当前仓库状态
+
+git diff 文件有什么不同
+
+HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+
+穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+
+要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+
+ssh-keygen -t rsa -C "youremail@example.com"   创建ssh key, 在用户主目录下  有公key , 私key
+
+git remote add origin git@github.com:________/learngit.git   origin 远程目录文件夹名称,______github账号
+
+git push -u origin master   把master分支推送 到远程的 origin 仓库 第一次 要带 -u
+
+git push origin master  把master分支推送 到远程的 origin 仓库,以后不用带-u了
+
+git clone git@github.com:_______/--------.git   ____github账号,-----远程项目名字 ,远程仓库同步到本地当前目录仓库
+
+
