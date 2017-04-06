@@ -8,7 +8,7 @@ yum -y install wget
 yum -y install perl perl-devel autoconf
 centos 7mini 要一键安装web环境, 先装这些
 yum install net-tools
-yum install zip
+yum install zip unzip
 netstat -tunpl
 
 
