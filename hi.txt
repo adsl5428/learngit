@@ -1,6 +1,5 @@
 ﻿hello word 
 
-
 git init 建立一个目录,然后在这个目的,执行这个 命令, 把这个文件夹 xx 设为仓库
 
 git add  yyy.xxx  把yyy.xxx 添加到 暂存区. (yyy.xxx 必须在xx 文件夹)
@@ -19,6 +18,7 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
 
 ssh-keygen -t rsa -C "youremail@example.com"   创建ssh key, 在用户主目录下  有公key , 私key
 
+应该要在远程 建立一个 对应的项目
 git remote add origin git@github.com:________/learngit.git   origin 远程目录文件夹名称,______github账号
 
 git push -u origin master   把master分支推送 到远程的 origin 仓库 第一次 要带 -u
