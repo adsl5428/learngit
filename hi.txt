@@ -1,5 +1,35 @@
-﻿hello word 
+﻿4月7号 composer的安装 以及用
 
+之前一键下载 安装 laravel 很快 很简单 
+
+但是不会用composer 
+
+现在学composer安装laraverl
+
+先把php的这3个拓展打开 在php.ini中
+
+;extension=php_onpenssl.dll  
+  
+;extension=php_mbstring.dll  
+  
+;extension=php_pdo_mysql.dll  
+
+去掉分号就是打开
+
+将下载的composer.phar复制到PHP的安装目录下面，也就是和php.exe在同一级目录。
+
+在 PHP 安装目录下新建一个composer.bat文件，并将下列代码保存到此文件中。
+@php "%~dp0composer.phar" %*  
+打开一个命令行窗口试一试执行composer --version看看是否正确输出版本号。
+
+打开命令行窗口执行如下命令
+composer config -g repo.packagist composer https://packagist.phpcomposer.com  
+
+打开命令行窗口执行d:再执行 cd xampp\htdocs进入网站目录 再执行如下代码创建一个名为ams的Laravel项目（项目名自定）
+composer create-project laravel/laravel ams --prefer-dist  
+
+
+4月6号 git 学习记录
 git init 建立一个目录,然后在这个目的,执行这个 命令, 把这个文件夹 xx 设为仓库
 
 git add  yyy.xxx  把yyy.xxx 添加到 暂存区. (yyy.xxx 必须在xx 文件夹)
