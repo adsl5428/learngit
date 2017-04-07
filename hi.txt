@@ -1,4 +1,4 @@
-hello word 
+﻿hello word 
 
 
 git init 建立一个目录,然后在这个目的,执行这个 命令, 把这个文件夹 xx 设为仓库
@@ -25,6 +25,23 @@ git push -u origin master   把master分支推送 到远程的 origin 仓库 第
 
 git push origin master  把master分支推送 到远程的 origin 仓库,以后不用带-u了
 
-git clone git@github.com:_______/--------.git   ____github账号,-----远程项目名字 ,远程仓库同步到本地当前目录仓库
+git clone git@github.com:_______/--------.git   ____github账号,-----远程项目名字 ,远程仓库克隆到本地当前目录仓库
 
+先把目录 进到 仓库 
+git remote -v 查看远程仓库
+
+git fetch origin master:temp  把远程仓库下 回来,新建一个temp分支,当前在哪个项目的目录 就下哪个项目回来
+
+git diff temp  比较本地代码与temp 代码的区别
+
+git merge temp  合并
+
+git branch -d temp 删除temp分支
+
+
+git checkout -b dev 创建分支,并且切换到那个分支
+
+git branch dev  创建 dev分支
+
+git checkout dev 切换到 dev分支
 
