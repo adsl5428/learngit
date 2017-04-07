@@ -45,3 +45,4 @@ git branch dev  创建 dev分支
 
 git checkout dev 切换到 dev分支
 
+git branch命令查看当前分支
