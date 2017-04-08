@@ -2,6 +2,34 @@
 (概念/经验/方法/工具)
 要求:1 1000
 
+4月9号凌晨
+
+对phpstorm 中live templates 插件多一点了解.
+C:\Users\Administrator\.PhpStorm2017.1\config\templates\PHP.xml
+直接把设置也加进仓库吧,以后带着到处跑
+
+对laraver框架中 路由,MVC工作流程,有比较清楚理性的了解,可以独立敲出简单的代码.
+
+大致是这样的,所有请求 都经过路由,路由分发给对应的控制器C,如果涉及到数据库就交给模型M处理,数据处理完毕后,控制器把需要的数据传给视图,然后由视图V显示出来.
+
+掌握php artisan 命令一些简单的 应用,比如
+
+php artisan make:___Controller ____ 建立 控制器,这个应该挺常用的,
+
+php artisan make:migration create_articles_table --create='articles'  创建migration文件, 相当于建立数据库的框架吧
+
+php artisan migrate  把数据库框架,做成数据库 
+
+php artisan make:model Article MVC 中的M , 姑且称 数据库模型吧 
+
+数据库为articles,那么操作模型就 Article ,数据库有s , 模型没s ,这样模型就默认操作对应的数据库.
+
+路由 和 控制器其实这部分,用的频率很高,不用怎么特地去记,自然会记住的.
+
+敲代码要注意一点,windows不区分大小写,linux是区分大小写.
+
+最终生产环境是部署在linux,所以在开发是要严格注意大小写.
+
 4月8号 凌晨 历史遗留问题
 
 之前师父问过我几次centos 7 有没弄懂 设置成固定ip.
