@@ -76,8 +76,12 @@ DNS2="180.168.255.18"
 打开命令行窗口执行如下命令
 composer config -g repo.packagist composer https://packagist.phpcomposer.com  
 
-打开命令行窗口执行d:再执行 cd xampp\htdocs进入网站目录 再执行如下代码创建一个名为ams的Laravel项目（项目名自定）
-composer create-project laravel/laravel ams --prefer-dist  
+打开命令行窗口执行d:再执行 cd appserv\www进入网站目录 再执行如下代码创建一个名为ams的Laravel项目（项目名自定）
+composer create-project laravel/laravel ams --prefer-dist  这样会下载最新的laravel
+
+如果要下载指定版本,指定一下版本号就可以,像这样
+
+composer create-project laravel/laravel=5.2.x ams --prefer-dist
 
 以上内容从以下地址摘抄,实践一遍,好用,记录,毕竟搭建环境,比较久用一次,中间会忘记
 http://blog.csdn.net/hpugym/article/details/54631739
