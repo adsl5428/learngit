@@ -39,14 +39,13 @@ DNS2="180.168.255.18"
 
 之前不懂用composer安装laravel的拓展包, 现在懂了.
 
-先把拓展包 放到 vendor\laravel\framework\src\Illuminate\____
+cmd 进到 项目文件夹里,
 
-然后cmd 进到这个文件夹 vendor\laravel\framework
+执行 composer require laravelcollective/html=x.x.x
 
-最后执行 composer require Illuminate\_____
+就可以把拓展包 安装上了.  其中x.x.x 是版本 
 
-就可以把拓展包 安装上了.
-
+注意看说明, 要在什么地方 写上什么 , 才能正确用到拓展包
 
 
 4月7号 composer的安装 以及用
