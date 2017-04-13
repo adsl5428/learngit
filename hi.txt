@@ -13,6 +13,7 @@ Apache多站点设置,师父是没让我看这个的.但是这个设置逻辑和
 
 
 打开Apache安装目录下conf/httpd.conf文件，找到下面两行文字,把最前面的 # 号去掉,然后保存。
+大致为 打开 加载 分站点 配置的开关				
 #LoadModule vhost_alias_module modules/mod_vhost_alias.so
 #Include conf/extra/httpd-vhosts.conf   
 
@@ -40,6 +41,32 @@ ServerName   ff.cc
 
 重启Apache 服务
 
+nginx多站点配置
+
+改本地的host
+127.0.0.1	g.cc
+127.0.0.1	gg.cc
+
+修改 nginx/conf/vhosts 的站点
+g.conf
+server {
+...
+server_name  g.cc;
+root /alidata/www/g;
+...
+}
+
+gg.conf
+server {
+...
+server_name  gg.cc;
+root /alidata/www/gg;
+...
+}
+
+chmod -Rf 777 修改网站目录权限  //可能不需要 777, 暂时用777
+
+/etc/init.d/nginx restart  //重启服务
 
 4月9号凌晨
 
