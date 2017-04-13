@@ -4,6 +4,41 @@
 
 资源路由,分组路由,中间件
 
+Apache多站点设置,师父是没让我看这个的.但是这个设置逻辑和nginx一模一样,就顺带写下.
+毕竟windows下偶尔还是能用到的.
+
+改本地的host
+127.0.0.1	f.cc
+127.0.0.1	ff.cc
+
+
+打开Apache安装目录下conf/httpd.conf文件，找到下面两行文字,把最前面的 # 号去掉,然后保存。
+#LoadModule vhost_alias_module modules/mod_vhost_alias.so
+#Include conf/extra/httpd-vhosts.conf   
+
+Apache安装目录下/conf/extra/httpd-vhosts.conf
+
+<VirtualHost*:80>
+DocumentRoot"D:/Appserv/www/1"
+ServerName  f.cc
+</VirtualHost>
+
+<VirtualHost*:80>
+DocumentRoot"D:/Appserv/www/2"
+ServerName   ff.cc
+</VirtualHost>
+
+
+最后 conf/httpd.conf 配置文件 只留 这2个权限 设置,其他的都去掉 前面加#
+<Directory />
+   Options FollowSymLinks ExecCGI Indexes
+   AllowOverride None
+#   Order deny,allow
+#  Deny from all
+#  Satisfy all
+</Directory>
+
+重启Apache 服务
 
 
 4月9号凌晨
