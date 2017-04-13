@@ -2,6 +2,31 @@
 (概念/经验/方法/工具)
 要求:1 1000
 
+网站目录：/alidata/www/
+mysql 和 ftp 密码路径：/root/sh-1.x.x/account.log
+服务器软件目录：/alidata/server
+Mysql 目录 /alidata/server/mysql
+Php 目录/alidata/server/php
+Tomcat 目录/alidata/server/tomcat7
+
+选择了 nginx 那么会有一个 nginx 目录在 /alidata/server/nginx/
+Nginx 配置文件在/alidata/server/nginx/conf
+Nginx 虚拟主机添加 你可以修改/alidata/server/nginx/conf/vhosts/phpwind.conf
+选择了 apache 那么会有一个 httpd 目录在 /alidata/server/httpd
+apache 配置文件在/alidata/server/httpd/conf
+apache 虚拟主机添加 你可以修改/alidata/server/httpd/conf/vhosts/phpwind.conf
+各个服务操作命令汇总：
+nginx：
+/etc/init.d/nginx restart/start/stop/reload)
+apache:
+/etc/init.d/httpd restart/start/stop/...
+mysql:
+/etc/init.d/mysqld restart/start/stop/...
+php-fpm:
+/etc/init.d/php-fpm restart/start/stop/...
+
+
+
 使用可视化工具 来操作数据库还是方便的,但是mysql默认是不给远程访问的,必须要打开它.
 使用如下方法解决:
 mysql不给远程访问(使用Navicat访问) Navicat
