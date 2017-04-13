@@ -47,7 +47,7 @@ nginx多站点配置
 127.0.0.1	g.cc
 127.0.0.1	gg.cc
 
-修改 nginx/conf/vhosts 的站点
+修改 nginx/conf/vhosts 的站点文件,一个站点 一个文件
 g.conf
 server {
 ...
