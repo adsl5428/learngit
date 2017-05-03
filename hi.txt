@@ -2,6 +2,15 @@
 (概念/经验/方法/工具)
 要求:1 1000
 
+linux 安装composer
+机器要安装php
+cp /usr/local/php/bin/php  /usr/sbin/  让php拥有全局命令
+
+全局安装composer
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+
+
 5.2
 如何使用laravel 发送邮件,基本方法
 使用腾讯企业邮箱发送邮件，
