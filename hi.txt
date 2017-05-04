@@ -2,6 +2,17 @@
 (概念/经验/方法/工具)
 要求:1 1000
 
+composer 报proc_open(): fork failed errors错误解决方法
+原因由于虚拟机分配的内存太少，而导致没有可用内存打开文件
+解决方法
+1：加大虚拟机的内存
+2：在Linux下的解决方案：
+开启swap：
+/bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
+/sbin/mkswap /var/swap.1
+/sbin/swapon /var/swap.1
+
+
 linux 安装composer
 机器要安装php
 cp /usr/local/php/bin/php  /usr/sbin/  让php拥有全局命令
