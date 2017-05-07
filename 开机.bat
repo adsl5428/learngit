@@ -1,4 +1,4 @@
-@echo off&setlocal enabledelayedexpansion&title Copy file folder to local
+@echo off&setlocal enabledelayedexpansion&
 git pull
 echo.git同步完成
 pause
