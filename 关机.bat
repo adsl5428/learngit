@@ -1,6 +1,6 @@
 @echo off&setlocal enabledelayedexpansion&
 color 0A
-
+git add .
 echo.ÇëÊäÈë±¸×¢
 set /p remark=
 
