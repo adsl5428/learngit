@@ -21,6 +21,15 @@ cp /usr/local/php/bin/php  /usr/sbin/  让php拥有全局命令
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
 
+使用laravel一键安装包,执行一下 php artisan key:generate ,把唯一标识换掉,
+
+对于laravel来说跟网站根目录是public文件夹,所以用Apache或nginx配置的时候,网站目录是public,而不是根目录,虽然把根目录的 server.php 改成index.php 也是可以的, 但这并不官方.
+
+在linux环境下,网站如果500错误,目录没有777权限,chmod -R 777  给下权限 就好了.
+
+搭建好后,访问,中间 显示laravel , 环境配置完成. 
+
+
 
 5.2
 如何使用laravel 发送邮件,基本方法
