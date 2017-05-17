@@ -2,6 +2,15 @@
 (概念/经验/方法/工具)
 要求:1 1000
 
+
+git 放弃本地修改 强制更新
+git fetch --all
+git reset --hard origin/master
+
+
+阿里大鱼 短信验证 
+https://packagist.org/packages/iscms/alisms-for-laravel
+
 composer 报proc_open(): fork failed errors错误解决方法
 原因由于虚拟机分配的内存太少，而导致没有可用内存打开文件
 解决方法
