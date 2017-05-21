@@ -2,6 +2,44 @@
 (概念/经验/方法/工具)
 要求:1 1000
 
+使用navicat 建模 文件的 位置  
+D:\我的文档\Documents\Navicat\MySQL\profiles
+里面的 .ndm 文件
+
+
+laravel 邮箱配置 (腾讯企业邮箱)
+.env 配置
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.exmail.qq.com
+MAIL_PORT=465
+MAIL_USERNAME=*********@fnjr2017.com
+MAIL_PASSWORD=*********
+MAIL_ENCRYPTION=ssl
+
+邮箱,邮件
+config/mail.php 配置
+'from' => ['address' => '*********@fnjr2017.com', 'name' => '丰纳金融'],
+
+控制器发送   (普通文本发送)  Mail::queue队列发送   Mail::send普通发送
+        $name = '王小帅2';
+        Mail::queue('mail',['name'=>$name],function($message){
+            $to = '343739868@qq.com';
+            $message ->to($to)->subject('邮件测试');
+        });
+其中第一个参数 'mail', 为模板 
+
+mail.blade.php  
+{{$name}}你好，这是一封测试文件。 
+<br>
+<img src='{{$message->embed($image)}}'>
+ 
+
+第二个参数 ['name'=>$name] 为模板里面的变量的赋值 
+ $image = 'http://d.hiphotos.baidu.com/zhidao/pic/item/1ad5ad6eddc451da4ab93e2bb0fd5266d11632a6.jpg';  //网络图片
+
+可多个,['name'=>$name , 'imgPath'=>$image] 
+
+更详细其他用法请参考http://www.jianshu.com/p/8ccb2820df23  
 
 git 放弃本地修改 强制更新
 git fetch --all
@@ -133,7 +171,7 @@ mysql不给远程访问(使用Navicat访问) Navicat
 可以看到host中只有localhost主机。我们需要将xxx.xxx.xxx.xxx也添加到这里才对。
 添加方法如下：
 输入
-grant all privileges on *.* to root@"xxx.xxx.xxx.xxx" identified by "密码";
+grant all privileges on *.* to root@"xxx.xxx.xxx.xxx" identified by "密码";    // % 为IP通配符
 这相当于是给IP-xxx.xxx.xxx.xxx赋予了所有的权限，包括远程访问权限。
 然后再输入
 flush privileges;
