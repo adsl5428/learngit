@@ -6,4 +6,4 @@ set /p remark=
 
 git commit -m "%remark%"
 git push
-pause
+ping -n 6 127.1 >nul
