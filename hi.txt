@@ -74,7 +74,7 @@ composer 报proc_open(): fork failed errors错误解决方法
 
 linux 安装composer
 机器要安装php
-cp /usr/local/php/bin/php  /usr/sbin/  让php拥有全局命令
+cp /alidata/server/php/bin/php /usr/sbin/  让php拥有全局命令
 
 全局安装composer
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
