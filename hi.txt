@@ -2,6 +2,14 @@
 (概念/经验/方法/工具)
 要求:1 1000
 
+标签选择器  需要选择 带  空格的 class  如 class="a b" , 
+需要给两个 属性 都加上 .  这样 $(".a.b")
+
+a标签包 啥 啥就可以超链接
+
+lrz.bundle.js  pc 移动端 上传图片 好用  
+https://yq.aliyun.com/articles/33569   比较详细的lrz demo
+
 plupload.js  多图片上传 带删除  带进度条  js可参考
 http://www.jb51.net/article/98586.htm  
 实用插件
