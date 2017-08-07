@@ -17,7 +17,11 @@ laravel
 url('xxxx','xxx')   只能接一个参数 
 url('xxxx',['xxx','xxxxx'])   用数组 可以多接参数
 
-the user specified as a definer root@%
+the user specified as a definer root@%   其中root可以是别的
+MySQL> grant all privileges on *.* to root@"%" identified by ".";
+
+mysql> flush privileges;
+
 
 标签选择器  需要选择 带  空格的 class  如 class="a b" , 
 需要给两个 属性 都加上 .  这样 $(".a.b")
