@@ -20,10 +20,13 @@ class CSmartDBDemoDlg : public CDialog
 public:
 	UINT ExecuteQueryAndShow (LPCTSTR strSelectQuery);
 	CSmartDBDemoDlg(CWnd* pParent = NULL);	// standard constructor
-
+	bool m_login;
+	
 // Dialog Data
 	//{{AFX_DATA(CSmartDBDemoDlg)
 	enum { IDD = IDD_SMARTDBDEMO_DIALOG };
+
+	CEdit	m_password;
 	CButton	m_btnLoad;
 	CStatic	m_statSQL;
 	CButton	m_btnExecute;

@@ -2,30 +2,36 @@
 
 [General Info]
 Version=1
-LastClass=CSmartDBDemoDlg
-LastTemplate=CWinThread
+LastClass=CLoginDlg
+LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "SmartDBDemo.h"
 
-ClassCount=3
+ClassCount=6
 Class1=CSmartDBDemoApp
 Class2=CSmartDBDemoDlg
 Class3=CAboutDlg
 
-ResourceCount=7
+ResourceCount=9
 Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
 Resource3=IDD_SMARTDBDEMO_DIALOG
 Resource4=IDR_MENU_MAIN
-Resource5=IDD_ABOUTBOX (English (U.S.))
-Resource6=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
-Resource7=IDR_MENU_MAIN (English (U.S.))
+Resource5=IDD_CREATE_DIALOG
+Resource6=IDD_LOGIN_DIALOG
+Class4=Login
+Resource7=IDD_ABOUTBOX (English (U.S.))
+Class5=CLoginDlg
+Resource8=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
+Class6=CCreateOrder
+Resource9=IDR_MENU_MAIN (English (U.S.))
 
 [CLS:CSmartDBDemoApp]
 Type=0
 HeaderFile=SmartDBDemo.h
 ImplementationFile=SmartDBDemo.cpp
 Filter=N
+LastObject=CSmartDBDemoApp
 
 [CLS:CSmartDBDemoDlg]
 Type=0
@@ -34,7 +40,7 @@ ImplementationFile=SmartDBDemoDlg.cpp
 Filter=D
 BaseClass=CDialog
 VirtualFilter=dWC
-LastObject=ID_HELP_ABOUTSMARTSB
+LastObject=IDC_BTN_EXECUTE
 
 [CLS:CAboutDlg]
 Type=0
@@ -84,7 +90,7 @@ CommandCount=7
 
 [DLG:IDD_ABOUTBOX (English (U.S.))]
 Type=1
-Class=?
+Class=CAboutDlg
 ControlCount=5
 Control1=IDC_STATIC,static,1342177283
 Control2=IDC_STATIC,static,1342308480
@@ -94,7 +100,7 @@ Control5=IDC_STATIC,static,1342308352
 
 [DLG:IDD_SMARTDBDEMO_DIALOG (English (U.S.))]
 Type=1
-Class=?
+Class=CSmartDBDemoDlg
 ControlCount=12
 Control1=IDC_STATIC,static,1342308352
 Control2=IDC_EDIT_DBNAME,edit,1342242944
@@ -120,4 +126,67 @@ Command5=ID_OPTIONS_REPAIRDATABASE
 Command6=ID_OPTIONS_SETTINGS
 Command7=ID_HELP_ABOUTSMARTSB
 CommandCount=7
+
+[CLS:Login]
+Type=0
+HeaderFile=Login.h
+ImplementationFile=Login.cpp
+BaseClass=CDialog
+Filter=D
+VirtualFilter=dWC
+
+[CLS:CLoginDlg]
+Type=0
+HeaderFile=LoginDlg.h
+ImplementationFile=LoginDlg.cpp
+BaseClass=CDialog
+Filter=D
+VirtualFilter=dWC
+LastObject=CLoginDlg
+
+[DLG:IDD_CREATE_DIALOG]
+Type=1
+Class=CCreateOrder
+ControlCount=25
+Control1=IDC_EDIT1,edit,1350631552
+Control2=IDC_EDIT2,edit,1350631552
+Control3=IDC_EDIT3,edit,1350631552
+Control4=IDC_EDIT6,edit,1350631552
+Control5=IDC_EDIT7,edit,1350631552
+Control6=IDC_EDIT4,edit,1350631552
+Control7=IDC_EDIT5,edit,1350631552
+Control8=IDC_EDIT8,edit,1350631552
+Control9=IDC_EDIT9,edit,1350631552
+Control10=IDOK,button,1342242817
+Control11=IDCANCEL,button,1342242816
+Control12=IDC_STATIC,static,1342308352
+Control13=IDC_STATIC,static,1342308352
+Control14=IDC_STATIC,static,1342308352
+Control15=IDC_STATIC,static,1342308352
+Control16=IDC_STATIC,static,1342308352
+Control17=IDC_STATIC,static,1342308352
+Control18=IDC_STATIC,static,1342308352
+Control19=IDC_STATIC,static,1342308352
+Control20=IDC_STATIC,static,1342308352
+Control21=IDC_BUTTON1,button,1342242816
+Control22=IDC_STATIC,static,1342177287
+Control23=IDC_STATIC,static,1342177287
+Control24=IDC_STATIC,static,1342177287
+Control25=IDC_STATIC,static,1342177287
+
+[CLS:CCreateOrder]
+Type=0
+HeaderFile=CreateOrder.h
+ImplementationFile=CreateOrder.cpp
+BaseClass=CDialog
+Filter=D
+
+[DLG:IDD_LOGIN_DIALOG]
+Type=1
+Class=CLoginDlg
+ControlCount=4
+Control1=IDOK,button,1342242817
+Control2=IDCANCEL,button,1342242816
+Control3=IDC_EDIT1,edit,1350631585
+Control4=IDC_MSG,static,1342308353
 

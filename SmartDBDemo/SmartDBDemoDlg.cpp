@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "SmartDBDemo.h"
 #include "SmartDBDemoDlg.h"
-
+#include "LoginDlg.h"
 #include <cderr.h>
 
 #ifdef _DEBUG
@@ -103,6 +103,9 @@ BEGIN_MESSAGE_MAP(CSmartDBDemoDlg, CDialog)
 	ON_EN_KILLFOCUS(IDC_EDIT_QUERY, OnKillfocusEditQuery)
 	ON_COMMAND(ID_FILE_OPEN, OnFileOpen)
 	ON_COMMAND(ID_HELP_ABOUTSMARTSB, OnHelpAboutsmartsb)
+	ON_WM_CANCELMODE()
+	ON_WM_CAPTURECHANGED()
+	ON_WM_CREATE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -111,9 +114,12 @@ END_MESSAGE_MAP()
 
 BOOL CSmartDBDemoDlg::OnInitDialog()
 {
+
 	CDialog::OnInitDialog();
 
 	// Add "About..." menu item to system menu.
+	CLoginDlg logindlg;
+	logindlg.DoModal();
 
 	// IDM_ABOUTBOX must be in the system command range.
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
@@ -137,8 +143,8 @@ BOOL CSmartDBDemoDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 	
 	// TODO: Add extra initialization here
-	SetDlgItemText (IDC_EDIT_DBNAME, "demo.db");
-
+	SetDlgItemText (IDC_EDIT_DBNAME, "qin");
+	OnBtnLoad();
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -161,6 +167,7 @@ void CSmartDBDemoDlg::OnSysCommand(UINT nID, LPARAM lParam)
 
 void CSmartDBDemoDlg::OnPaint() 
 {
+
 	if (IsIconic())
 	{
 		CPaintDC dc(this); // device context for painting
@@ -182,6 +189,7 @@ void CSmartDBDemoDlg::OnPaint()
 	{
 		CDialog::OnPaint();
 	}
+
 }
 
 // The system calls this to obtain the cursor to display while the user drags
@@ -445,3 +453,6 @@ void CSmartDBDemoDlg::OnHelpAboutsmartsb()
 	CAboutDlg dlgAbout;
 	dlgAbout.DoModal();
 }
+
+
+

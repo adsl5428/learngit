@@ -40,6 +40,7 @@ RSC=rc.exe
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir "Release"
 # PROP Intermediate_Dir "Release"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /Yu"stdafx.h" /FD /c
 # ADD CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Yu"stdafx.h" /FD /c
@@ -90,6 +91,14 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\CreateOrder.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\LoginDlg.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SmartDB.cpp
 # End Source File
 # Begin Source File
@@ -113,6 +122,14 @@ SOURCE=.\StdAfx.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\CreateOrder.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\LoginDlg.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\Resource.h
