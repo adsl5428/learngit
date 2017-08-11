@@ -4,6 +4,10 @@
 #include "stdafx.h"
 #include "SmartDBDemo.h"
 #include "CreateOrder.h"
+#include "SmartDB.h"
+
+extern CSmartDB connMain;
+extern CSmartDBRecordSet rsMain;
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -28,16 +32,117 @@ void CCreateOrder::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CCreateOrder)
-		// NOTE: the ClassWizard will add DDX and DDV calls here
+	DDX_Control(pDX, IDC_LIST1, m_list1);
 	//}}AFX_DATA_MAP
+	m_list1.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);      // 整行选择、网格线  
+
+	m_list1.InsertColumn(0, _T("源文件(点击查看)"), LVCFMT_LEFT, 330);        // 插入第2列的列名  
+	m_list1.InsertColumn(1, _T("目标文件"), LVCFMT_LEFT, 190);        // 插入第3列的列名         // 插入第4列的列名  
+	m_list1.InsertColumn(2, _T("状态"), LVCFMT_LEFT, 70);        // 插入第3列的列名         // 插入第4列的列名  
 }
 
 
 BEGIN_MESSAGE_MAP(CCreateOrder, CDialog)
 	//{{AFX_MSG_MAP(CCreateOrder)
-		// NOTE: the ClassWizard will add message map macros here
+	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
+	ON_NOTIFY(NM_CLICK, IDC_LIST1, OnClickList1)
+	ON_BN_DOUBLECLICKED(IDC_BUTTON1, OnDoubleclickedButton1)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CCreateOrder message handlers
+
+void CCreateOrder::OnOK() 
+{
+	// TODO: Add extra validation here
+	CString strSQL;
+	CString strname;
+	
+	GetDlgItemText (IDC_EDIT_, );
+GetDlgItemText (IDC_EDIT_, );
+GetDlgItemText (IDC_EDIT_, );
+GetDlgItemText (IDC_EDIT_, );
+GetDlgItemText (IDC_EDIT_, );
+GetDlgItemText (IDC_EDIT_, );
+GetDlgItemText (IDC_EDIT_, );
+GetDlgItemText (IDC_EDIT_, );
+GetDlgItemText (IDC_EDIT_, );
+
+	
+	strSQL.TrimLeft();
+	strSQL.TrimRight();
+	if (strSQL.GetLength() <= 0)
+		return;
+	
+	if (connMain.IsConnected())
+	{
+		if (connMain.Execute (strSQL) == NULL)
+			MessageBox (_T("Query Executed Succesfuly..."));
+		else
+			MessageBox (_T("Error while Query Execution..."));
+	}
+	
+//	CDialog::OnOK();
+}
+
+void CCreateOrder::OnButton1() 
+{
+	// TODO: Add your control notification handler code here
+	srand((unsigned)time(NULL)); 
+	CTime m_time;  
+	CString newpath;
+	char pFileName[MAX_PATH];   
+	int nPos = GetCurrentDirectory( MAX_PATH, pFileName);    
+	CString tt=pFileName;
+	CString szFilters=L"图片 (*.jpg; *.png; *.bmp)|*.jpg;*.png;*.bmp||";      //定义文件过滤器  
+	//创建打开文件对话框对象，默认的文件扩展名为 
+	CFileDialog fileDlg (TRUE, "", "",OFN_FILEMUSTEXIST|OFN_ALLOWMULTISELECT, szFilters, this);  
+	//调用DoModal()函数显示打开文件对话框  
+	if( fileDlg.DoModal ()==IDOK )  
+	{    
+		POSITION pos;  
+		pos=fileDlg.GetStartPosition();//开始遍历用户选择文件列表  
+		while (pos!=NULL)  
+		{  
+			//m_list1.ResetContent();//清空列表框 m_ctlList为列表控件  
+			CString filename=fileDlg.GetNextPathName(pos);  
+			CString houzui = filename.Right(4);
+			m_time=CTime::GetCurrentTime();             //获取当前时间日期  
+			newpath.Format("%s%s%s-%d%s",tt,"\\imgs\\",m_time.Format(_T("%Y-%m-%d-%H_%M_%S")),rand(),houzui);
+			int i = m_list1.InsertItem(999, _T(""));
+			m_list1.SetItemText(i, 0, filename);                     // 设置第2列(姓名)  
+			m_list1.SetItemText(i, 1, newpath);                      // 设置第3列(年龄)  
+			m_list1.SetItemText(i, 2, _T("待入库"));                      // 设置第4列(性别)  
+// 			if (!CopyFile(filename,newpath,false))
+// 			{
+// 				MessageBox(filename,_T("复制失败"),0);
+// 			
+// 			}
+			//m_list1.AddString(filename);//将文件名添加到列表框 
+		}  
+	} 
+
+}
+
+void CCreateOrder::OnClickList1(NMHDR* pNMHDR, LRESULT* pResult) 
+{
+	// TODO: Add your control notification handler code here
+	POSITION Pos = m_list1.GetFirstSelectedItemPosition();
+    int nSelect = -1;
+	
+    while ( Pos )
+    {
+        nSelect = m_list1.GetNextSelectedItem(Pos);    //nSelect能获得第几行
+		CString s=m_list1.GetItemText(nSelect,0);
+		ShellExecute(NULL, "open", s, NULL, NULL, SW_SHOW);
+    }
+
+	*pResult = 0;
+}
+
+void CCreateOrder::OnDoubleclickedButton1() 
+{
+	// TODO: Add your control notification handler code here
+
+}

@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CLoginDlg
+LastClass=CCreateOrder
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "SmartDBDemo.h"
@@ -15,14 +15,14 @@ Class3=CAboutDlg
 ResourceCount=9
 Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
-Resource3=IDD_SMARTDBDEMO_DIALOG
+Resource3=IDD_CREATE_DIALOG
 Resource4=IDR_MENU_MAIN
-Resource5=IDD_CREATE_DIALOG
-Resource6=IDD_LOGIN_DIALOG
+Resource5=IDD_LOGIN_DIALOG
+Resource6=IDD_SMARTDBDEMO_DIALOG
 Class4=Login
-Resource7=IDD_ABOUTBOX (English (U.S.))
+Resource7=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
 Class5=CLoginDlg
-Resource8=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
+Resource8=IDD_ABOUTBOX (English (U.S.))
 Class6=CCreateOrder
 Resource9=IDR_MENU_MAIN (English (U.S.))
 
@@ -62,7 +62,7 @@ Control5=IDC_STATIC,static,1342308352
 [DLG:IDD_SMARTDBDEMO_DIALOG]
 Type=1
 Class=CSmartDBDemoDlg
-ControlCount=12
+ControlCount=13
 Control1=IDC_STATIC,static,1342308352
 Control2=IDC_EDIT_DBNAME,edit,1342242944
 Control3=IDC_BTN_LOAD,button,1342242816
@@ -75,6 +75,7 @@ Control9=IDC_LIST_DATA,SysListView32,1342242821
 Control10=IDC_STATIC_SQL,static,1342308352
 Control11=IDC_EDIT_QUERY,edit,1342242944
 Control12=IDC_BTN_EXECUTE,button,1342242817
+Control13=IDC_ADD,button,1342242816
 
 [MNU:IDR_MENU_MAIN]
 Type=1
@@ -101,7 +102,7 @@ Control5=IDC_STATIC,static,1342308352
 [DLG:IDD_SMARTDBDEMO_DIALOG (English (U.S.))]
 Type=1
 Class=CSmartDBDemoDlg
-ControlCount=12
+ControlCount=13
 Control1=IDC_STATIC,static,1342308352
 Control2=IDC_EDIT_DBNAME,edit,1342242944
 Control3=IDC_BTN_LOAD,button,1342242816
@@ -114,6 +115,7 @@ Control9=IDC_LIST_DATA,SysListView32,1342242821
 Control10=IDC_STATIC_SQL,static,1342308352
 Control11=IDC_EDIT_QUERY,edit,1342242944
 Control12=IDC_BTN_EXECUTE,button,1342242817
+Control13=IDC_ADD,button,1342242816
 
 [MNU:IDR_MENU_MAIN (English (U.S.))]
 Type=1
@@ -147,16 +149,16 @@ LastObject=CLoginDlg
 [DLG:IDD_CREATE_DIALOG]
 Type=1
 Class=CCreateOrder
-ControlCount=25
-Control1=IDC_EDIT1,edit,1350631552
-Control2=IDC_EDIT2,edit,1350631552
-Control3=IDC_EDIT3,edit,1350631552
-Control4=IDC_EDIT6,edit,1350631552
-Control5=IDC_EDIT7,edit,1350631552
-Control6=IDC_EDIT4,edit,1350631552
-Control7=IDC_EDIT5,edit,1350631552
-Control8=IDC_EDIT8,edit,1350631552
-Control9=IDC_EDIT9,edit,1350631552
+ControlCount=23
+Control1=IDC_EDIT_NAME,edit,1342242944
+Control2=IDC_EDIT_IDCARD,edit,1342242944
+Control3=IDC_EDIT_MONEY,edit,1342242944
+Control4=IDC_EDIT_LILV,edit,1342242944
+Control5=IDC_EDIT_STARTTIME,edit,1342242944
+Control6=IDC_EDIT_QIXIAN,edit,1342242944
+Control7=IDC_EDIT_HUANKUAN,edit,1342242944
+Control8=IDC_EDIT_FUWUFEI,edit,1342242944
+Control9=IDC_EDIT_BEIZHU,edit,1344344132
 Control10=IDOK,button,1342242817
 Control11=IDCANCEL,button,1342242816
 Control12=IDC_STATIC,static,1342308352
@@ -169,10 +171,8 @@ Control18=IDC_STATIC,static,1342308352
 Control19=IDC_STATIC,static,1342308352
 Control20=IDC_STATIC,static,1342308352
 Control21=IDC_BUTTON1,button,1342242816
-Control22=IDC_STATIC,static,1342177287
-Control23=IDC_STATIC,static,1342177287
-Control24=IDC_STATIC,static,1342177287
-Control25=IDC_STATIC,static,1342177287
+Control22=IDC_LIST1,SysListView32,1342242817
+Control23=IDC_STATIC,static,1342308352
 
 [CLS:CCreateOrder]
 Type=0
@@ -180,6 +180,8 @@ HeaderFile=CreateOrder.h
 ImplementationFile=CreateOrder.cpp
 BaseClass=CDialog
 Filter=D
+VirtualFilter=dWC
+LastObject=CCreateOrder
 
 [DLG:IDD_LOGIN_DIALOG]
 Type=1

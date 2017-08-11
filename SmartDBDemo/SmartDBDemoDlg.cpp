@@ -6,6 +6,7 @@
 #include "SmartDBDemo.h"
 #include "SmartDBDemoDlg.h"
 #include "LoginDlg.h"
+#include "CreateOrder.h"
 #include <cderr.h>
 
 #ifdef _DEBUG
@@ -106,6 +107,7 @@ BEGIN_MESSAGE_MAP(CSmartDBDemoDlg, CDialog)
 	ON_WM_CANCELMODE()
 	ON_WM_CAPTURECHANGED()
 	ON_WM_CREATE()
+	ON_BN_CLICKED(IDC_ADD, OnAdd)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -456,3 +458,9 @@ void CSmartDBDemoDlg::OnHelpAboutsmartsb()
 
 
 
+void CSmartDBDemoDlg::OnAdd() 
+{
+	// TODO: Add your control notification handler code here
+	CCreateOrder createorder;
+	createorder.DoModal();
+}

@@ -6,25 +6,29 @@
 --------------------Configuration: SmartDBDemo - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\admin\AppData\Local\Temp\RSP90BF.tmp" with contents
+Creating command line "rc.exe /l 0x409 /fo"Release/SmartDBDemo.res" /d "NDEBUG" /d "_AFXDLL" "C:\Users\admin\learngit\SmartDBDemo\SmartDBDemo.rc"" 
+Creating temporary file "C:\Users\admin\AppData\Local\Temp\RSP72E5.tmp" with contents
 [
-/nologo /subsystem:windows /incremental:no /pdb:"Release/SmartDBDemo.pdb" /machine:I386 /out:"Release\SmartDBDemo.exe" 
+/nologo /subsystem:windows /incremental:no /pdb:"Release/SmartDBDemo.pdb" /machine:I386 /out:"Release/SmartDBDemo.exe" 
+.\Release\CreateOrder.obj
 .\Release\LoginDlg.obj
 .\Release\SmartDB.obj
 .\Release\SmartDBDemo.obj
 .\Release\SmartDBDemoDlg.obj
 .\Release\StdAfx.obj
 .\Release\SmartDBDemo.res
-.\Release\CreateOrder.obj
 ]
-Creating command line "link.exe @C:\Users\admin\AppData\Local\Temp\RSP90BF.tmp"
+Creating command line "link.exe @C:\Users\admin\AppData\Local\Temp\RSP72E5.tmp"
 <h3>Output Window</h3>
+Compiling resources...
 Linking...
+LINK : fatal error LNK1104: cannot open file "Release/SmartDBDemo.exe"
+Ö´ÐÐ link.exe Ê±³ö´í.
 
 
 
 <h3>Results</h3>
-SmartDBDemo.exe - 0 error(s), 0 warning(s)
+SmartDBDemo.exe - 1 error(s), 0 warning(s)
 </pre>
 </body>
 </html>

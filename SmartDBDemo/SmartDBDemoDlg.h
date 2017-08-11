@@ -60,6 +60,7 @@ protected:
 	afx_msg void OnKillfocusEditQuery();
 	afx_msg void OnFileOpen();
 	afx_msg void OnHelpAboutsmartsb();
+	afx_msg void OnAdd();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
