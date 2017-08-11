@@ -50,6 +50,17 @@ END_MESSAGE_MAP()
 void CLoginDlg::OnOK() 
 {
 	// TODO: Add extra validation here
+// 	CString ac=	"C:\\Users\\Adminis21trator\\learngit\\Smar21tDBDemo\\Release\\imgs\\2017-2-01_12_59-11793.png";
+// 
+// 	ac = ac.Right( ac.GetLength()-(ac.ReverseFind('\\')+1) );
+// 
+// 	MessageBox(ac);
+// 	int i = ac.Find( '\\' );
+// 	CString f;
+// 	f.Format("%d",i);
+// 	MessageBox(f);
+// 	MessageBox(ac.Right(i)) ;
+
 	UpdateData(TRUE);
 	if (m_password== "1")
 	{
