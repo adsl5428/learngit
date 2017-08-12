@@ -104,10 +104,12 @@ BEGIN_MESSAGE_MAP(CSmartDBDemoDlg, CDialog)
 	ON_EN_KILLFOCUS(IDC_EDIT_QUERY, OnKillfocusEditQuery)
 	ON_COMMAND(ID_FILE_OPEN, OnFileOpen)
 	ON_COMMAND(ID_HELP_ABOUTSMARTSB, OnHelpAboutsmartsb)
+	ON_BN_CLICKED(IDC_ADD, OnAdd)
+	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	ON_WM_CANCELMODE()
 	ON_WM_CAPTURECHANGED()
 	ON_WM_CREATE()
-	ON_BN_CLICKED(IDC_ADD, OnAdd)
+	ON_BN_CLICKED(IDC_BUTTON2, OnButton2)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -145,8 +147,25 @@ BOOL CSmartDBDemoDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 	
 	// TODO: Add extra initialization here
+	m_listData.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);      // 整行选择、网格线
+
+// 	m_listData.InsertColumn(0, _T("id"), LVCFMT_LEFT, 5);        // 插入第2列的列名  
+// 	m_listData.InsertColumn(1, _T("名字"), LVCFMT_LEFT, 70);        // 插入第3列的列名         // 插入第4列的列名  
+// 	m_listData.InsertColumn(2, _T("身份证"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
+// 	m_listData.InsertColumn(3, _T("金额"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
+// 	m_listData.InsertColumn(4, _T("期限"), LVCFMT_LEFT, 20);        // 插入第3列的列名         // 插入第4列的列名 
+// 	m_listData.InsertColumn(5, _T("每周需还"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
+// 	m_listData.InsertColumn(6, _T("利率(%)"), LVCFMT_LEFT, 20);        // 插入第3列的列名         // 插入第4列的列名 
+// 	m_listData.InsertColumn(7, _T("服务费(元)"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
+// 	m_listData.InsertColumn(8, _T("备注"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
+// 	m_listData.InsertColumn(9, _T("借款日期"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
+
+
 	SetDlgItemText (IDC_EDIT_DBNAME, "qin");
 	OnBtnLoad();
+	CString strQuery;
+	strQuery.Format("SELECT * FROM %s", "orders");
+	ExecuteQueryAndShow (strQuery);
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -274,8 +293,8 @@ void CSmartDBDemoDlg::OnSize(UINT nType, int cx, int cy)
 	CDialog::OnSize(nType, cx, cy);
 
 	// TODO: Add your message handler code here
-	m_listTables.MoveWindow(10, 68, 130, cy-118);
-	m_listData.MoveWindow(150, 68, cx-160, cy-118);
+//	m_listTables.MoveWindow(10, 68, 130, cy-118);
+//	m_listData.MoveWindow(150, 68, cx-160, cy-118);
 	m_edtQuery.MoveWindow(10, cy-34, cx-110, 20);
 	m_btnExecute.MoveWindow(cx-90, cy-34, 80, 25);
 	m_statSQL.MoveWindow(10, cy-48, 80, 14);
@@ -353,7 +372,7 @@ UINT CSmartDBDemoDlg::ExecuteQueryAndShow(LPCTSTR strSelectQuery)
 		CString strBuffer;
 		nType = rsMain.GetFieldType(i);
 		strBuffer.Format("%s (%s)", rsMain.GetFieldName(i), strTypeNames[nType]);
-		m_listData.InsertColumn(i, strBuffer, LVCFMT_LEFT, 100);
+		m_listData.InsertColumn(i, strBuffer, LVCFMT_LEFT, 60);
 	}
 
 	LVITEM lvItem;
@@ -463,4 +482,53 @@ void CSmartDBDemoDlg::OnAdd()
 	// TODO: Add your control notification handler code here
 	CCreateOrder createorder;
 	createorder.DoModal();
+}
+
+void CSmartDBDemoDlg::OnButton1() 
+{
+	// TODO: Add your control notification handler code here
+	CString strQuery;
+	strQuery.Format("SELECT * FROM %s", "orders");
+	ExecuteQueryAndShow (strQuery);
+}
+
+void CSmartDBDemoDlg::OnButton2() 
+{
+	// TODO: Add your control notification handler code here
+      CString str;
+	  CString idd;
+	  bool one=true;  //
+	  CString strsql1 = "delete  from orders where id in (";
+	  CString strsql2 = "delete  from pictures where order_id in (";
+	  CString strsql3 = "delete  from huankuans where order_id in (";
+
+
+      for(int i=0; i<m_listData.GetItemCount(); i++ )
+      {
+           if( m_listData.GetItemState(i, LVIS_SELECTED) == LVIS_SELECTED )
+           {
+//                 str.Format(_T("选中了第%d行"), i);
+//                 AfxMessageBox(str);
+				idd = m_listData.GetItemText(i,0);
+				if (one)
+				{ 
+					one = false;
+					strsql1.Format("%s '%s'",strsql1,idd);
+					strsql2.Format("%s '%s'",strsql2,idd);
+					strsql3.Format("%s '%s'",strsql3,idd);
+				}
+				else
+				{ 
+					strsql1.Format("%s , '%s' ",strsql1,idd);
+					strsql2.Format("%s , '%s' ",strsql2,idd);
+					strsql3.Format("%s , '%s' ",strsql3,idd);
+				}
+           }
+      }
+		strsql1 = strsql1+")";
+		strsql2 = strsql2+")";
+		strsql3 = strsql3+")";
+		connMain.Execute (strsql1);
+		connMain.Execute (strsql2);
+		connMain.Execute (strsql3);
 }

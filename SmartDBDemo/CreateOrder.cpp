@@ -102,8 +102,6 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 			{ SetDlgItemText (IDC_STATUS, "数据存入成功,照片存入失败");	return;}
 			
 			LPTSTR idd = (LPTSTR)rsMain.GetColumnString(0);
-
-			MessageBox(idd);
 			rsMain.Close();
 			int len=m_list1.GetItemCount();//取行数
 			CString sourpath; 
@@ -130,7 +128,7 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 					m_list1.SetItemText(row, 2, "失败");
 
 			}
-			MessageBox(strSQL);
+
 			if (connMain.Execute (strSQL) == NULL)
 				SetDlgItemText (IDC_STATUS, "存入已全完成...");
 			else

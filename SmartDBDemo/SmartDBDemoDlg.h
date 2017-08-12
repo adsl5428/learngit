@@ -61,6 +61,8 @@ protected:
 	afx_msg void OnFileOpen();
 	afx_msg void OnHelpAboutsmartsb();
 	afx_msg void OnAdd();
+	afx_msg void OnButton1();
+	afx_msg void OnButton2();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

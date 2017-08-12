@@ -43,6 +43,7 @@
 #define IDC_LIST1                       1024
 #define IDC_MONTHCALENDAR1              1025
 #define IDC_STATUS                      1026
+#define IDC_BUTTON2                     1029
 #define ID_FILE_EXIT                    32774
 #define ID_OPTIONS_COMPACTDATABASE      32775
 #define ID_OPTIONS_REPAIRDATABASE       32776
@@ -55,7 +56,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        134
 #define _APS_NEXT_COMMAND_VALUE         32779
-#define _APS_NEXT_CONTROL_VALUE         1027
+#define _APS_NEXT_CONTROL_VALUE         1030
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
