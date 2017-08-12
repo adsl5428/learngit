@@ -488,7 +488,9 @@ void CSmartDBDemoDlg::OnButton1()
 {
 	// TODO: Add your control notification handler code here
 	CString strQuery;
-	strQuery.Format("SELECT * FROM %s", "orders");
+	CString strname;
+	GetDlgItemText(IDC_EDIT_FIND_NAME,strname);
+	strQuery.Format(_T("SELECT * FROM %s where name like '%%%s%%'"),_T("orders") ,strname);
 	ExecuteQueryAndShow (strQuery);
 }
 
@@ -501,7 +503,7 @@ void CSmartDBDemoDlg::OnButton2()
 	  CString strsql1 = "delete  from orders where id in (";
 	  CString strsql2 = "delete  from pictures where order_id in (";
 	  CString strsql3 = "delete  from huankuans where order_id in (";
-
+	CString strsql4 = "select path from pictures where order_id in (";
 
       for(int i=0; i<m_listData.GetItemCount(); i++ )
       {
@@ -516,19 +518,45 @@ void CSmartDBDemoDlg::OnButton2()
 					strsql1.Format("%s '%s'",strsql1,idd);
 					strsql2.Format("%s '%s'",strsql2,idd);
 					strsql3.Format("%s '%s'",strsql3,idd);
+					strsql4.Format("%s '%s'",strsql4,idd);
+
 				}
 				else
 				{ 
 					strsql1.Format("%s , '%s' ",strsql1,idd);
 					strsql2.Format("%s , '%s' ",strsql2,idd);
 					strsql3.Format("%s , '%s' ",strsql3,idd);
+					strsql4.Format("%s , '%s' ",strsql4,idd);
+
 				}
            }
       }
+
+
 		strsql1 = strsql1+")";
 		strsql2 = strsql2+")";
 		strsql3 = strsql3+")";
+		strsql4 = strsql4+")";
+
+		if (rsMain.Open (strsql4, &connMain) != RSOPEN_SUCCESS)
+			return ;
+		
+		while (!rsMain.IsEOF())
+		{
+			
+			CString path ="imgs\\" ;
+			path =path+(LPTSTR)rsMain.GetColumnString(0);
+			remove(path);
+			rsMain.MoveNext();
+		}
+		rsMain.Close();
+
 		connMain.Execute (strsql1);
 		connMain.Execute (strsql2);
 		connMain.Execute (strsql3);
+
+
+		CString strQuery;
+		strQuery.Format("SELECT * FROM %s", "orders");
+		ExecuteQueryAndShow (strQuery);
 }
