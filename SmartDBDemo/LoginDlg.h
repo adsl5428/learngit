@@ -41,6 +41,7 @@ protected:
 	afx_msg void OnDestroy();
 	virtual void OnCancel();
 	afx_msg void OnSetfocusEdit1();
+	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

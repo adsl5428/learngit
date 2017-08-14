@@ -49,6 +49,7 @@ BEGIN_MESSAGE_MAP(CCreateOrder, CDialog)
 	ON_NOTIFY(MCN_SELECT, IDC_MONTHCALENDAR1, OnSelectMonthcalendar1)
 	ON_EN_SETFOCUS(IDC_EDIT_STARTTIME, OnSetfocusEditStarttime)
 	ON_EN_KILLFOCUS(IDC_EDIT_STARTTIME, OnKillfocusEditStarttime)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, OnDblclkList1)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -75,15 +76,15 @@ void CCreateOrder::OnOK()
 	CString strqixian;
 	CString strstarttime;
 	
-GetDlgItemText (IDC_EDIT_BEIZHU, strbeizhu);
-GetDlgItemText (IDC_EDIT_FUWUFEI, strfuwufei);
-GetDlgItemText (IDC_EDIT_HUANKUAN,strhuankuan );
-GetDlgItemText (IDC_EDIT_IDCARD, stridcard);
-GetDlgItemText (IDC_EDIT_LILV,strlilv );
-GetDlgItemText (IDC_EDIT_MONEY,strmoney );
-GetDlgItemText (IDC_EDIT_NAME,strname );
-GetDlgItemText (IDC_EDIT_QIXIAN,strqixian );
-GetDlgItemText (IDC_EDIT_STARTTIME, strstarttime);
+	GetDlgItemText (IDC_EDIT_BEIZHU, strbeizhu);
+	GetDlgItemText (IDC_EDIT_FUWUFEI, strfuwufei);
+	GetDlgItemText (IDC_EDIT_HUANKUAN,strhuankuan );
+	GetDlgItemText (IDC_EDIT_IDCARD, stridcard);
+	GetDlgItemText (IDC_EDIT_LILV,strlilv );
+	GetDlgItemText (IDC_EDIT_MONEY,strmoney );
+	GetDlgItemText (IDC_EDIT_NAME,strname );
+	GetDlgItemText (IDC_EDIT_QIXIAN,strqixian );
+	GetDlgItemText (IDC_EDIT_STARTTIME, strstarttime);
 
 strSQL.Format("INSERT INTO orders (name,idcard, money ,qixian ,zhouhuankuan ,lixi, fuwufei, beizhu , starttime )  VALUES  ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
 			  strname,stridcard,strmoney,strqixian,strhuankuan,
@@ -92,7 +93,8 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 
 	if (connMain.IsConnected())
 	{
-		if (connMain.Execute (strSQL) == NULL)
+		int len=m_list1.GetItemCount();//取行数
+		if (connMain.Execute (strSQL) == NULL && len>0)
 		{	
 			SetDlgItemText (IDC_STATUS, "正在存入照片...");
 			strSQL.Format("select id from orders where idcard = '%s'",stridcard);
@@ -103,14 +105,10 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 			
 			LPTSTR idd = (LPTSTR)rsMain.GetColumnString(0);
 			rsMain.Close();
-			int len=m_list1.GetItemCount();//取行数
 			CString sourpath; 
 			CString newpath; 
 			
 			strSQL="insert into pictures (order_id,path) ";
-
-// 			insert into pictures (order_id,path)   select '1','周宏'  union all  select '1','周宏2'  union all
-// 			insert into pictures (order_id,path) VALUES ('1','周宏'),VALUES ('1','周宏1'),VALUES ('1','周宏3')
 
 			for(int row=0;row<len;row++)
 			{
@@ -121,23 +119,21 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 					if (one)
 					{	strSQL.Format("%s select '%s' ,'%s' ",strSQL,idd,  newpath.Right( newpath.GetLength()-(newpath.ReverseFind('\\')+1) )); one=false;}
 					else
-						strSQL.Format("%s union all select '%s' ,'%s' ",strSQL,idd, newpath.Right( newpath.GetLength()-(newpath.ReverseFind('\\')+1) ) );
-					
+						strSQL.Format("%s union all select '%s' ,'%s' ",strSQL,idd, newpath.Right( newpath.GetLength()-(newpath.ReverseFind('\\')+1) ) );					
 				}
 				else
 					m_list1.SetItemText(row, 2, "失败");
-
 			}
 
-			if (connMain.Execute (strSQL) == NULL)
-				SetDlgItemText (IDC_STATUS, "存入已全完成...");
-			else
-				SetDlgItemText (IDC_STATUS, "存入图片失败...");
+				if (connMain.Execute (strSQL) == NULL)
+					SetDlgItemText (IDC_STATUS, "存入已全完成...");
+				else
+					SetDlgItemText (IDC_STATUS, "存入图片失败...");			
 		}
 		else
 			SetDlgItemText (IDC_STATUS, "存入数据失败...");
-
 	}
+	SetDlgItemText (IDC_STATUS, "存储完成...");
 	
 //	CDialog::OnOK();
 }
@@ -148,16 +144,20 @@ void CCreateOrder::OnButton1()
 	srand((unsigned)time(NULL)); 
 	CTime m_time;  
 	CString newpath;
-	char pFileName[MAX_PATH];   
-	int nPos = GetCurrentDirectory( MAX_PATH, pFileName);    
-	CString tt=pFileName;
+
+	CString path; 
+	CString pFileName;
+    GetModuleFileName(NULL,path.GetBufferSetLength(MAX_PATH+1),MAX_PATH); 
+    path.ReleaseBuffer(); 
+    int pos = path.ReverseFind('\\'); 
+    CString tt = path.Left(pos); 
+
 	CString szFilters=L"图片 (*.jpg; *.png; *.bmp)|*.jpg;*.png;*.bmp||";      //定义文件过滤器  
 	//创建打开文件对话框对象，默认的文件扩展名为 
 	CFileDialog fileDlg (TRUE, "", "",OFN_FILEMUSTEXIST|OFN_ALLOWMULTISELECT, szFilters, this);  
 	//调用DoModal()函数显示打开文件对话框  
 	if( fileDlg.DoModal ()==IDOK )  
 	{    
-
 		POSITION pos;  
 		pos=fileDlg.GetStartPosition();//开始遍历用户选择文件列表  
 		while (pos!=NULL)  
@@ -176,7 +176,7 @@ void CCreateOrder::OnButton1()
 // 				MessageBox(filename,_T("复制失败"),0);
 // 			
 // 			}
-			//m_list1.AddString(filename);//将文件名添加到列表框 
+//			m_list1.AddString(filename);//将文件名添加到列表框 
 		}  
 	} 
 
@@ -185,15 +185,17 @@ void CCreateOrder::OnButton1()
 void CCreateOrder::OnClickList1(NMHDR* pNMHDR, LRESULT* pResult) 
 {
 	// TODO: Add your control notification handler code here
-	POSITION Pos = m_list1.GetFirstSelectedItemPosition();
-    int nSelect = -1;
-	
-    while ( Pos )
-    {
-        nSelect = m_list1.GetNextSelectedItem(Pos);    //nSelect能获得第几行
-		CString s=m_list1.GetItemText(nSelect,0);
-		ShellExecute(NULL, "open", s, NULL, NULL, SW_SHOW);
-    }
+
+
+// 	POSITION Pos = m_list1.GetFirstSelectedItemPosition();
+//     int nSelect = -1;
+// 	
+//     while ( Pos )
+//     {
+//         nSelect = m_list1.GetNextSelectedItem(Pos);    //nSelect能获得第几行
+// 		CString s=m_list1.GetItemText(nSelect,0);
+// 		ShellExecute(NULL, "open", s, NULL, NULL, SW_SHOW);
+//     }
 
 	*pResult = 0;
 }
@@ -213,10 +215,22 @@ void CCreateOrder::OnGetdaystateMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult)
 void CCreateOrder::OnSelectMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult) 
 {
 	// TODO: Add your control notification handler code here
-	CTime refDateTime;
-	m_CtrlDate.GetCurSel(refDateTime);
-	m_starttime =refDateTime.Format(_T("%Y-%m-%d")); 
+	CString str;  
+	CTime tm;  
+	tm=CTime::GetCurrentTime();
+	str=tm.Format("%H:%M:%S");  
+
+	CString szStr;
+	COleDateTime m_dSelRq  ;
+	m_dSelRq = COleDateTime(((NMSELCHANGE*)pNMHDR)->stSelStart);  
+	UINT nYear,nMonth,nDay;
+	nYear   =  m_dSelRq.GetYear();
+	nMonth  =  m_dSelRq.GetMonth();
+	nDay    =  m_dSelRq.GetDay(); 
+	szStr.Format(_T("%d-%d-%d"),nYear,nMonth,nDay);
+	m_starttime=szStr+" "+str;
 	UpdateData(false);
+
 	m_CtrlDate.ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_EDIT_BEIZHU)->ShowWindow(SW_SHOW);
 	GetDlgItem(IDC_EDIT_QIXIAN)->SetFocus();
@@ -254,4 +268,41 @@ BOOL CCreateOrder::OnInitDialog()
 	m_list1.InsertColumn(2, _T("状态"), LVCFMT_LEFT, 70);        // 插入第3列的列名         // 插入第4列的列名  
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
+}
+
+BOOL CCreateOrder::PreTranslateMessage(MSG* pMsg) 
+{
+	// TODO: Add your specialized code here and/or call the base class
+	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN)  
+	{  
+		CWnd *mwnd = GetNextDlgTabItem (GetFocus());        //取得当前焦点控件的下一个控件的句柄  
+		if (mwnd)  
+		{  
+			mwnd->SetFocus();        //设置下一件控件得到输入焦点  
+			return TRUE;  
+		}  
+     }  
+	return CDialog::PreTranslateMessage(pMsg);
+}
+
+void CCreateOrder::OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult) 
+{
+	// TODO: Add your control notification handler code here
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	NM_LISTVIEW *pNMListView=(NM_LISTVIEW *)pNMHDR;
+	int nItem=pNMListView->iItem;
+	if(nItem>=0 && nItem<m_list1.GetItemCount())    //判断双击位置是否在有数据的列表项上面
+	{
+			POSITION Pos = m_list1.GetFirstSelectedItemPosition();
+			int nSelect = -1;
+			
+			while ( Pos )
+			{
+				nSelect = m_list1.GetNextSelectedItem(Pos);    //nSelect能获得第几行
+				CString s=m_list1.GetItemText(nSelect,0);
+				ShellExecute(NULL, "open", s, NULL, NULL, SW_SHOW);
+	   }
+	}
+	*pResult = 0;
 }

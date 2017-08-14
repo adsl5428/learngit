@@ -30,6 +30,7 @@ public:
 	//{{AFX_VIRTUAL(CCreateOrder)
 	public:
 	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext = NULL);
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
@@ -48,6 +49,7 @@ protected:
 	afx_msg void OnSetfocusEditStarttime();
 	afx_msg void OnKillfocusEditStarttime();
 	virtual BOOL OnInitDialog();
+	afx_msg void OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

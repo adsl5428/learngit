@@ -106,10 +106,11 @@ BEGIN_MESSAGE_MAP(CSmartDBDemoDlg, CDialog)
 	ON_COMMAND(ID_HELP_ABOUTSMARTSB, OnHelpAboutsmartsb)
 	ON_BN_CLICKED(IDC_ADD, OnAdd)
 	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, OnButton2)
 	ON_WM_CANCELMODE()
 	ON_WM_CAPTURECHANGED()
 	ON_WM_CREATE()
-	ON_BN_CLICKED(IDC_BUTTON2, OnButton2)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST_DATA, OnDblclkListData)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -303,6 +304,9 @@ void CSmartDBDemoDlg::OnSize(UINT nType, int cx, int cy)
 void CSmartDBDemoDlg::OnBtnExecute() 
 {
 	// TODO: Add your control notification handler code here
+
+	DeleteFile("C:\\Users\\admin\\learngit\\SmartDBDemo\\Release\\imgs\\1234.jpg");
+
 	CString strSQL;
 	GetDlgItemText (IDC_EDIT_QUERY, strSQL);
 
@@ -497,9 +501,18 @@ void CSmartDBDemoDlg::OnButton1()
 void CSmartDBDemoDlg::OnButton2() 
 {
 	// TODO: Add your control notification handler code here
+	if(::MessageBox(NULL,"确认要删除吗","提醒",MB_YESNO )==IDNO)
+		return;
+
+    CString path; 
+	CString pFileName;
+    GetModuleFileName(NULL,path.GetBufferSetLength(MAX_PATH+1),MAX_PATH); 
+    path.ReleaseBuffer(); 
+    int pos = path.ReverseFind('\\'); 
+    pFileName = path.Left(pos); 
       CString str;
 	  CString idd;
-	  bool one=true;  //
+	  bool one=true;  
 	  CString strsql1 = "delete  from orders where id in (";
 	  CString strsql2 = "delete  from pictures where order_id in (";
 	  CString strsql3 = "delete  from huankuans where order_id in (";
@@ -543,10 +556,10 @@ void CSmartDBDemoDlg::OnButton2()
 		
 		while (!rsMain.IsEOF())
 		{
-			
-			CString path ="imgs\\" ;
-			path =path+(LPTSTR)rsMain.GetColumnString(0);
-			remove(path);
+			CString path;
+			path.Format("%s%s%s",pFileName,"\\imgs\\",(LPTSTR)rsMain.GetColumnString(0));	
+
+			DeleteFile(path);
 			rsMain.MoveNext();
 		}
 		rsMain.Close();
@@ -559,4 +572,19 @@ void CSmartDBDemoDlg::OnButton2()
 		CString strQuery;
 		strQuery.Format("SELECT * FROM %s", "orders");
 		ExecuteQueryAndShow (strQuery);
+}
+
+void CSmartDBDemoDlg::OnDblclkListData(NMHDR* pNMHDR, LRESULT* pResult) 
+{
+	// TODO: Add your control notification handler code here
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	NM_LISTVIEW *pNMListView=(NM_LISTVIEW *)pNMHDR;
+	int nItem=pNMListView->iItem;
+	if(nItem>=0 && nItem<m_listData.GetItemCount())    //判断双击位置是否在有数据的列表项上面
+	{
+		//===========响应内容===========//
+		MessageBox("dbcl");
+	}
+	*pResult = 0;
 }

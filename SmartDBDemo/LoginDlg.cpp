@@ -38,9 +38,9 @@ void CLoginDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CLoginDlg, CDialog)
 	//{{AFX_MSG_MAP(CLoginDlg)
 	ON_WM_CLOSE()
-	ON_WM_CANCELMODE()
 	ON_WM_DESTROY()
 	ON_EN_SETFOCUS(IDC_EDIT1, OnSetfocusEdit1)
+	ON_WM_CANCELMODE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -102,4 +102,13 @@ void CLoginDlg::OnSetfocusEdit1()
 	m_msg="";
 	m_password="";
 	UpdateData(FALSE);
+}
+
+BOOL CLoginDlg::OnInitDialog() 
+{
+	CDialog::OnInitDialog();
+	
+	// TODO: Add extra initialization here
+	return TRUE;  // return TRUE unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return FALSE
 }

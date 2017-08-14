@@ -15,10 +15,10 @@ Class3=CAboutDlg
 ResourceCount=8
 Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
-Resource3=IDD_LOGIN_DIALOG
-Resource4=IDD_CREATE_DIALOG
-Resource5=IDD_ABOUTBOX (English (U.S.))
-Resource6=IDD_SMARTDBDEMO_DIALOG
+Resource3=IDD_CREATE_DIALOG
+Resource4=IDD_SMARTDBDEMO_DIALOG
+Resource5=IDD_LOGIN_DIALOG
+Resource6=IDD_ABOUTBOX (English (U.S.))
 Class4=Login
 Resource7=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
 Class5=CLoginDlg
@@ -39,7 +39,7 @@ ImplementationFile=SmartDBDemoDlg.cpp
 Filter=D
 BaseClass=CDialog
 VirtualFilter=dWC
-LastObject=IDC_BTN_EXECUTE
+LastObject=CSmartDBDemoDlg
 
 [CLS:CAboutDlg]
 Type=0
@@ -173,7 +173,7 @@ ImplementationFile=CreateOrder.cpp
 BaseClass=CDialog
 Filter=D
 VirtualFilter=dWC
-LastObject=CCreateOrder
+LastObject=IDC_LIST1
 
 [DLG:IDD_LOGIN_DIALOG]
 Type=1

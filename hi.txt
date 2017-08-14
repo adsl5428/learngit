@@ -12,6 +12,7 @@ vue cli
 vue route
 vue axios
 
+zip -r _____.zip /home/wwwroot/xahot
 
 laravel 
 url('xxxx','xxx')   只能接一个参数 

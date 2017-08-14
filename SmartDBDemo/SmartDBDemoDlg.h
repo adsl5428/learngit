@@ -63,6 +63,7 @@ protected:
 	afx_msg void OnAdd();
 	afx_msg void OnButton1();
 	afx_msg void OnButton2();
+	afx_msg void OnDblclkListData(NMHDR* pNMHDR, LRESULT* pResult);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
