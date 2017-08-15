@@ -7,6 +7,7 @@
 #include "SmartDBDemoDlg.h"
 #include "LoginDlg.h"
 #include "CreateOrder.h"
+#include "Xiangxi.h"
 #include <cderr.h>
 
 #ifdef _DEBUG
@@ -19,6 +20,7 @@ static char THIS_FILE[] = __FILE__;
 
 CSmartDB connMain;
 CSmartDBRecordSet rsMain;
+int orderid;
 
 /////////////////////////////////////////////////////////////////////////////
 // CAboutDlg dialog used for App About
@@ -583,8 +585,17 @@ void CSmartDBDemoDlg::OnDblclkListData(NMHDR* pNMHDR, LRESULT* pResult)
 	int nItem=pNMListView->iItem;
 	if(nItem>=0 && nItem<m_listData.GetItemCount())    //判断双击位置是否在有数据的列表项上面
 	{
-		//===========响应内容===========//
-		MessageBox("dbcl");
+			POSITION Pos = m_listData.GetFirstSelectedItemPosition();
+			int nSelect = -1;
+			
+			while ( Pos )
+			{
+				nSelect = m_listData.GetNextSelectedItem(Pos);    //nSelect能获得第几行
+				CString s=m_listData.GetItemText(nSelect,0);
+				orderid = _ttoi(s);
+				CXiangxi dlgxiangxi;
+				dlgxiangxi.DoModal();
+			}
 	}
 	*pResult = 0;
 }

@@ -70,7 +70,7 @@ BEGIN
     LTEXT           "金额(元)",IDC_STATIC,15,41,26,8
     LTEXT           "期限(月)",IDC_STATIC,113,57,29,8
     LTEXT           "每周应还(元)",IDC_STATIC,8,83,39,8
-    LTEXT           "月利率(%)",IDC_STATIC,91,42,31,8
+    LTEXT           "日息(%)",IDC_STATIC,99,42,24,8
     LTEXT           "借款时间",IDC_STATIC,15,57,28,8
     LTEXT           "服务费(元)",IDC_STATIC,93,83,37,8
     LTEXT           "备注",IDC_STATIC,173,6,17,8
@@ -111,6 +111,49 @@ BEGIN
     EDITTEXT        IDC_EDIT_FIND_NAME,78,12,79,18,ES_AUTOHSCROLL
     PUSHBUTTON      "搜索",IDC_BUTTON1,160,12,50,17
     PUSHBUTTON      "删除",IDC_BUTTON2,273,229,50,14
+END
+
+IDD_DIALOG_XIANGXI DIALOG DISCARDABLE  0, 0, 243, 251
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "详细情况"
+FONT 10, "微软雅黑"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,132,235,50,14
+    PUSHBUTTON      "取消",IDCANCEL,61,235,50,14
+    CONTROL         "List1",IDC_LIST_HUANKUAN,"SysListView32",LVS_LIST | 
+                    LVS_SHOWSELALWAYS | WS_TABSTOP,0,111,243,121
+    EDITTEXT        IDC_EDIT_NAME,54,4,40,12,ES_AUTOHSCROLL | NOT WS_BORDER
+    EDITTEXT        IDC_EDIT_IDCARD,54,17,101,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT_MONEY,38,33,40,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT_LILV,124,34,40,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT_STARTTIME,39,47,69,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT_QIXIAN,145,47,19,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT_HUANKUAN,46,65,40,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT_FUWUFEI,126,65,40,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT_BEIZHU,20,78,146,21,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_WANTRETURN | NOT WS_BORDER | 
+                    WS_VSCROLL
+    LTEXT           "姓名",IDC_STATIC,35,4,17,8
+    LTEXT           "身份证",IDC_STATIC,27,17,25,8
+    LTEXT           "金额(元)",IDC_STATIC,11,33,26,8
+    LTEXT           "期限(月)",IDC_STATIC,116,48,26,8
+    LTEXT           "每周应还(元)",IDC_STATIC,4,65,39,8
+    LTEXT           "日息(%)",IDC_STATIC,99,34,25,8
+    LTEXT           "借款时间",IDC_STATIC,11,47,28,8
+    LTEXT           "服务费(元)",IDC_STATIC,92,65,31,8
+    LTEXT           "备注",IDC_STATIC,4,77,13,8
+    LTEXT           "图片",IDC_STATIC,175,6,14,8
+    CONTROL         "List2",IDC_LIST_TUPIAN,"SysListView32",LVS_LIST | 
+                    WS_TABSTOP,175,15,64,83
+    LTEXT           "还款记录",IDC_STATIC,0,102,27,8
+    LTEXT           "",IDC_STATIC_ID,0,4,8,8
 END
 
 
