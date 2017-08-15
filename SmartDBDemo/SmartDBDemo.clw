@@ -12,20 +12,19 @@ Class1=CSmartDBDemoApp
 Class2=CSmartDBDemoDlg
 Class3=CAboutDlg
 
-ResourceCount=9
-Resource1=IDD_ABOUTBOX
+ResourceCount=8
+Resource1=IDD_DIALOG_XIANGXI
 Resource2=IDR_MAINFRAME
-Resource3=IDD_CREATE_DIALOG
-Resource4=IDD_LOGIN_DIALOG
-Resource5=IDD_DIALOG_XIANGXI
-Resource6=IDD_ABOUTBOX (English (U.S.))
+Resource3=IDD_LOGIN_DIALOG
+Resource4=IDD_SMARTDBDEMO_DIALOG
+Resource5=IDD_CREATE_DIALOG
+Resource6=IDD_ABOUTBOX
 Class4=Login
 Resource7=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
 Class5=CLoginDlg
 Class6=CCreateOrder
-Resource8=IDD_SMARTDBDEMO_DIALOG
 Class7=CXiangxi
-Resource9=IDR_MENU_MAIN
+Resource8=IDR_MENU_MAIN
 
 [CLS:CSmartDBDemoApp]
 Type=0
@@ -92,16 +91,6 @@ Command5=ID_OPTIONS_REPAIRDATABASE
 Command6=ID_OPTIONS_SETTINGS
 Command7=ID_HELP_ABOUTSMARTSB
 CommandCount=7
-
-[DLG:IDD_ABOUTBOX (English (U.S.))]
-Type=1
-Class=CAboutDlg
-ControlCount=5
-Control1=IDC_STATIC,static,1342177283
-Control2=IDC_STATIC,static,1342308480
-Control3=IDC_STATIC,static,1342308352
-Control4=IDOK,button,1342373889
-Control5=IDC_STATIC,static,1342308352
 
 [DLG:IDD_SMARTDBDEMO_DIALOG (English (U.S.))]
 Type=1
@@ -192,7 +181,7 @@ Class=CXiangxi
 ControlCount=25
 Control1=IDOK,button,1342242817
 Control2=IDCANCEL,button,1342242816
-Control3=IDC_LIST_HUANKUAN,SysListView32,1342242827
+Control3=IDC_LIST_HUANKUAN,SysListView32,1342242825
 Control4=IDC_EDIT_NAME,edit,1342242944
 Control5=IDC_EDIT_IDCARD,edit,1342242944
 Control6=IDC_EDIT_MONEY,edit,1342242944
@@ -212,7 +201,7 @@ Control19=IDC_STATIC,static,1342308352
 Control20=IDC_STATIC,static,1342308352
 Control21=IDC_STATIC,static,1342308352
 Control22=IDC_STATIC,static,1342308352
-Control23=IDC_LIST_TUPIAN,SysListView32,1342242819
+Control23=IDC_LIST_TUPIAN,SysListView32,1342242825
 Control24=IDC_STATIC,static,1342308352
 Control25=IDC_STATIC_ID,static,1342308352
 
@@ -223,5 +212,5 @@ ImplementationFile=Xiangxi.cpp
 BaseClass=CDialog
 Filter=D
 VirtualFilter=dWC
-LastObject=CXiangxi
+LastObject=IDC_LIST_TUPIAN
 

@@ -19,7 +19,8 @@ public:
 // Dialog Data
 	//{{AFX_DATA(CXiangxi)
 	enum { IDD = IDD_DIALOG_XIANGXI };
-		// NOTE: the ClassWizard will add data members here
+	CListCtrl	m_listtupian;
+	CListCtrl	m_listhuankuan;
 	//}}AFX_DATA
 
 
@@ -36,6 +37,7 @@ protected:
 	// Generated message map functions
 	//{{AFX_MSG(CXiangxi)
 	virtual BOOL OnInitDialog();
+	afx_msg void OnDblclkListTupian(NMHDR* pNMHDR, LRESULT* pResult);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

@@ -33,13 +33,15 @@ void CXiangxi::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CXiangxi)
-		// NOTE: the ClassWizard will add DDX and DDV calls here
+	DDX_Control(pDX, IDC_LIST_TUPIAN, m_listtupian);
+	DDX_Control(pDX, IDC_LIST_HUANKUAN, m_listhuankuan);
 	//}}AFX_DATA_MAP
 }
 
 
 BEGIN_MESSAGE_MAP(CXiangxi, CDialog)
 	//{{AFX_MSG_MAP(CXiangxi)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST_TUPIAN, OnDblclkListTupian)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -51,6 +53,17 @@ BOOL CXiangxi::OnInitDialog()
 	CDialog::OnInitDialog();
 	
 	// TODO: Add extra initialization here
+DWORD dwStyle = m_listtupian.SendMessage(LVM_GETEXTENDEDLISTVIEWSTYLE,0,0);
+dwStyle |= LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_EX_HEADERDRAGDROP;
+m_listtupian.SendMessage(LVM_SETEXTENDEDLISTVIEWSTYLE, 0, (LPARAM)dwStyle);
+
+DWORD dwEx = m_listtupian.GetExtendedStyle();
+m_listtupian.SetExtendedStyle(dwEx|LVS_EX_FLATSB);
+
+m_listtupian.InsertColumn( 0, _T("id"), LVCFMT_LEFT, 1);
+m_listtupian.InsertColumn( 1, _T("订单id"), LVCFMT_LEFT, 1);
+m_listtupian.InsertColumn( 2, _T("图片地址"), LVCFMT_LEFT, 120);
+
 	UINT nRetVal = -1;
 	CString strtemp;
 	strtemp.Format("%d",orderid);
@@ -77,7 +90,22 @@ BOOL CXiangxi::OnInitDialog()
 
 	if (rsMain.Open (strsqlpicture, &connMain) != RSOPEN_SUCCESS)
 		return nRetVal;
-	
+	LVITEM lvItem;
+	INT nRecNum=0;
+	for (i=0; i < rsMain.FieldsCount(); i++)
+	{
+		lvItem.mask = LVIF_TEXT;
+		lvItem.iItem = nRecNum;
+		lvItem.iSubItem = i;
+		lvItem.pszText = (LPTSTR)rsMain.GetColumnString(i);
+		
+		if (i == 0)
+			m_listtupian.InsertItem(&lvItem);
+		else
+			m_listtupian.SetItem(&lvItem);
+	}
+	rsMain.MoveNext();
+	nRecNum++;
 	rsMain.Close();
 
 	if (rsMain.Open (strsqlhuankuan, &connMain) != RSOPEN_SUCCESS)
@@ -89,4 +117,28 @@ BOOL CXiangxi::OnInitDialog()
 // 	SetDlgItemText(IDC_EDIT_NAME,"12345");
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
+}
+
+void CXiangxi::OnDblclkListTupian(NMHDR* pNMHDR, LRESULT* pResult) 
+{
+	// TODO: Add your control notification handler code here
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	NM_LISTVIEW *pNMListView=(NM_LISTVIEW *)pNMHDR;
+	int nItem=pNMListView->iItem;
+	if(nItem>=0 && nItem<m_listtupian.GetItemCount())    //判断双击位置是否在有数据的列表项上面
+	{
+		POSITION Pos = m_listtupian.GetFirstSelectedItemPosition();
+		int nSelect = -1;
+		
+		while ( Pos )
+		{
+		
+			nSelect = m_listtupian.GetNextSelectedItem(Pos);    //nSelect能获得第几行
+			CString s=m_listtupian.GetItemText(nSelect,2);
+			s="imgs\\"+s;
+			ShellExecute(NULL, "open", s, NULL, NULL, SW_SHOW);
+		}
+	}
+	*pResult = 0;
 }

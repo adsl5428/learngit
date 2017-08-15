@@ -150,7 +150,15 @@ BOOL CSmartDBDemoDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 	
 	// TODO: Add extra initialization here
-	m_listData.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);      // 整行选择、网格线
+	DWORD dwStyle = m_listData.SendMessage(LVM_GETEXTENDEDLISTVIEWSTYLE,0,0);
+	dwStyle |= LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_EX_HEADERDRAGDROP;
+	m_listData.SendMessage(LVM_SETEXTENDEDLISTVIEWSTYLE, 0, (LPARAM)dwStyle);
+	
+	DWORD dwEx = m_listData.GetExtendedStyle();
+	m_listData.SetExtendedStyle(dwEx|LVS_EX_FLATSB);
+
+// 	m_listData.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);      // 整行选择、网格线
+
 
 // 	m_listData.InsertColumn(0, _T("id"), LVCFMT_LEFT, 5);        // 插入第2列的列名  
 // 	m_listData.InsertColumn(1, _T("名字"), LVCFMT_LEFT, 70);        // 插入第3列的列名         // 插入第4列的列名  
@@ -168,7 +176,9 @@ BOOL CSmartDBDemoDlg::OnInitDialog()
 	OnBtnLoad();
 	CString strQuery;
 	strQuery.Format("SELECT * FROM %s", "orders");
+
 	ExecuteQueryAndShow (strQuery);
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -392,7 +402,7 @@ UINT CSmartDBDemoDlg::ExecuteQueryAndShow(LPCTSTR strSelectQuery)
 			lvItem.iItem = nRecNum;
 			lvItem.iSubItem = i;
 			lvItem.pszText = (LPTSTR)rsMain.GetColumnString(i);
-
+			
 			if (i == 0)
 				m_listData.InsertItem(&lvItem);
 			else
