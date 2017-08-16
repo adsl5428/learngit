@@ -6,29 +6,6 @@
 --------------------Configuration: SmartDBDemo - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSPA6B6.tmp" with contents
-[
-/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Release/SmartDBDemo.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
-"C:\Users\Administrator\learngit\SmartDBDemo\SmartDBDemoDlg.cpp"
-]
-Creating command line "cl.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSPA6B6.tmp" 
-Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSPA6B7.tmp" with contents
-[
-/nologo /subsystem:windows /incremental:no /pdb:"Release/SmartDBDemo.pdb" /machine:I386 /out:"Release/SmartDBDemo.exe" 
-.\Release\CreateOrder.obj
-.\Release\LoginDlg.obj
-.\Release\SmartDB.obj
-.\Release\SmartDBDemo.obj
-.\Release\SmartDBDemoDlg.obj
-.\Release\StdAfx.obj
-.\Release\Xiangxi.obj
-.\Release\SmartDBDemo.res
-]
-Creating command line "link.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSPA6B7.tmp"
-<h3>Output Window</h3>
-Compiling...
-SmartDBDemoDlg.cpp
-Linking...
 
 
 

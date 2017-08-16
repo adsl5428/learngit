@@ -24,6 +24,8 @@ CCreateOrder::CCreateOrder(CWnd* pParent /*=NULL*/)
 {
 	//{{AFX_DATA_INIT(CCreateOrder)
 	m_starttime = _T("");
+	m_endtime = _T("");
+	m_qixian = _T("");
 	//}}AFX_DATA_INIT
 }
 
@@ -32,9 +34,12 @@ void CCreateOrder::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CCreateOrder)
+	DDX_Control(pDX, IDC_LIST_HUANGKUAN, m_list_huankuan);
 	DDX_Control(pDX, IDC_MONTHCALENDAR1, m_CtrlDate);
 	DDX_Control(pDX, IDC_LIST1, m_list1);
 	DDX_Text(pDX, IDC_EDIT_STARTTIME, m_starttime);
+	DDX_Text(pDX, IDC_EDIT_ENDTIME, m_endtime);
+	DDX_Text(pDX, IDC_EDIT_QIXIAN, m_qixian);
 	//}}AFX_DATA_MAP
 
 }
@@ -50,6 +55,8 @@ BEGIN_MESSAGE_MAP(CCreateOrder, CDialog)
 	ON_EN_SETFOCUS(IDC_EDIT_STARTTIME, OnSetfocusEditStarttime)
 	ON_EN_KILLFOCUS(IDC_EDIT_STARTTIME, OnKillfocusEditStarttime)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, OnDblclkList1)
+	ON_EN_SETFOCUS(IDC_EDIT_ENDTIME, OnSetfocusEditEndtime)
+	ON_EN_KILLFOCUS(IDC_EDIT_ENDTIME, OnKillfocusEditEndtime)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -218,7 +225,8 @@ void CCreateOrder::OnSelectMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult)
 	CString str;  
 	CTime tm;  
 	tm=CTime::GetCurrentTime();
-	str=tm.Format("%H:%M:%S");  
+//	str=tm.Format("%H:%M:%S");  
+	str=tm.Format("12:00:00");  
 
 	CString szStr;
 	COleDateTime m_dSelRq  ;
@@ -228,18 +236,34 @@ void CCreateOrder::OnSelectMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult)
 	nMonth  =  m_dSelRq.GetMonth();
 	nDay    =  m_dSelRq.GetDay(); 
 	szStr.Format(_T("%d-%d-%d"),nYear,nMonth,nDay);
-	m_starttime=szStr+" "+str;
+
+	if (m_startorend==1)
+	{
+		m_starttime=szStr+" "+str;
+	}
+	if (m_startorend==2)
+	{
+		m_endtime=szStr+" "+str;
+	}
 	UpdateData(false);
 
 	m_CtrlDate.ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_EDIT_BEIZHU)->ShowWindow(SW_SHOW);
-	GetDlgItem(IDC_EDIT_QIXIAN)->SetFocus();
+	if (m_startorend==1)
+	{
+		GetDlgItem(IDC_EDIT_ENDTIME)->SetFocus();
+	}
+	else if (m_startorend==2)
+	{
+		GetDlgItem(IDC_EDIT_QIXIAN)->SetFocus();
+	}
 	*pResult = 0;
 }
 
 void CCreateOrder::OnSetfocusEditStarttime() 
 {
 	// TODO: Add your control notification handler code here
+	m_startorend=1;
 	m_CtrlDate.ShowWindow(SW_SHOW);
 	GetDlgItem(IDC_EDIT_BEIZHU)->ShowWindow(SW_HIDE);
 }
@@ -247,7 +271,8 @@ void CCreateOrder::OnSetfocusEditStarttime()
 void CCreateOrder::OnKillfocusEditStarttime() 
 {
 	m_CtrlDate.ShowWindow(SW_HIDE);
-	GetDlgItem(IDC_EDIT_BEIZHU)->ShowWindow(SW_SHOW);	
+	GetDlgItem(IDC_EDIT_BEIZHU)->ShowWindow(SW_SHOW);
+	qixian();
 }
 
 BOOL CCreateOrder::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext) 
@@ -266,6 +291,14 @@ BOOL CCreateOrder::OnInitDialog()
 	m_list1.InsertColumn(0, _T("源文件(点击查看)"), LVCFMT_LEFT, 330);        // 插入第2列的列名  
 	m_list1.InsertColumn(1, _T("目标文件"), LVCFMT_LEFT, 190);        // 插入第3列的列名         // 插入第4列的列名  
 	m_list1.InsertColumn(2, _T("状态"), LVCFMT_LEFT, 70);        // 插入第3列的列名         // 插入第4列的列名  
+
+	m_list_huankuan.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);      // 整行选择、网格线  
+	m_list_huankuan.InsertColumn(0, _T("期数"), LVCFMT_CENTER, 50);        // 插入第2列的列名  
+	m_list_huankuan.InsertColumn(1, _T("还款日"), LVCFMT_CENTER, 110);        // 插入第3列的列名         // 插入第4列的列名  
+	m_list_huankuan.InsertColumn(2, _T("还款金额"), LVCFMT_CENTER, 80);        // 插入第3列的列名         // 插入第4列的列名 
+	m_list_huankuan.InsertColumn(3, _T("状态"), LVCFMT_CENTER, 60);        // 插入第3列的列名         // 插入第4列的列名  
+	m_list_huankuan.InsertColumn(4, _T("备注"), LVCFMT_CENTER, 295);        // 插入第3列的列名         // 插入第4列的列名  
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -305,4 +338,52 @@ void CCreateOrder::OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 	   }
 	}
 	*pResult = 0;
+}
+
+void CCreateOrder::count()
+{
+	
+}
+
+void CCreateOrder::OnSetfocusEditEndtime() 
+{
+	// TODO: Add your control notification handler code here
+	m_startorend=2;
+	m_CtrlDate.ShowWindow(SW_SHOW);
+	GetDlgItem(IDC_EDIT_BEIZHU)->ShowWindow(SW_HIDE);
+}
+
+void CCreateOrder::OnKillfocusEditEndtime() 
+{
+	m_CtrlDate.ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_EDIT_BEIZHU)->ShowWindow(SW_SHOW);
+	qixian();
+}
+
+
+
+void CCreateOrder::qixian()
+{
+	CString start,end;
+
+	GetDlgItemText(IDC_EDIT_STARTTIME,start);
+	GetDlgItemText(IDC_EDIT_ENDTIME,end);
+if (start.IsEmpty() || end.IsEmpty())
+{
+	return ;
+}
+
+	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+	sscanf(start,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+	CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+
+
+	int    nYear1,    nMonth1,    nDate1,    nHour1,    nMin1,    nSec1;   
+	sscanf(end,    "%d-%d-%d %d:%d:%d",    &nYear1,    &nMonth1,    &nDate1,    &nHour1,    &nMin1,    &nSec1);   
+	CTime   e(nYear1,    nMonth1,    nDate1,    nHour1,    nMin1,    nSec1);
+
+	CTimeSpan qixian = e-s;
+	
+	m_qixian.Format("%d",qixian.GetDays());
+	UpdateData(FALSE);
 }

@@ -64,6 +64,11 @@ m_listtupian.InsertColumn( 0, _T("id"), LVCFMT_LEFT, 1);
 m_listtupian.InsertColumn( 1, _T("∂©µ•id"), LVCFMT_LEFT, 1);
 m_listtupian.InsertColumn( 2, _T("Õº∆¨µÿ÷∑"), LVCFMT_LEFT, 120);
 
+m_listhuankuan.InsertColumn( 0, _T("d"), LVCFMT_LEFT, 1);
+m_listhuankuan.InsertColumn( 1, _T("∂©µ•id"), LVCFMT_LEFT, 1);
+m_listhuankuan.InsertColumn( 2, _T("Õº∆¨µÿ÷∑"), LVCFMT_LEFT, 120);
+
+
 	UINT nRetVal = -1;
 	CString strtemp;
 	strtemp.Format("%d",orderid);

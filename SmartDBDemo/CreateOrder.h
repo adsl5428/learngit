@@ -14,14 +14,19 @@ class CCreateOrder : public CDialog
 {
 // Construction
 public:
+	void qixian();
+	void count();
 	CCreateOrder(CWnd* pParent = NULL);   // standard constructor
-
+	int m_startorend;
 // Dialog Data
 	//{{AFX_DATA(CCreateOrder)
 	enum { IDD = IDD_CREATE_DIALOG };
+	CListCtrl	m_list_huankuan;
 	CMonthCalCtrl	m_CtrlDate;
 	CListCtrl	m_list1;
 	CString	m_starttime;
+	CString	m_endtime;
+	CString	m_qixian;
 	//}}AFX_DATA
 
 
@@ -50,6 +55,8 @@ protected:
 	afx_msg void OnKillfocusEditStarttime();
 	virtual BOOL OnInitDialog();
 	afx_msg void OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnSetfocusEditEndtime();
+	afx_msg void OnKillfocusEditEndtime();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
