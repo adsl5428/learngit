@@ -138,7 +138,7 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 				else
 					m_list1.SetItemText(row, 2, "失败");
 			}
-
+MessageBox(strSQL);
 				if (connMain.Execute (strSQL) == NULL)
 					SetDlgItemText (IDC_STATUS, "存入已全完成...");
 				else
@@ -160,7 +160,7 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 			CString temp = idd;
 			SetDlgItemText (IDC_STATUS, "正在存入还款计划...");
 		
-			strSQL="insert into huankuans (qishu , time, money ,  order_id) ";
+			strSQL="insert into huankuans (qishu , time, money ,  order_id) select ";
 			
 			for(int row=0;row<len;row++)
 			{
@@ -170,7 +170,7 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 					{
 						CString vaule = m_list_huankuan.GetItemText(row,lie);
 //						strSQL = strSQL+" "+vaule;	
-						strSQL.Format("%s '%s' ",strSQL,vaule);
+						strSQL.Format("%s '%s', ",strSQL,vaule);
 					}
 					strSQL.Format("%s '%s' ",strSQL,temp);
 					one = false;
@@ -182,15 +182,13 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 					{
 						CString vaule = m_list_huankuan.GetItemText(row,lie);
 //						strSQL = strSQL+" "+vaule;	
-						strSQL.Format("%s '%s' ",strSQL,vaule);
+						strSQL.Format("%s '%s', ",strSQL,vaule);
 					}
 					strSQL.Format("%s '%s' ",strSQL,temp);
 				}
 			
 			}
 			MessageBox(strSQL);
-		
-
 			}
 		if (connMain.Execute (strSQL) == NULL)
 			SetDlgItemText (IDC_STATUS, "还款计划已全完成...");
@@ -280,6 +278,7 @@ void CCreateOrder::OnGetdaystateMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult)
 void CCreateOrder::OnSelectMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult) 
 {
 	// TODO: Add your control notification handler code here
+	UpdateData(true);
 	CString str;  
 	CTime tm;  
 	tm=CTime::GetCurrentTime();
@@ -446,12 +445,14 @@ void CCreateOrder::count()
 	}
 
 	int x = m_list_huankuan.InsertItem(999, _T(""));
-		
+	CTimeSpan m_timespan;	
 
 	strtemp.Format("%d",i);
 	m_list_huankuan.SetItemText(x, 0, strtemp); 
-	
-	CTimeSpan m_timespan(7*(i-2)+zuihouyiqi,0,0,0); // 3天，4小时，5分，6秒
+	if (qishu == 1)
+	{ CTimeSpan tp(zuihouyiqi,0,0,0);	m_timespan=tp; }// 3天，4小时，5分，6秒
+	else 
+	{CTimeSpan tp(7*(i-2)+zuihouyiqi,0,0,0);	m_timespan=tp;} // 3天，4小时，5分，6秒
 	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
 	sscanf(strstart,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
 	CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);

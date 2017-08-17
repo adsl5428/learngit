@@ -13,11 +13,11 @@ Class2=CSmartDBDemoDlg
 Class3=CAboutDlg
 
 ResourceCount=8
-Resource1=IDD_ABOUTBOX
+Resource1=IDD_DIALOG_ORDER
 Resource2=IDR_MAINFRAME
 Resource3=IDD_SMARTDBDEMO_DIALOG
 Resource4=IDD_CREATE_DIALOG
-Resource5=IDD_DIALOG_ORDER
+Resource5=IDD_ABOUTBOX
 Resource6=IDD_LOGIN_DIALOG
 Class4=Login
 Resource7=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
