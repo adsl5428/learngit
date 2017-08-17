@@ -107,6 +107,10 @@ SOURCE=.\SmartDBDemo.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Order.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SmartDBDemo.rc
 # End Source File
 # Begin Source File
@@ -133,6 +137,11 @@ SOURCE=.\CreateOrder.h
 # Begin Source File
 
 SOURCE=.\LoginDlg.h
+# End Source File
+# Begin Source File
+
+
+SOURCE=.\Order.h
 # End Source File
 # Begin Source File
 

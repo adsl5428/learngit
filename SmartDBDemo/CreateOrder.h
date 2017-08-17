@@ -57,6 +57,12 @@ protected:
 	afx_msg void OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnSetfocusEditEndtime();
 	afx_msg void OnKillfocusEditEndtime();
+	afx_msg void OnKillfocusEditMoney();
+	afx_msg void OnChangeEditLilv();
+	afx_msg void OnKillfocusEditLilv();
+	afx_msg void OnChangeEditQixian();
+	afx_msg void OnKillfocusEditQixian();
+	afx_msg void OnSetfocusEditQixian();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

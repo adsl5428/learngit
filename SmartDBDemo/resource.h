@@ -12,6 +12,7 @@
 #define IDD_LOGIN_DIALOG                132
 #define IDD_CREATE_DIALOG               133
 #define IDD_DIALOG_XIANGXI              134
+#define IDD_DIALOG_ORDER                135
 #define IDC_LIST_TABLES                 1000
 #define IDC_LIST_DATA                   1003
 #define IDC_BTN_LOAD                    1004

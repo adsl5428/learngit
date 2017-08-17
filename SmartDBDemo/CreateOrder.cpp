@@ -57,6 +57,12 @@ BEGIN_MESSAGE_MAP(CCreateOrder, CDialog)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, OnDblclkList1)
 	ON_EN_SETFOCUS(IDC_EDIT_ENDTIME, OnSetfocusEditEndtime)
 	ON_EN_KILLFOCUS(IDC_EDIT_ENDTIME, OnKillfocusEditEndtime)
+	ON_EN_KILLFOCUS(IDC_EDIT_MONEY, OnKillfocusEditMoney)
+	ON_EN_CHANGE(IDC_EDIT_LILV, OnChangeEditLilv)
+	ON_EN_KILLFOCUS(IDC_EDIT_LILV, OnKillfocusEditLilv)
+	ON_EN_CHANGE(IDC_EDIT_QIXIAN, OnChangeEditQixian)
+	ON_EN_KILLFOCUS(IDC_EDIT_QIXIAN, OnKillfocusEditQixian)
+	ON_EN_SETFOCUS(IDC_EDIT_QIXIAN, OnSetfocusEditQixian)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -82,7 +88,7 @@ void CCreateOrder::OnOK()
 	CString strname;
 	CString strqixian;
 	CString strstarttime;
-	
+	LPTSTR idd;
 	GetDlgItemText (IDC_EDIT_BEIZHU, strbeizhu);
 	GetDlgItemText (IDC_EDIT_FUWUFEI, strfuwufei);
 	GetDlgItemText (IDC_EDIT_HUANKUAN,strhuankuan );
@@ -110,8 +116,9 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 			/*if (connMain.Execute (strSQL) != NULL)*/
 			{ SetDlgItemText (IDC_STATUS, "数据存入成功,照片存入失败");	return;}
 			
-			LPTSTR idd = (LPTSTR)rsMain.GetColumnString(0);
+			idd = (LPTSTR)rsMain.GetColumnString(0);
 			rsMain.Close();
+
 			CString sourpath; 
 			CString newpath; 
 			
@@ -139,8 +146,59 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 		}
 		else
 			SetDlgItemText (IDC_STATUS, "存入数据失败...");
+		
+		one=true;
+		len=m_list_huankuan.GetItemCount();//取行数
+		if ( len>0)
+		{	
+			strSQL.Format("select id from orders where idcard = '%s'",stridcard);
+			if (rsMain.Open (strSQL, &connMain) != RSOPEN_SUCCESS)
+			{ 	return;}			
+			idd = (LPTSTR)rsMain.GetColumnString(0);
+			rsMain.Close();		
+
+			CString temp = idd;
+			SetDlgItemText (IDC_STATUS, "正在存入还款计划...");
+		
+			strSQL="insert into huankuans (qishu , time, money ,  order_id) ";
+			
+			for(int row=0;row<len;row++)
+			{
+				if (one)
+				{			
+					for (int lie=0;lie<3;lie++)
+					{
+						CString vaule = m_list_huankuan.GetItemText(row,lie);
+//						strSQL = strSQL+" "+vaule;	
+						strSQL.Format("%s '%s' ",strSQL,vaule);
+					}
+					strSQL.Format("%s '%s' ",strSQL,temp);
+					one = false;
+				}
+				else 
+				{	
+					strSQL.Format("%s union all select ",strSQL);
+					for (int lie=0;lie<3;lie++)
+					{
+						CString vaule = m_list_huankuan.GetItemText(row,lie);
+//						strSQL = strSQL+" "+vaule;	
+						strSQL.Format("%s '%s' ",strSQL,vaule);
+					}
+					strSQL.Format("%s '%s' ",strSQL,temp);
+				}
+			
+			}
+			MessageBox(strSQL);
+		
+
+			}
+		if (connMain.Execute (strSQL) == NULL)
+			SetDlgItemText (IDC_STATUS, "还款计划已全完成...");
+		else
+				SetDlgItemText (IDC_STATUS, "还款计划失败...");	
 	}
-	SetDlgItemText (IDC_STATUS, "存储完成...");
+
+//	SetDlgItemText (IDC_STATUS, "存储完成...");
 	
 //	CDialog::OnOK();
 }
@@ -299,6 +357,12 @@ BOOL CCreateOrder::OnInitDialog()
 	m_list_huankuan.InsertColumn(3, _T("状态"), LVCFMT_CENTER, 60);        // 插入第3列的列名         // 插入第4列的列名  
 	m_list_huankuan.InsertColumn(4, _T("备注"), LVCFMT_CENTER, 295);        // 插入第3列的列名         // 插入第4列的列名  
 
+	SetDlgItemText(IDC_EDIT_IDCARD,"6666");
+	SetDlgItemText(IDC_EDIT_MONEY,"100000");
+	SetDlgItemText(IDC_EDIT_LILV,"1");
+	SetDlgItemText(IDC_EDIT_STARTTIME,"2017-8-10 12:00:00");
+	SetDlgItemText(IDC_EDIT_ENDTIME,"2017-8-26 12:00:00");
+	SetDlgItemText(IDC_EDIT_QIXIAN,"16");
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -342,7 +406,62 @@ void CCreateOrder::OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 
 void CCreateOrder::count()
 {
+	float ililv;
+	int imoney,iqixian;
+	CString strmoney,strlilv,strqixian,strtemp,strstart;
+	GetDlgItemText(IDC_EDIT_MONEY,strmoney);
+	GetDlgItemText(IDC_EDIT_LILV,strlilv);
+	GetDlgItemText(IDC_EDIT_QIXIAN,strqixian);
+	GetDlgItemText(IDC_EDIT_STARTTIME,strstart);
+	if (strmoney.IsEmpty() || strlilv.IsEmpty() || strqixian.IsEmpty())
+		return;
+
+	m_list_huankuan.DeleteAllItems(); // 全部清空  
+	imoney = _ttoi(strmoney);
+	iqixian = _ttoi(strqixian);
+	ililv = atof(strlilv)/10000;
+
+	int zonghuankua = (imoney*ililv*iqixian)+imoney;
+	int rihuankuan = zonghuankua/iqixian;
+
+	int qishu = iqixian/7+1;
+	int zuihouyiqi = iqixian%7;
+	int i=1;
+	for (;i<qishu;i++)
+	{
+		int x = m_list_huankuan.InsertItem(999, _T(""));
+		strtemp.Format("%d",i);
+		m_list_huankuan.SetItemText(x, 0, strtemp); 
+		
+		CTimeSpan m_timespan(7*(i-1),0,0,0); // 3天，4小时，5分，6秒
+		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+		sscanf(strstart,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+		s=s+m_timespan;
+		strtemp = s.Format("%Y-%m-%d");
+		m_list_huankuan.SetItemText(x, 1, strtemp);               
+
+		strtemp.Format("%d",rihuankuan*7);
+		m_list_huankuan.SetItemText(x, 2, strtemp);              
+	}
+
+	int x = m_list_huankuan.InsertItem(999, _T(""));
+		
+
+	strtemp.Format("%d",i);
+	m_list_huankuan.SetItemText(x, 0, strtemp); 
 	
+	CTimeSpan m_timespan(7*(i-2)+zuihouyiqi,0,0,0); // 3天，4小时，5分，6秒
+	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+	sscanf(strstart,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+	CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+	s=s+m_timespan;
+	strtemp = s.Format("%Y-%m-%d");
+	m_list_huankuan.SetItemText(x, 1, strtemp);               
+	
+	strtemp.Format("%d",rihuankuan*zuihouyiqi);
+	m_list_huankuan.SetItemText(x, 2, strtemp);  
+
 }
 
 void CCreateOrder::OnSetfocusEditEndtime() 
@@ -368,10 +487,10 @@ void CCreateOrder::qixian()
 
 	GetDlgItemText(IDC_EDIT_STARTTIME,start);
 	GetDlgItemText(IDC_EDIT_ENDTIME,end);
-if (start.IsEmpty() || end.IsEmpty())
-{
-	return ;
-}
+	if (start.IsEmpty() || end.IsEmpty())
+	{
+		return ;
+	}
 
 	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
 	sscanf(start,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
@@ -386,4 +505,50 @@ if (start.IsEmpty() || end.IsEmpty())
 	
 	m_qixian.Format("%d",qixian.GetDays());
 	UpdateData(FALSE);
+}
+
+void CCreateOrder::OnKillfocusEditMoney() 
+{
+	// TODO: Add your control notification handler code here
+	count();
+}
+
+void CCreateOrder::OnChangeEditLilv() 
+{
+	// TODO: If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialog::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+	
+	// TODO: Add your control notification handler code here
+	
+}
+
+void CCreateOrder::OnKillfocusEditLilv() 
+{
+	// TODO: Add your control notification handler code here
+	count();
+}
+
+void CCreateOrder::OnChangeEditQixian() 
+{
+	// TODO: If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialog::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+	
+	// TODO: Add your control notification handler code here
+	count();
+}
+
+void CCreateOrder::OnKillfocusEditQixian() 
+{
+	// TODO: Add your control notification handler code here
+	count();
+}
+
+void CCreateOrder::OnSetfocusEditQixian() 
+{
+	// TODO: Add your control notification handler code here
+	count();
 }

@@ -7,7 +7,7 @@
 #include "SmartDBDemoDlg.h"
 #include "LoginDlg.h"
 #include "CreateOrder.h"
-#include "Xiangxi.h"
+#include "Order.h"
 #include <cderr.h>
 
 #ifdef _DEBUG
@@ -604,8 +604,8 @@ void CSmartDBDemoDlg::OnDblclkListData(NMHDR* pNMHDR, LRESULT* pResult)
 				nSelect = m_listData.GetNextSelectedItem(Pos);    //nSelect能获得第几行
 				CString s=m_listData.GetItemText(nSelect,0);
 				orderid = _ttoi(s);
-				CXiangxi dlgxiangxi;
-				dlgxiangxi.DoModal();
+				COrder dlgorder;
+				dlgorder.DoModal();
 			}
 	}
 	*pResult = 0;
