@@ -53,6 +53,7 @@
 #define IDC_BUTTON3                     1037
 #define IDC_LIST_HUANGKUAN              1038
 #define IDC_EDIT_ENDTIME                1039
+#define IDC_EDIT_LIST                   1040
 #define ID_FILE_EXIT                    32774
 #define ID_OPTIONS_COMPACTDATABASE      32775
 #define ID_OPTIONS_REPAIRDATABASE       32776
@@ -65,7 +66,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        135
 #define _APS_NEXT_COMMAND_VALUE         32779
-#define _APS_NEXT_CONTROL_VALUE         1040
+#define _APS_NEXT_CONTROL_VALUE         1041
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

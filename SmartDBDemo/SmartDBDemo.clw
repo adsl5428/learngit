@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CCreateOrder
+LastClass=COrder
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "SmartDBDemo.h"
@@ -13,12 +13,12 @@ Class2=CSmartDBDemoDlg
 Class3=CAboutDlg
 
 ResourceCount=8
-Resource1=IDD_SMARTDBDEMO_DIALOG
+Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
-Resource3=IDD_ABOUTBOX
-Resource4=IDD_LOGIN_DIALOG
-Resource5=IDD_CREATE_DIALOG
-Resource6=IDD_DIALOG_ORDER
+Resource3=IDD_DIALOG_ORDER
+Resource4=IDD_SMARTDBDEMO_DIALOG
+Resource5=IDD_LOGIN_DIALOG
+Resource6=IDD_CREATE_DIALOG
 Class4=Login
 Resource7=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
 Class5=CLoginDlg
@@ -192,7 +192,7 @@ LastObject=IDC_LIST_TUPIAN
 [DLG:IDD_DIALOG_ORDER]
 Type=1
 Class=COrder
-ControlCount=27
+ControlCount=28
 Control1=IDC_EDIT_NAME,edit,1342242944
 Control2=IDC_EDIT_IDCARD,edit,1342242944
 Control3=IDC_EDIT_MONEY,edit,1342242944
@@ -203,7 +203,7 @@ Control7=IDC_EDIT_ENDTIME,edit,1342242944
 Control8=IDC_EDIT_QIXIAN,edit,1342242944
 Control9=IDC_EDIT_BEIZHU,edit,1344344132
 Control10=IDC_EDIT_HUANKUAN,edit,1073807488
-Control11=IDOK,button,1342242817
+Control11=IDOK,button,1073807361
 Control12=IDCANCEL,button,1342242816
 Control13=IDC_STATIC,static,1342308352
 Control14=IDC_STATIC,static,1342308352
@@ -220,6 +220,7 @@ Control24=IDC_STATUS,static,1342308353
 Control25=IDC_LIST_HUANGKUAN,SysListView32,1350631425
 Control26=IDC_STATIC,static,1342308352
 Control27=IDC_STATIC,static,1342308352
+Control28=IDC_EDIT_LIST,edit,1082196096
 
 [CLS:COrder]
 Type=0
@@ -227,6 +228,6 @@ HeaderFile=Order.h
 ImplementationFile=Order.cpp
 BaseClass=CDialog
 Filter=D
-LastObject=COrder
+LastObject=IDC_EDIT_LIST
 VirtualFilter=dWC
 

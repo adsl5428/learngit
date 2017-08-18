@@ -119,6 +119,7 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 			{ SetDlgItemText (IDC_STATUS, "数据存入成功,照片存入失败");	return;}
 			
 			idd = (LPTSTR)rsMain.GetColumnString(0);
+
 			rsMain.Close();
 
 			CString sourpath; 
@@ -430,14 +431,14 @@ void CCreateOrder::count()
 	else
 		qishu = iqixian/7+1;
 	
-	int i=1;
+	int i=0;
 	for (;i<qishu;i++)
 	{
 		int x = m_list_huankuan.InsertItem(999, _T(""));
-		strtemp.Format("%d",i);
+		strtemp.Format("%d",i+1);
 		m_list_huankuan.SetItemText(x, 0, strtemp); 
 		
-		CTimeSpan m_timespan(7*(i-1),0,0,0); // 3天，4小时，5分，6秒
+		CTimeSpan m_timespan(7*(i),0,0,0); // 3天，4小时，5分，6秒
 		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
 		sscanf(strstart,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
 		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
@@ -452,12 +453,12 @@ void CCreateOrder::count()
 	int x = m_list_huankuan.InsertItem(999, _T(""));
 	CTimeSpan m_timespan;	
 
-	strtemp.Format("%d",i);
+	strtemp.Format("%d",i+1);
 	m_list_huankuan.SetItemText(x, 0, strtemp); 
 	if (qishu == 1)
 	{ CTimeSpan tp(zuihouyiqi,0,0,0);	m_timespan=tp; }// 3天，4小时，5分，6秒
 	else 
-	{CTimeSpan tp(7*(i-2)+zuihouyiqi,0,0,0);	m_timespan=tp;} // 3天，4小时，5分，6秒
+	{CTimeSpan tp(7*(i-1)+zuihouyiqi,0,0,0);	m_timespan=tp;} // 3天，4小时，5分，6秒
 	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
 	sscanf(strstart,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
 	CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
@@ -544,6 +545,19 @@ void CCreateOrder::OnChangeEditQixian()
 	// with the ENM_CHANGE flag ORed into the mask.
 	
 	// TODO: Add your control notification handler code here
+	CString start;
+	CString strqixian;
+	CString strend;
+	GetDlgItemText(IDC_EDIT_STARTTIME,start);
+	GetDlgItemText(IDC_EDIT_QIXIAN,strqixian);
+	int iqixian = _ttoi(strqixian);
+	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+	sscanf(start,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+	CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+	CTimeSpan tian(iqixian,0,0,0);
+	s=s+tian;
+	strend = s.Format("%Y-%m-%d %H:%M:%S");
+	SetDlgItemText(IDC_EDIT_ENDTIME,strend);
 	count();
 }
 

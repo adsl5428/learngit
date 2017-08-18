@@ -15,10 +15,12 @@ class COrder : public CDialog
 // Construction
 public:
 	COrder(CWnd* pParent = NULL);   // standard constructor
-
+	int m_Col;
+	int m_Row;
 // Dialog Data
 	//{{AFX_DATA(COrder)
 	enum { IDD = IDD_DIALOG_ORDER };
+	CEdit	m_listedit;
 	CListCtrl	m_listhuankuan;
 	CListCtrl	m_listtupian;
 	//}}AFX_DATA
@@ -40,6 +42,8 @@ protected:
 	afx_msg void OnSetfocusEditQixian();
 	virtual BOOL OnInitDialog();
 	afx_msg void OnDblclkListTupian(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnDblclkListHuangkuan(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnKillfocusEditList();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

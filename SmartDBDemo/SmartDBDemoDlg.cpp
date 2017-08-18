@@ -318,7 +318,7 @@ void CSmartDBDemoDlg::OnBtnExecute()
 {
 	// TODO: Add your control notification handler code here
 
-	DeleteFile("C:\\Users\\admin\\learngit\\SmartDBDemo\\Release\\imgs\\1234.jpg");
+//	DeleteFile("C:\\Users\\admin\\learngit\\SmartDBDemo\\Release\\imgs\\1234.jpg");
 
 	CString strSQL;
 	GetDlgItemText (IDC_EDIT_QUERY, strSQL);

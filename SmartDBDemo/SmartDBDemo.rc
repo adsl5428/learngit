@@ -65,7 +65,7 @@ BEGIN
     CONTROL         "MonthCalendar1",IDC_MONTHCALENDAR1,"SysMonthCal32",
                     MCS_NOTODAY | NOT WS_VISIBLE | WS_TABSTOP,127,27,98,81
     DEFPUSHBUTTON   "创建",IDOK,162,218,50,14
-    PUSHBUTTON      "取消",IDCANCEL,94,218,50,14
+    PUSHBUTTON      "退出",IDCANCEL,94,218,50,14
     LTEXT           "姓名",IDC_STATIC,7,5,13,8
     LTEXT           "身份证后六位",IDC_STATIC,69,5,40,8
     LTEXT           "金额(元)",IDC_STATIC,158,6,25,8
@@ -154,8 +154,8 @@ BEGIN
                     WS_VSCROLL
     EDITTEXT        IDC_EDIT_HUANKUAN,261,219,40,12,ES_AUTOHSCROLL | NOT 
                     WS_VISIBLE | NOT WS_BORDER
-    DEFPUSHBUTTON   "创建",IDOK,162,218,50,14
-    PUSHBUTTON      "取消",IDCANCEL,94,218,50,14
+    DEFPUSHBUTTON   "创建",IDOK,0,219,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "关闭",IDCANCEL,125,218,50,14
     LTEXT           "姓名",IDC_STATIC,7,5,13,8
     LTEXT           "身份证后六位",IDC_STATIC,69,5,40,8
     LTEXT           "金额(元)",IDC_STATIC,158,6,25,8
@@ -173,6 +173,8 @@ BEGIN
                     WS_BORDER | WS_TABSTOP,0,109,301,108
     LTEXT           "还款计划",IDC_STATIC,136,101,27,8
     LTEXT           "到",IDC_STATIC,174,21,8,8
+    EDITTEXT        IDC_EDIT_LIST,195,222,30,7,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE
 END
 
 
