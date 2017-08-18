@@ -81,28 +81,30 @@ void CCreateOrder::OnOK()
 	CString strSQL;
 	CString strbeizhu;
 	CString strfuwufei;
-	CString strhuankuan;
 	CString stridcard;
 	CString strlilv;
 	CString strmoney;
 	CString strname;
 	CString strqixian;
 	CString strstarttime;
+	CString strendtime;
 	LPTSTR idd;
 	GetDlgItemText (IDC_EDIT_BEIZHU, strbeizhu);
 	GetDlgItemText (IDC_EDIT_FUWUFEI, strfuwufei);
-	GetDlgItemText (IDC_EDIT_HUANKUAN,strhuankuan );
 	GetDlgItemText (IDC_EDIT_IDCARD, stridcard);
 	GetDlgItemText (IDC_EDIT_LILV,strlilv );
 	GetDlgItemText (IDC_EDIT_MONEY,strmoney );
 	GetDlgItemText (IDC_EDIT_NAME,strname );
 	GetDlgItemText (IDC_EDIT_QIXIAN,strqixian );
 	GetDlgItemText (IDC_EDIT_STARTTIME, strstarttime);
+	GetDlgItemText (IDC_EDIT_ENDTIME, strendtime);
 
-strSQL.Format("INSERT INTO orders (name,idcard, money ,qixian ,zhouhuankuan ,lixi, fuwufei, beizhu , starttime )  VALUES  ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-			  strname,stridcard,strmoney,strqixian,strhuankuan,
-			  strlilv,strfuwufei,strbeizhu,strstarttime);
+
+strSQL.Format("INSERT INTO orders (name,idcard, money ,qixian  ,lixi, fuwufei, beizhu , starttime, endtime)  VALUES  ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+			  strname,stridcard,strmoney,strqixian,
+			  strlilv,strfuwufei,strbeizhu,strstarttime ,strendtime);
 SetDlgItemText (IDC_STATUS, "正在存入数据...");
+
 
 	if (connMain.IsConnected())
 	{
@@ -138,7 +140,7 @@ SetDlgItemText (IDC_STATUS, "正在存入数据...");
 				else
 					m_list1.SetItemText(row, 2, "失败");
 			}
-MessageBox(strSQL);
+
 				if (connMain.Execute (strSQL) == NULL)
 					SetDlgItemText (IDC_STATUS, "存入已全完成...");
 				else
@@ -188,7 +190,6 @@ MessageBox(strSQL);
 				}
 			
 			}
-			MessageBox(strSQL);
 			}
 		if (connMain.Execute (strSQL) == NULL)
 			SetDlgItemText (IDC_STATUS, "还款计划已全完成...");
@@ -422,9 +423,13 @@ void CCreateOrder::count()
 
 	int zonghuankua = (imoney*ililv*iqixian)+imoney;
 	int rihuankuan = zonghuankua/iqixian;
-
-	int qishu = iqixian/7+1;
+	int qishu;
 	int zuihouyiqi = iqixian%7;
+	if (zuihouyiqi==0)
+		qishu = iqixian/7;
+	else
+		qishu = iqixian/7+1;
+	
 	int i=1;
 	for (;i<qishu;i++)
 	{

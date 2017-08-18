@@ -80,11 +80,12 @@ BOOL COrder::OnInitDialog()
 	m_listtupian.InsertColumn( 2, _T("图片地址"), LVCFMT_LEFT, 240);
 	
 	m_listhuankuan.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);      // 整行选择、网格线  
-	m_listhuankuan.InsertColumn(0, _T("期数"), LVCFMT_CENTER, 50);        // 插入第2列的列名  
-	m_listhuankuan.InsertColumn(1, _T("还款日"), LVCFMT_CENTER, 110);        // 插入第3列的列名         // 插入第4列的列名  
-	m_listhuankuan.InsertColumn(2, _T("还款金额"), LVCFMT_CENTER, 80);        // 插入第3列的列名         // 插入第4列的列名 
-	m_listhuankuan.InsertColumn(3, _T("状态"), LVCFMT_CENTER, 60);        // 插入第3列的列名         // 插入第4列的列名  
-	m_listhuankuan.InsertColumn(4, _T("备注"), LVCFMT_CENTER, 295);        // 插入第3列的列名         // 插入第4列的列名  
+	m_listhuankuan.InsertColumn(0, _T("id"), LVCFMT_CENTER, 1);        // 插入第2列的列名 
+	m_listhuankuan.InsertColumn(1, _T("期数"), LVCFMT_CENTER, 50);        // 插入第2列的列名  
+	m_listhuankuan.InsertColumn(2, _T("还款日"), LVCFMT_CENTER, 110);        // 插入第3列的列名         // 插入第4列的列名  
+	m_listhuankuan.InsertColumn(3, _T("还款金额"), LVCFMT_CENTER, 80);        // 插入第3列的列名         // 插入第4列的列名 
+	m_listhuankuan.InsertColumn(4, _T("状态"), LVCFMT_CENTER, 60);        // 插入第3列的列名         // 插入第4列的列名  
+	m_listhuankuan.InsertColumn(5, _T("备注"), LVCFMT_CENTER, 295);        // 插入第3列的列名         // 插入第4列的列名  
 	
 	
 	UINT nRetVal = -1;

@@ -99,15 +99,15 @@ SOURCE=.\LoginDlg.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Order.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SmartDB.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\SmartDBDemo.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Order.cpp
 # End Source File
 # Begin Source File
 
@@ -122,10 +122,6 @@ SOURCE=.\SmartDBDemoDlg.cpp
 SOURCE=.\StdAfx.cpp
 # ADD CPP /Yc"stdafx.h"
 # End Source File
-# Begin Source File
-
-SOURCE=.\Xiangxi.cpp
-# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -139,7 +135,6 @@ SOURCE=.\CreateOrder.h
 SOURCE=.\LoginDlg.h
 # End Source File
 # Begin Source File
-
 
 SOURCE=.\Order.h
 # End Source File
@@ -162,10 +157,6 @@ SOURCE=.\SmartDBDemoDlg.h
 # Begin Source File
 
 SOURCE=.\StdAfx.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Xiangxi.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
