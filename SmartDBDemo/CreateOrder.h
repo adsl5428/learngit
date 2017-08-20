@@ -63,6 +63,7 @@ protected:
 	afx_msg void OnChangeEditQixian();
 	afx_msg void OnKillfocusEditQixian();
 	afx_msg void OnSetfocusEditQixian();
+	afx_msg void OnChangeEditMoney();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

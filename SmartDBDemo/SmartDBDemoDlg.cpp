@@ -150,6 +150,22 @@ BOOL CSmartDBDemoDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 	
+
+	CString   strFolderPath="imgs";   
+		//   判断路径是否存在   
+		if   (GetFileAttributes(strFolderPath)   !=   FILE_ATTRIBUTE_DIRECTORY  )   
+		{   
+			CString   strMsg;     
+			{   
+				if   (!CreateDirectory(strFolderPath,   NULL   )   )   
+				{   
+					strMsg.Format   ("创建路径\"%s\"失败！是否继续?",   strFolderPath);   
+					if   (AfxMessageBox(strMsg,   MB_YESNO)   ==   IDYES)   
+						return 0;   
+				}   
+			}   
+  }  
+
 	// TODO: Add extra initialization here
 	DWORD dwStyle = m_listData.SendMessage(LVM_GETEXTENDEDLISTVIEWSTYLE,0,0);
 	dwStyle |= LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES | LVS_EX_HEADERDRAGDROP;

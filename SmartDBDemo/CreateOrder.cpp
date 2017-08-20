@@ -63,6 +63,7 @@ BEGIN_MESSAGE_MAP(CCreateOrder, CDialog)
 	ON_EN_CHANGE(IDC_EDIT_QIXIAN, OnChangeEditQixian)
 	ON_EN_KILLFOCUS(IDC_EDIT_QIXIAN, OnKillfocusEditQixian)
 	ON_EN_SETFOCUS(IDC_EDIT_QIXIAN, OnSetfocusEditQixian)
+	ON_EN_CHANGE(IDC_EDIT_MONEY, OnChangeEditMoney)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -308,14 +309,15 @@ void CCreateOrder::OnSelectMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult)
 
 	m_CtrlDate.ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_EDIT_BEIZHU)->ShowWindow(SW_SHOW);
-	if (m_startorend==1)
-	{
-		GetDlgItem(IDC_EDIT_ENDTIME)->SetFocus();
-	}
-	else if (m_startorend==2)
-	{
-		GetDlgItem(IDC_EDIT_QIXIAN)->SetFocus();
-	}
+	GetDlgItem(IDC_EDIT_QIXIAN)->SetFocus();
+// 	if (m_startorend==1)
+// 	{
+// 		GetDlgItem(IDC_EDIT_ENDTIME)->SetFocus();
+// 	}
+// 	else if (m_startorend==2)
+// 	{
+// 		GetDlgItem(IDC_EDIT_QIXIAN)->SetFocus();
+// 	}
 	*pResult = 0;
 }
 
@@ -352,17 +354,22 @@ BOOL CCreateOrder::OnInitDialog()
 	m_list1.InsertColumn(2, _T("状态"), LVCFMT_LEFT, 70);        // 插入第3列的列名         // 插入第4列的列名  
 
 	m_list_huankuan.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);      // 整行选择、网格线  
-	m_list_huankuan.InsertColumn(0, _T("期数"), LVCFMT_CENTER, 50);        // 插入第2列的列名  
+	m_list_huankuan.InsertColumn(0, _T("期数"), LVCFMT_CENTER, 40);        // 插入第2列的列名  
 	m_list_huankuan.InsertColumn(1, _T("还款日"), LVCFMT_CENTER, 110);        // 插入第3列的列名         // 插入第4列的列名  
 	m_list_huankuan.InsertColumn(2, _T("还款金额"), LVCFMT_CENTER, 80);        // 插入第3列的列名         // 插入第4列的列名 
 	m_list_huankuan.InsertColumn(3, _T("状态"), LVCFMT_CENTER, 60);        // 插入第3列的列名         // 插入第4列的列名  
-	m_list_huankuan.InsertColumn(4, _T("备注"), LVCFMT_CENTER, 295);        // 插入第3列的列名         // 插入第4列的列名  
+	m_list_huankuan.InsertColumn(4, _T("备注"), LVCFMT_CENTER, 287);        // 插入第3列的列名         // 插入第4列的列名  
+
+	CString str; //获取系统时间 　　	
+	CTime tm;
+	tm=CTime::GetCurrentTime();		
+	str=tm.Format("%Y-%m-%d 12:00:00");
 
 	SetDlgItemText(IDC_EDIT_IDCARD,"6666");
 	SetDlgItemText(IDC_EDIT_MONEY,"100000");
-	SetDlgItemText(IDC_EDIT_LILV,"1");
-	SetDlgItemText(IDC_EDIT_STARTTIME,"2017-8-10 12:00:00");
-	SetDlgItemText(IDC_EDIT_ENDTIME,"2017-8-26 12:00:00");
+	SetDlgItemText(IDC_EDIT_LILV,"5");
+	SetDlgItemText(IDC_EDIT_STARTTIME,str);
+//	SetDlgItemText(IDC_EDIT_ENDTIME,"2017-8-26 12:00:00");
 	SetDlgItemText(IDC_EDIT_QIXIAN,"16");
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
@@ -408,37 +415,34 @@ void CCreateOrder::OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 void CCreateOrder::count()
 {
 	float ililv;
-	int imoney,iqixian;
+	int imoney,itianshu;
 	CString strmoney,strlilv,strqixian,strtemp,strstart;
 	GetDlgItemText(IDC_EDIT_MONEY,strmoney);
 	GetDlgItemText(IDC_EDIT_LILV,strlilv);
 	GetDlgItemText(IDC_EDIT_QIXIAN,strqixian);
 	GetDlgItemText(IDC_EDIT_STARTTIME,strstart);
-	if (strmoney.IsEmpty() || strlilv.IsEmpty() || strqixian.IsEmpty())
+	if (strmoney.IsEmpty() || strlilv.IsEmpty() || strqixian.IsEmpty() || strstart.IsEmpty())
 		return;
 
 	m_list_huankuan.DeleteAllItems(); // 全部清空  
 	imoney = _ttoi(strmoney);
-	iqixian = _ttoi(strqixian);
-	ililv = atof(strlilv)/10000;
+	itianshu = _ttoi(strqixian)*7;
+	ililv = (float)atof(strlilv)/10000;
 
-	int zonghuankua = (imoney*ililv*iqixian)+imoney;
-	int rihuankuan = zonghuankua/iqixian;
-	int qishu;
-	int zuihouyiqi = iqixian%7;
-	if (zuihouyiqi==0)
-		qishu = iqixian/7;
-	else
-		qishu = iqixian/7+1;
+	int qishu=itianshu/7;
+	float zhouhuankuan = ((imoney*ililv*itianshu)+imoney)/qishu;
+//	int zhouhuankuan = zonghuankua;
 	
-	int i=0;
-	for (;i<qishu;i++)
+
+	
+	int i=1;
+	for (;i<=qishu;i++)
 	{
 		int x = m_list_huankuan.InsertItem(999, _T(""));
-		strtemp.Format("%d",i+1);
+		strtemp.Format("%d",i);
 		m_list_huankuan.SetItemText(x, 0, strtemp); 
 		
-		CTimeSpan m_timespan(7*(i),0,0,0); // 3天，4小时，5分，6秒
+		CTimeSpan m_timespan(7*(i-1),0,0,0); // 3天，4小时，5分，6秒
 		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
 		sscanf(strstart,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
 		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
@@ -446,28 +450,28 @@ void CCreateOrder::count()
 		strtemp = s.Format("%Y-%m-%d");
 		m_list_huankuan.SetItemText(x, 1, strtemp);               
 
-		strtemp.Format("%d",rihuankuan*7);
+		strtemp.Format("%0.0f",zhouhuankuan);
 		m_list_huankuan.SetItemText(x, 2, strtemp);              
 	}
 
-	int x = m_list_huankuan.InsertItem(999, _T(""));
-	CTimeSpan m_timespan;	
-
-	strtemp.Format("%d",i+1);
-	m_list_huankuan.SetItemText(x, 0, strtemp); 
-	if (qishu == 1)
-	{ CTimeSpan tp(zuihouyiqi,0,0,0);	m_timespan=tp; }// 3天，4小时，5分，6秒
-	else 
-	{CTimeSpan tp(7*(i-1)+zuihouyiqi,0,0,0);	m_timespan=tp;} // 3天，4小时，5分，6秒
-	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
-	sscanf(strstart,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
-	CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
-	s=s+m_timespan;
-	strtemp = s.Format("%Y-%m-%d");
-	m_list_huankuan.SetItemText(x, 1, strtemp);               
-	
-	strtemp.Format("%d",rihuankuan*zuihouyiqi);
-	m_list_huankuan.SetItemText(x, 2, strtemp);  
+// 	int x = m_list_huankuan.InsertItem(999, _T(""));
+// 	CTimeSpan m_timespan;	
+// 
+// 	strtemp.Format("%d",i+1);
+// 	m_list_huankuan.SetItemText(x, 0, strtemp); 
+// 	if (qishu == 1)
+// 	{ CTimeSpan tp(zuihouyiqi,0,0,0);	m_timespan=tp; }// 3天，4小时，5分，6秒
+// 	else 
+// 	{CTimeSpan tp(7*(i-1)+zuihouyiqi,0,0,0);	m_timespan=tp;} // 3天，4小时，5分，6秒
+// 	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+// 	sscanf(strstart,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+// 	CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+// 	s=s+m_timespan;
+// 	strtemp = s.Format("%Y-%m-%d");
+// 	m_list_huankuan.SetItemText(x, 1, strtemp);               
+// 	
+// 	strtemp.Format("%d",rihuankuan*zuihouyiqi);
+// 	m_list_huankuan.SetItemText(x, 2, strtemp);  
 
 }
 
@@ -490,27 +494,28 @@ void CCreateOrder::OnKillfocusEditEndtime()
 
 void CCreateOrder::qixian()
 {
-	CString start,end;
-
-	GetDlgItemText(IDC_EDIT_STARTTIME,start);
-	GetDlgItemText(IDC_EDIT_ENDTIME,end);
-	if (start.IsEmpty() || end.IsEmpty())
+	UpdateData(true);
+// 	CString start,strqixian;
+// 	GetDlgItemText(IDC_EDIT_STARTTIME,start);
+// 	GetDlgItemText(IDC_EDIT_QIXIAN,strqixian);
+	if (m_starttime.IsEmpty() || m_qixian.IsEmpty())
 	{
 		return ;
 	}
 
 	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
-	sscanf(start,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+	sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
 	CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
 
 
-	int    nYear1,    nMonth1,    nDate1,    nHour1,    nMin1,    nSec1;   
-	sscanf(end,    "%d-%d-%d %d:%d:%d",    &nYear1,    &nMonth1,    &nDate1,    &nHour1,    &nMin1,    &nSec1);   
-	CTime   e(nYear1,    nMonth1,    nDate1,    nHour1,    nMin1,    nSec1);
-
-	CTimeSpan qixian = e-s;
-	
-	m_qixian.Format("%d",qixian.GetDays());
+// 	int    nYear1,    nMonth1,    nDate1,    nHour1,    nMin1,    nSec1;   
+// 	sscanf(m_endtime,    "%d-%d-%d %d:%d:%d",    &nYear1,    &nMonth1,    &nDate1,    &nHour1,    &nMin1,    &nSec1);   
+ 	CTime   e;
+ 	CTimeSpan qixian(_ttoi(m_qixian)*7,0,0,0);
+	e = s+qixian;
+	m_endtime = e.Format("%Y-%m-%d %H:%M:%S");
+// 	
+// 	m_qixian.Format("%d",qixian.GetDays());
 	UpdateData(FALSE);
 }
 
@@ -528,7 +533,7 @@ void CCreateOrder::OnChangeEditLilv()
 	// with the ENM_CHANGE flag ORed into the mask.
 	
 	// TODO: Add your control notification handler code here
-	
+	count();
 }
 
 void CCreateOrder::OnKillfocusEditLilv() 
@@ -550,7 +555,7 @@ void CCreateOrder::OnChangeEditQixian()
 	CString strend;
 	GetDlgItemText(IDC_EDIT_STARTTIME,start);
 	GetDlgItemText(IDC_EDIT_QIXIAN,strqixian);
-	int iqixian = _ttoi(strqixian);
+	int iqixian = _ttoi(strqixian)*7;
 	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
 	sscanf(start,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
 	CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
@@ -569,6 +574,17 @@ void CCreateOrder::OnKillfocusEditQixian()
 
 void CCreateOrder::OnSetfocusEditQixian() 
 {
+	// TODO: Add your control notification handler code here
+	count();
+}
+
+void CCreateOrder::OnChangeEditMoney() 
+{
+	// TODO: If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialog::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+	
 	// TODO: Add your control notification handler code here
 	count();
 }

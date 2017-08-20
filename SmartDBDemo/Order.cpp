@@ -84,11 +84,11 @@ BOOL COrder::OnInitDialog()
 	
 	m_listhuankuan.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);      // 整行选择、网格线  
 	m_listhuankuan.InsertColumn(0, _T("id"), LVCFMT_CENTER, 1);        // 插入第2列的列名 
-	m_listhuankuan.InsertColumn(1, _T("期数"), LVCFMT_CENTER, 50);        // 插入第2列的列名  
+	m_listhuankuan.InsertColumn(1, _T("期数"), LVCFMT_CENTER, 40);        // 插入第2列的列名  
 	m_listhuankuan.InsertColumn(2, _T("还款日"), LVCFMT_CENTER, 110);        // 插入第3列的列名         // 插入第4列的列名  
 	m_listhuankuan.InsertColumn(3, _T("还款金额"), LVCFMT_CENTER, 80);        // 插入第3列的列名         // 插入第4列的列名 
 	m_listhuankuan.InsertColumn(4, _T("状态"), LVCFMT_CENTER, 60);        // 插入第3列的列名         // 插入第4列的列名  
-	m_listhuankuan.InsertColumn(5, _T("备注"), LVCFMT_CENTER, 295);        // 插入第3列的列名         // 插入第4列的列名  
+	m_listhuankuan.InsertColumn(5, _T("备注"), LVCFMT_CENTER, 287);        // 插入第3列的列名         // 插入第4列的列名  
 	m_listhuankuan.InsertColumn(6, _T("订单id"), LVCFMT_CENTER, 1);        // 插入第3列的列名         // 插入第4列的列名
 	
 	UINT nRetVal = -1;
@@ -100,7 +100,7 @@ BOOL COrder::OnInitDialog()
 	int i;
 	strsqlorder.Format("select * from orders   where id = '%d'",orderid);
 	strsqlpicture.Format("select * from pictures  where order_id = '%d' ORDER BY  id ASC",orderid);
-	strsqlhuankuan.Format("select * from huankuans where order_id = '%d'  ORDER BY  id desc ",orderid);
+	strsqlhuankuan.Format("select * from huankuans where order_id = '%d'  ",orderid);
 	
 	if (rsMain.Open (strsqlorder, &connMain) != RSOPEN_SUCCESS)
 		return nRetVal;
@@ -162,6 +162,7 @@ BOOL COrder::OnInitDialog()
 		nRecNum++;
 	}
 	rsMain.Close();
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
