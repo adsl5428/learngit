@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=COrder
+LastClass=CSmartDBDemoDlg
 LastTemplate=CDialog
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "SmartDBDemo.h"
@@ -13,12 +13,12 @@ Class2=CSmartDBDemoDlg
 Class3=CAboutDlg
 
 ResourceCount=8
-Resource1=IDD_CREATE_DIALOG
+Resource1=IDD_LOGIN_DIALOG
 Resource2=IDR_MAINFRAME
-Resource3=IDD_ABOUTBOX
-Resource4=IDD_DIALOG_ORDER
-Resource5=IDD_LOGIN_DIALOG
-Resource6=IDD_SMARTDBDEMO_DIALOG
+Resource3=IDD_CREATE_DIALOG
+Resource4=IDD_ABOUTBOX
+Resource5=IDD_SMARTDBDEMO_DIALOG
+Resource6=IDD_DIALOG_ORDER
 Class4=Login
 Resource7=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
 Class5=CLoginDlg
@@ -41,7 +41,7 @@ ImplementationFile=SmartDBDemoDlg.cpp
 Filter=D
 BaseClass=CDialog
 VirtualFilter=dWC
-LastObject=CSmartDBDemoDlg
+LastObject=ID_MENU_LINGYONG
 
 [CLS:CAboutDlg]
 Type=0
@@ -85,14 +85,18 @@ Control17=IDC_BUTTON3,button,1073807360
 [MNU:IDR_MENU_MAIN]
 Type=1
 Class=?
-Command1=ID_FILE_OPEN
-Command2=ID_FILE_CLOSE
-Command3=ID_FILE_EXIT
-Command4=ID_OPTIONS_COMPACTDATABASE
-Command5=ID_OPTIONS_REPAIRDATABASE
-Command6=ID_OPTIONS_SETTINGS
-Command7=ID_HELP_ABOUTSMARTSB
-CommandCount=7
+Command1=ID_MENU_LINGYONG
+Command2=ID_MENU_XINYONG
+Command3=ID_MENU_CHEDI
+Command4=ID_MENU_FANGDI
+Command5=ID_FILE_OPEN
+Command6=ID_FILE_CLOSE
+Command7=ID_FILE_EXIT
+Command8=ID_OPTIONS_COMPACTDATABASE
+Command9=ID_OPTIONS_REPAIRDATABASE
+Command10=ID_OPTIONS_SETTINGS
+Command11=ID_HELP_ABOUTSMARTSB
+CommandCount=11
 
 [DLG:IDD_SMARTDBDEMO_DIALOG (English (U.S.))]
 Type=1
@@ -228,6 +232,6 @@ HeaderFile=Order.h
 ImplementationFile=Order.cpp
 BaseClass=CDialog
 Filter=D
-LastObject=COrder
+LastObject=ID_MENU_LINGYONG
 VirtualFilter=dWC
 

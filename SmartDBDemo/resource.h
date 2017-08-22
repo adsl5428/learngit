@@ -59,13 +59,17 @@
 #define ID_OPTIONS_REPAIRDATABASE       32776
 #define ID_OPTIONS_SETTINGS             32777
 #define ID_HELP_ABOUTSMARTSB            32778
+#define ID_MENU_LINGYONG                32779
+#define ID_MENU_CHEDI                   32780
+#define ID_MENU_XINYONG                 32781
+#define ID_MENU_FANGDI                  32782
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        135
-#define _APS_NEXT_COMMAND_VALUE         32779
+#define _APS_NEXT_COMMAND_VALUE         32783
 #define _APS_NEXT_CONTROL_VALUE         1041
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

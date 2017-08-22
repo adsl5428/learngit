@@ -110,10 +110,11 @@ BEGIN_MESSAGE_MAP(CSmartDBDemoDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, OnButton2)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST_DATA, OnDblclkListData)
+	ON_BN_CLICKED(IDC_BUTTON3, OnButton3)
 	ON_WM_CANCELMODE()
 	ON_WM_CAPTURECHANGED()
 	ON_WM_CREATE()
-	ON_BN_CLICKED(IDC_BUTTON3, OnButton3)
+	ON_COMMAND(ID_MENU_LINGYONG, OnMenuLingyong)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -635,4 +636,10 @@ void CSmartDBDemoDlg::OnButton3()
     CTime t = current_time + tmspan ;
     CString str = t.Format("%Y-%m-%d %H:%M:%S");
     AfxMessageBox(str);
+}
+
+void CSmartDBDemoDlg::OnMenuLingyong() 
+{
+	// TODO: Add your command handler code here
+	MessageBox("lingyong");
 }

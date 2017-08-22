@@ -48,6 +48,8 @@ BEGIN_MESSAGE_MAP(COrder, CDialog)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST_TUPIAN, OnDblclkListTupian)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST_HUANGKUAN, OnDblclkListHuangkuan)
 	ON_EN_KILLFOCUS(IDC_EDIT_LIST, OnKillfocusEditList)
+	ON_COMMAND(ID_MENU_XINYONG, OnMenuXinyong)
+	ON_COMMAND(ID_MENU_LINGYONG, OnMenuLingyong)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -251,4 +253,16 @@ void COrder::OnKillfocusEditList()
 		SetDlgItemText(IDC_STATUS,"更新成功");
 	else
 		SetDlgItemText(IDC_STATUS,"更新失败");
+}
+
+void COrder::OnMenuXinyong() 
+{
+	// TODO: Add your command handler code here
+	MessageBox("123456");
+}
+
+void COrder::OnMenuLingyong() 
+{
+	// TODO: Add your command handler code here
+	MessageBox("123456");
 }
