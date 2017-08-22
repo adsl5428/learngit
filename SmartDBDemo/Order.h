@@ -44,8 +44,6 @@ protected:
 	afx_msg void OnDblclkListTupian(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnDblclkListHuangkuan(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnKillfocusEditList();
-	afx_msg void OnMenuXinyong();
-	afx_msg void OnMenuLingyong();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

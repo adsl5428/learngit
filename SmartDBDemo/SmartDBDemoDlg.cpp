@@ -178,23 +178,21 @@ BOOL CSmartDBDemoDlg::OnInitDialog()
 // 	m_listData.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);      // 整行选择、网格线
 
 
-// 	m_listData.InsertColumn(0, _T("id"), LVCFMT_LEFT, 5);        // 插入第2列的列名  
-// 	m_listData.InsertColumn(1, _T("名字"), LVCFMT_LEFT, 70);        // 插入第3列的列名         // 插入第4列的列名  
-// 	m_listData.InsertColumn(2, _T("身份证"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
-// 	m_listData.InsertColumn(3, _T("金额"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
-// 	m_listData.InsertColumn(4, _T("期限"), LVCFMT_LEFT, 20);        // 插入第3列的列名         // 插入第4列的列名 
-// 	m_listData.InsertColumn(5, _T("每周需还"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
-// 	m_listData.InsertColumn(6, _T("利率(%)"), LVCFMT_LEFT, 20);        // 插入第3列的列名         // 插入第4列的列名 
-// 	m_listData.InsertColumn(7, _T("服务费(元)"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
-// 	m_listData.InsertColumn(8, _T("备注"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
-// 	m_listData.InsertColumn(9, _T("借款日期"), LVCFMT_LEFT, 180);        // 插入第3列的列名         // 插入第4列的列名 
-
+// 	m_listData.InsertColumn(0, _T("id"), LVCFMT_LEFT, 1);        // 插入第2列的列名  
+// 	m_listData.InsertColumn(1, _T("名字"), LVCFMT_LEFT, 70);        // 插入第3列的列名     
+// 	m_listData.InsertColumn(2, _T("身份证"), LVCFMT_LEFT, 70);        // 插入第3列的列名  
+// 	m_listData.InsertColumn(3, _T("金额"), LVCFMT_LEFT, 70);        // 插入第3列的列名 
+// 	m_listData.InsertColumn(4, _T("期限"), LVCFMT_LEFT, 40);        // 插入第3列的列名 
+// 	m_listData.InsertColumn(6, _T("日利(千分)"), LVCFMT_LEFT,50);        // 插入第3列的列名 
+// 	m_listData.InsertColumn(7, _T("服务费"), LVCFMT_LEFT, 70);        // 插入第3列的列名
+// 	m_listData.InsertColumn(8, _T("备注"), LVCFMT_LEFT, 180);        // 插入第3列的列名  
+// 	m_listData.InsertColumn(9, _T("借款日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
+// 	m_listData.InsertColumn(10, _T("结束日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
 
 	SetDlgItemText (IDC_EDIT_DBNAME, "qin");
 	OnBtnLoad();
 	CString strQuery;
 	strQuery.Format("SELECT * FROM %s", "orders");
-
 	ExecuteQueryAndShow (strQuery);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -317,6 +315,8 @@ void CSmartDBDemoDlg::OnBtnUnload()
 	int nCols = m_listData.GetHeaderCtrl()->GetItemCount();
 	for (int i = nCols; i > 0; i--)
 		m_listData.DeleteColumn(i-1);
+
+
 }
 
 void CSmartDBDemoDlg::OnSize(UINT nType, int cx, int cy) 
@@ -401,14 +401,28 @@ UINT CSmartDBDemoDlg::ExecuteQueryAndShow(LPCTSTR strSelectQuery)
 		return nRetVal;
 
 	// Add list of fields from table into list box
-	for (i=0; i < rsMain.FieldsCount(); i++)
+// 	for (i=0; i < rsMain.FieldsCount(); i++)
+// 	{
+// 		CString strBuffer;
+// 		nType = rsMain.GetFieldType(i);
+// 		strBuffer.Format("%s (%s)", rsMain.GetFieldName(i), strTypeNames[nType]);
+// 		m_listData.InsertColumn(i, strBuffer, LVCFMT_LEFT, 60);
+// 	}
+	CString m_strDBName;
+	GetDlgItemText(IDC_EDIT_DBNAME, m_strDBName);
+	if (m_strDBName == "qin")
 	{
-		CString strBuffer;
-		nType = rsMain.GetFieldType(i);
-		strBuffer.Format("%s (%s)", rsMain.GetFieldName(i), strTypeNames[nType]);
-		m_listData.InsertColumn(i, strBuffer, LVCFMT_LEFT, 60);
+		m_listData.InsertColumn(0, _T("id"), LVCFMT_LEFT, 1);        // 插入第2列的列名  
+		m_listData.InsertColumn(1, _T("名字"), LVCFMT_LEFT, 70);        // 插入第3列的列名     
+		m_listData.InsertColumn(2, _T("身份证"), LVCFMT_LEFT, 70);        // 插入第3列的列名  
+		m_listData.InsertColumn(3, _T("金额"), LVCFMT_LEFT, 70);        // 插入第3列的列名 
+		m_listData.InsertColumn(4, _T("期限"), LVCFMT_LEFT, 40);        // 插入第3列的列名 
+		m_listData.InsertColumn(6, _T("日利(千分)"), LVCFMT_LEFT,50);        // 插入第3列的列名 
+		m_listData.InsertColumn(7, _T("服务费"), LVCFMT_LEFT, 70);        // 插入第3列的列名
+		m_listData.InsertColumn(8, _T("备注"), LVCFMT_LEFT, 180);        // 插入第3列的列名  
+		m_listData.InsertColumn(9, _T("借款日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
+		m_listData.InsertColumn(10, _T("结束日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
 	}
-
 	LVITEM lvItem;
 
 	INT nRecNum=0;
