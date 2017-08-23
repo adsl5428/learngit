@@ -8,6 +8,7 @@
 #include "LoginDlg.h"
 #include "CreateOrder.h"
 #include "Order.h"
+#include "Xinyong.h"
 #include <cderr.h>
 
 #ifdef _DEBUG
@@ -111,10 +112,11 @@ BEGIN_MESSAGE_MAP(CSmartDBDemoDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON2, OnButton2)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST_DATA, OnDblclkListData)
 	ON_BN_CLICKED(IDC_BUTTON3, OnButton3)
+	ON_COMMAND(ID_MENU_LINGYONG, OnMenuLingyong)
 	ON_WM_CANCELMODE()
 	ON_WM_CAPTURECHANGED()
 	ON_WM_CREATE()
-	ON_COMMAND(ID_MENU_LINGYONG, OnMenuLingyong)
+	ON_COMMAND(ID_MENU_XINYONG, OnMenuXinyong)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -165,7 +167,7 @@ BOOL CSmartDBDemoDlg::OnInitDialog()
 						return 0;   
 				}   
 			}   
-  }  
+	}  
 
 	// TODO: Add extra initialization here
 	DWORD dwStyle = m_listData.SendMessage(LVM_GETEXTENDEDLISTVIEWSTYLE,0,0);
@@ -418,10 +420,11 @@ UINT CSmartDBDemoDlg::ExecuteQueryAndShow(LPCTSTR strSelectQuery)
 		m_listData.InsertColumn(3, _T("金额"), LVCFMT_LEFT, 70);        // 插入第3列的列名 
 		m_listData.InsertColumn(4, _T("期限"), LVCFMT_LEFT, 40);        // 插入第3列的列名 
 		m_listData.InsertColumn(6, _T("日利(千分)"), LVCFMT_LEFT,50);        // 插入第3列的列名 
-		m_listData.InsertColumn(7, _T("服务费"), LVCFMT_LEFT, 70);        // 插入第3列的列名
-		m_listData.InsertColumn(8, _T("备注"), LVCFMT_LEFT, 180);        // 插入第3列的列名  
-		m_listData.InsertColumn(9, _T("借款日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
-		m_listData.InsertColumn(10, _T("结束日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
+		m_listData.InsertColumn(7, _T("已还"), LVCFMT_LEFT,50);        // 插入第3列的列名 
+		m_listData.InsertColumn(8, _T("服务费"), LVCFMT_LEFT, 70);        // 插入第3列的列名
+		m_listData.InsertColumn(9, _T("备注"), LVCFMT_LEFT, 180);        // 插入第3列的列名  
+		m_listData.InsertColumn(10, _T("借款日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
+		m_listData.InsertColumn(11, _T("结束日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
 	}
 	LVITEM lvItem;
 
@@ -656,4 +659,11 @@ void CSmartDBDemoDlg::OnMenuLingyong()
 {
 	// TODO: Add your command handler code here
 	MessageBox("lingyong");
+}
+
+void CSmartDBDemoDlg::OnMenuXinyong() 
+{
+	// TODO: Add your command handler code here
+	CXinyong xinyong;
+	xinyong.DoModal();
 }

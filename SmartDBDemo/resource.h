@@ -13,6 +13,7 @@
 #define IDD_CREATE_DIALOG               133
 #define IDD_DIALOG_XIANGXI              134
 #define IDD_DIALOG_ORDER                135
+#define IDD_CREATE_XINYONG              136
 #define IDC_LIST_TABLES                 1000
 #define IDC_LIST_DATA                   1003
 #define IDC_BTN_LOAD                    1004
@@ -54,6 +55,12 @@
 #define IDC_LIST_HUANGKUAN              1038
 #define IDC_EDIT_ENDTIME                1039
 #define IDC_EDIT_LIST                   1040
+#define IDC_COMBO_DANWEI                1042
+#define IDC_COMBO_JIXIRIQI              1043
+#define IDC_COMBO_FENLEI                1044
+#define IDC_COMBO_HUANKUAN              1045
+#define IDC_EDIT10                      1046
+#define IDC_COMBO_QIXIANDANWEI          1050
 #define ID_FILE_EXIT                    32774
 #define ID_OPTIONS_COMPACTDATABASE      32775
 #define ID_OPTIONS_REPAIRDATABASE       32776
@@ -68,9 +75,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        135
+#define _APS_NEXT_RESOURCE_VALUE        136
 #define _APS_NEXT_COMMAND_VALUE         32783
-#define _APS_NEXT_CONTROL_VALUE         1041
+#define _APS_NEXT_CONTROL_VALUE         1051
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

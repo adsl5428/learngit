@@ -40,7 +40,7 @@ END
 
 IDD_CREATE_DIALOG DIALOG DISCARDABLE  0, 0, 301, 241
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "创建记录"
+CAPTION "创建零用记录"
 FONT 10, "微软雅黑"
 BEGIN
     EDITTEXT        IDC_EDIT_NAME,22,5,40,12,ES_AUTOHSCROLL | NOT WS_BORDER
@@ -101,7 +101,8 @@ BEGIN
     PUSHBUTTON      "退出",IDCANCEL,272,12,44,12
     LTEXT           "&Tables",IDC_STATIC,6,27,37,8,NOT WS_VISIBLE
     LISTBOX         IDC_LIST_TABLES,6,6,68,27,LBS_NOINTEGRALHEIGHT | NOT 
-                    WS_BORDER | WS_VSCROLL | WS_TABSTOP,WS_EX_STATICEDGE
+                    WS_VISIBLE | NOT WS_BORDER | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_STATICEDGE
     LTEXT           "&Records",IDC_STATIC,274,6,53,9,NOT WS_VISIBLE
     CONTROL         "List1",IDC_LIST_DATA,"SysListView32",LVS_REPORT | 
                     LVS_SHOWSELALWAYS | WS_TABSTOP,5,38,322,193,
@@ -177,6 +178,67 @@ BEGIN
                     WS_VISIBLE
 END
 
+IDD_CREATE_XINYONG DIALOG DISCARDABLE  0, 0, 302, 267
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "创建零用记录"
+FONT 10, "微软雅黑"
+BEGIN
+    COMBOBOX        IDC_COMBO_FENLEI,16,4,37,44,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_NAME,82,5,33,12,ES_AUTOHSCROLL | NOT WS_BORDER
+    EDITTEXT        IDC_EDIT_IDCARD,173,5,40,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT1,246,5,40,12,ES_AUTOHSCROLL | NOT WS_BORDER
+    COMBOBOX        IDC_COMBO_HUANKUAN,2,22,48,35,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_JIXIRIQI,52,22,31,35,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_DANWEI,84,22,31,35,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_LILV,116,22,33,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT_MONEY,183,22,40,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT_FUWUFEI,262,22,40,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT10,27,40,28,12,ES_AUTOHSCROLL | NOT WS_BORDER
+    EDITTEXT        IDC_EDIT_STARTTIME,86,40,67,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    EDITTEXT        IDC_EDIT_QIXIAN,180,40,15,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER
+    PUSHBUTTON      "添加图片 (可一次性多选)",IDC_BUTTON1,3,58,88,10
+    EDITTEXT        IDC_EDIT_BEIZHU,172,70,126,59,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_WANTRETURN | NOT WS_BORDER | 
+                    WS_VSCROLL
+    DEFPUSHBUTTON   "创建",IDOK,160,244,50,14,NOT WS_TABSTOP
+    EDITTEXT        IDC_EDIT_ENDTIME,233,40,67,12,ES_AUTOHSCROLL | 
+                    WS_DISABLED | NOT WS_BORDER
+    EDITTEXT        IDC_EDIT_HUANKUAN,262,242,40,12,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE | NOT WS_BORDER
+    CONTROL         "MonthCalendar1",IDC_MONTHCALENDAR1,"SysMonthCal32",
+                    MCS_NOTODAY | NOT WS_VISIBLE | WS_TABSTOP,128,48,98,81
+    PUSHBUTTON      "退出",IDCANCEL,92,244,50,14
+    LTEXT           "姓名",IDC_STATIC,67,5,13,8
+    LTEXT           "身份证后六位",IDC_STATIC,131,5,40,8
+    LTEXT           "金额(元)",IDC_STATIC,156,22,25,8
+    LTEXT           "期限",IDC_STATIC,163,40,13,8
+    LTEXT           "每周应还(元)",IDC_STATIC,223,243,39,8,NOT WS_VISIBLE
+    LTEXT           "借款时间",IDC_STATIC,58,40,28,8
+    LTEXT           "服务费(元)",IDC_STATIC,229,22,30,8
+    LTEXT           "备注",IDC_STATIC,225,61,13,8
+    CONTROL         "List1",IDC_LIST1,"SysListView32",LVS_REPORT | 
+                    LVS_SHOWSELALWAYS | WS_TABSTOP,4,70,125,52
+    CTEXT           "",IDC_STATUS,0,259,302,8
+    CONTROL         "List2",IDC_LIST_HUANGKUAN,"SysListView32",LVS_REPORT | 
+                    WS_BORDER | WS_TABSTOP,0,136,302,108
+    LTEXT           "还款计划",IDC_STATIC,1,127,27,8
+    LTEXT           "到",IDC_STATIC,224,40,8,8
+    LTEXT           "经办人",IDC_STATIC,223,5,21,8
+    LTEXT           "出资人",IDC_STATIC,3,40,21,8
+    COMBOBOX        IDC_COMBO_QIXIANDANWEI,196,40,25,30,CBS_DROPDOWN | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -243,6 +305,43 @@ BEGIN
     BEGIN
         MENUITEM "&About SmartSB",              ID_HELP_ABOUTSMARTSB
     END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_CREATE_XINYONG DLGINIT
+BEGIN
+    IDC_COMBO_FENLEI, 0x403, 7, 0
+0xe3c1, 0xc3d3, 0xfbb4, "\000" 
+    IDC_COMBO_FENLEI, 0x403, 7, 0
+0xc5d0, 0xc3d3, 0xfbb4, "\000" 
+    IDC_COMBO_FENLEI, 0x403, 5, 0
+0xb5b3, 0xfbb4, "\000" 
+    IDC_COMBO_FENLEI, 0x403, 5, 0
+0xbfb7, 0xfbb4, "\000" 
+    IDC_COMBO_HUANKUAN, 0x403, 9, 0
+0xc8b5, 0xeeb6, 0xbeb1, 0xa2cf, "\000" 
+    IDC_COMBO_HUANKUAN, 0x403, 9, 0
+0xc8cf, 0xa2cf, 0xf3ba, 0xbeb1, "\000" 
+    IDC_COMBO_JIXIRIQI, 0x403, 5, 0
+0xd5c8, 0xa2cf, "\000" 
+    IDC_COMBO_JIXIRIQI, 0x403, 5, 0
+0xc2d4, 0xa2cf, "\000" 
+    IDC_COMBO_DANWEI, 0x403, 5, 0
+0xf2cd, 0xd6b7, "\000" 
+    IDC_COMBO_DANWEI, 0x403, 5, 0
+0xa7c7, 0xd6b7, "\000" 
+    IDC_COMBO_DANWEI, 0x403, 5, 0
+0xd9b0, 0xd6b7, "\000" 
+    IDC_COMBO_QIXIANDANWEI, 0x403, 3, 0
+0xdcd6, "\000" 
+    IDC_COMBO_QIXIANDANWEI, 0x403, 3, 0
+0xc2d4, "\000" 
+    0
 END
 
 #endif    // Chinese (中国) resources
