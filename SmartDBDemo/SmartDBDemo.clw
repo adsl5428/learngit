@@ -13,12 +13,12 @@ Class2=CSmartDBDemoDlg
 Class3=CAboutDlg
 
 ResourceCount=9
-Resource1=IDD_LOGIN_DIALOG
+Resource1=IDD_SMARTDBDEMO_DIALOG
 Resource2=IDR_MAINFRAME
-Resource3=IDD_SMARTDBDEMO_DIALOG
-Resource4=IDD_DIALOG_ORDER
-Resource5=IDD_ABOUTBOX
-Resource6=IDD_CREATE_XINYONG
+Resource3=IDD_CREATE_XINYONG
+Resource4=IDD_ABOUTBOX
+Resource5=IDD_LOGIN_DIALOG
+Resource6=IDD_DIALOG_ORDER
 Class4=Login
 Resource7=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
 Class5=CLoginDlg
@@ -237,6 +237,15 @@ Filter=D
 LastObject=ID_MENU_LINGYONG
 VirtualFilter=dWC
 
+[CLS:CXinyong]
+Type=0
+HeaderFile=Xinyong.h
+ImplementationFile=Xinyong.cpp
+BaseClass=CDialog
+Filter=D
+LastObject=IDC_COMBO_JIXIRIQI
+VirtualFilter=dWC
+
 [DLG:IDD_CREATE_XINYONG]
 Type=1
 Class=CXinyong
@@ -247,7 +256,7 @@ Control3=IDC_EDIT_IDCARD,edit,1342242944
 Control4=IDC_EDIT1,edit,1342242944
 Control5=IDC_COMBO_HUANKUAN,combobox,1344340227
 Control6=IDC_COMBO_JIXIRIQI,combobox,1344340227
-Control7=IDC_COMBO_DANWEI,combobox,1344340227
+Control7=IDC_COMBO_DANWEI,combobox,1478557955
 Control8=IDC_EDIT_LILV,edit,1342242944
 Control9=IDC_EDIT_MONEY,edit,1342242944
 Control10=IDC_EDIT_FUWUFEI,edit,1342242944
@@ -276,14 +285,5 @@ Control32=IDC_STATIC,static,1342308352
 Control33=IDC_STATIC,static,1342308352
 Control34=IDC_STATIC,static,1342308352
 Control35=IDC_STATIC,static,1342308352
-Control36=IDC_COMBO_QIXIANDANWEI,combobox,1344340226
-
-[CLS:CXinyong]
-Type=0
-HeaderFile=Xinyong.h
-ImplementationFile=Xinyong.cpp
-BaseClass=CDialog
-Filter=D
-LastObject=IDC_COMBO_DANWEI
-VirtualFilter=dWC
+Control36=IDC_COMBO_QIXIANDANWEI,combobox,1478557955
 

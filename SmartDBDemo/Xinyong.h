@@ -15,7 +15,8 @@ class CXinyong : public CDialog
 // Construction
 public:
 	CXinyong(CWnd* pParent = NULL);   // standard constructor
-
+	void conut();
+	void liandong();
 // Dialog Data
 	//{{AFX_DATA(CXinyong)
 	enum { IDD = IDD_CREATE_XINYONG };
@@ -24,6 +25,14 @@ public:
 	CComboBox	m_huankuanfangshi;
 	CComboBox	m_fenlei;
 	CComboBox	m_danwei;
+	CListCtrl	m_list_huankuan;
+	CMonthCalCtrl	m_CtrlDate;
+	CListCtrl	m_list1;
+	CString	m_starttime;
+	CString	m_endtime;
+	CString	m_qixian;
+	CString	m_money;
+	CString	m_lilv;
 	//}}AFX_DATA
 
 
@@ -40,6 +49,9 @@ protected:
 	// Generated message map functions
 	//{{AFX_MSG(CXinyong)
 	virtual BOOL OnInitDialog();
+	afx_msg void OnChangeEditQixian();
+	afx_msg void OnEditchangeComboJixiriqi();
+	afx_msg void OnSelchangeComboJixiriqi();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
