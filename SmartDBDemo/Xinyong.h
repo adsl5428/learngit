@@ -52,6 +52,9 @@ protected:
 	afx_msg void OnChangeEditQixian();
 	afx_msg void OnEditchangeComboJixiriqi();
 	afx_msg void OnSelchangeComboJixiriqi();
+	afx_msg void OnSelchangeComboHuankuan();
+	afx_msg void OnChangeEditLilv();
+	afx_msg void OnChangeEditMoney();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

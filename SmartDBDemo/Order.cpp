@@ -87,7 +87,7 @@ BOOL COrder::OnInitDialog()
 	m_listhuankuan.InsertColumn(1, _T("期数"), LVCFMT_CENTER, 40);        // 插入第2列的列名  
 	m_listhuankuan.InsertColumn(2, _T("还款日"), LVCFMT_CENTER, 110);        // 插入第3列的列名         // 插入第4列的列名  
 	m_listhuankuan.InsertColumn(3, _T("计划还款"), LVCFMT_CENTER, 80);        // 插入第3列的列名         // 插入第4列的列名 
-	m_listhuankuan.InsertColumn(4, _T("实际还款"), LVCFMT_CENTER, 60);        // 插入第3列的列名         // 插入第4列的列名  
+	m_listhuankuan.InsertColumn(4, _T("实际还款"), LVCFMT_CENTER, 80);        // 插入第3列的列名         // 插入第4列的列名  
 	m_listhuankuan.InsertColumn(5, _T("备注"), LVCFMT_CENTER, 287);        // 插入第3列的列名         // 插入第4列的列名  
 	m_listhuankuan.InsertColumn(6, _T("订单id"), LVCFMT_CENTER, 1);        // 插入第3列的列名         // 插入第4列的列名
 	
@@ -201,7 +201,7 @@ void COrder::OnDblclkListHuangkuan(NMHDR* pNMHDR, LRESULT* pResult)
 	{
 		m_Row=pNMListView->iItem;//m_row为被选中行的行序号（int类型成员变量）
 		m_Col=pNMListView->iSubItem;//m_column为被选中行的列序号（int类型成员变量）
-		if (m_Col<4 || m_Col==6) return ;
+		if (m_Col<3 || m_Col==6) return ;
 		m_listhuankuan.GetSubItemRect(pNMListView->iItem, pNMListView->iSubItem,LVIR_LABEL,rc);//取得子项的矩形
 		m_listedit.SetParent(&m_listhuankuan);//转换坐标为列表框中的坐标
 		rc.left-=3;

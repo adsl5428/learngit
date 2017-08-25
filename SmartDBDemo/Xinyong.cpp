@@ -51,12 +51,20 @@ BEGIN_MESSAGE_MAP(CXinyong, CDialog)
 	ON_EN_CHANGE(IDC_EDIT_QIXIAN, OnChangeEditQixian)
 	ON_CBN_EDITCHANGE(IDC_COMBO_JIXIRIQI, OnEditchangeComboJixiriqi)
 	ON_CBN_SELCHANGE(IDC_COMBO_JIXIRIQI, OnSelchangeComboJixiriqi)
+	ON_CBN_SELCHANGE(IDC_COMBO_HUANKUAN, OnSelchangeComboHuankuan)
+	ON_EN_CHANGE(IDC_EDIT_LILV, OnChangeEditLilv)
+	ON_EN_CHANGE(IDC_EDIT_MONEY, OnChangeEditMoney)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CXinyong message handlers
-
+void msgint(int a)
+{
+	CString f;
+	f.Format("%d",a);
+	MessageBox(NULL,f,f,0);
+}
 BOOL CXinyong::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
@@ -144,7 +152,7 @@ void CXinyong::conut()
 	m_jixiriqi.GetLBText(m_jixiriqi.GetCurSel(), strtemp);
 	if (strtemp == "日息")
 	{
-
+		
 	}
 	else if(strtemp == "月息")
 	{
@@ -174,7 +182,7 @@ void CXinyong::conut()
 		izhouqidanwei=30;
 		fzhouqililv = (float)atof(m_lilv)/idanwei;
 	}
-
+//	msgint((int)fzhouqililv);
 	
 
 	iqishu=_ttoi(m_qixian);
@@ -182,11 +190,13 @@ void CXinyong::conut()
 
 	float qihuankuan;
 
+	
 
 	m_huankuanfangshi.GetLBText(m_huankuanfangshi.GetCurSel(), strtemp);
 	if (strtemp=="等额本息")
 	{
-		qihuankuan = ((imoney*fzhouqililv*itianshu)+imoney)/iqishu;
+		qihuankuan = ((imoney*fzhouqililv*iqishu)+imoney)/iqishu;
+//		msgint((int)qihuankuan);
 	}
 	else if (strtemp=="先息后本")
 	{
@@ -202,7 +212,6 @@ void CXinyong::conut()
 		strtemp.Format("%d",i);
 		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
 		
-
 		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
 		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
 		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
@@ -252,12 +261,40 @@ void CXinyong::OnChangeEditQixian()
 void CXinyong::OnEditchangeComboJixiriqi() 
 {
 	// TODO: Add your control notification handler code here
-
+conut();
 }
 
 void CXinyong::OnSelchangeComboJixiriqi() 
 {
 	// TODO: Add your control notification handler code here
-
 	liandong();
+	conut();
+}
+
+void CXinyong::OnSelchangeComboHuankuan() 
+{
+	// TODO: Add your control notification handler code here
+	conut();
+}
+
+void CXinyong::OnChangeEditLilv() 
+{
+	// TODO: If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialog::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+	
+	// TODO: Add your control notification handler code here
+	conut();
+}
+
+void CXinyong::OnChangeEditMoney() 
+{
+	// TODO: If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialog::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+	
+	// TODO: Add your control notification handler code here
+	conut(); 
 }

@@ -69,12 +69,12 @@ END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CCreateOrder message handlers
-void msgint(int a)
-{
-	CString f;
-	f.Format("%d",a);
-	MessageBox(NULL,f,f,0);
-}
+// void msgint(int a)
+// {
+// 	CString f;
+// 	f.Format("%d",a);
+// 	MessageBox(NULL,f,f,0);
+// }
 void CCreateOrder::OnOK() 
 {
 	// TODO: Add extra validation here
