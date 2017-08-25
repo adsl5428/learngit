@@ -18,6 +18,20 @@ laravel
 url('xxxx','xxx')   只能接一个参数 
 url('xxxx',['xxx','xxxxx'])   用数组 可以多接参数
 
+http://blog.csdn.net/ysydao/article/details/51388397    centos 7 安装php7
+systemctl start php-fpm.service  启动php-fpm
+systemctl enable php-fpm.service 添加到开机启动
+http://www.linuxidc.com/Linux/2016-09/135288.htm  centos 7  安装sql 5.7
+http://blog.csdn.net/itchiang/article/details/9012493    自启动 mysql
+
+http://blog.csdn.net/tearofthemyth/article/details/52875233  centos 7 nginx 1.11.5 
+http://blog.csdn.net/zc474235918/article/details/51794083?foxhandler=RssReadRenderProcessHandler  开机启动 nginx
+
+
+
+$request->offsetSet('age',100);  给request成员, 方便 create
+yum remove php-common  卸载php 
+
 This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its de 错误解决办法
 在MySQL中创建函数时出现这种错误的解决方法：
 set global log_bin_trust_function_creators=TRUE;
