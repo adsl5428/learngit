@@ -50,7 +50,6 @@ BEGIN_MESSAGE_MAP(CCreateOrder, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	ON_NOTIFY(NM_CLICK, IDC_LIST1, OnClickList1)
 	ON_BN_DOUBLECLICKED(IDC_BUTTON1, OnDoubleclickedButton1)
-	ON_NOTIFY(MCN_GETDAYSTATE, IDC_MONTHCALENDAR1, OnGetdaystateMonthcalendar1)
 	ON_NOTIFY(MCN_SELECT, IDC_MONTHCALENDAR1, OnSelectMonthcalendar1)
 	ON_EN_SETFOCUS(IDC_EDIT_STARTTIME, OnSetfocusEditStarttime)
 	ON_EN_KILLFOCUS(IDC_EDIT_STARTTIME, OnKillfocusEditStarttime)
@@ -272,11 +271,7 @@ void CCreateOrder::OnDoubleclickedButton1()
 
 }
 
-void CCreateOrder::OnGetdaystateMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult) 
-{
-	// TODO: Add your control notification handler code here
-	*pResult = 0;
-}
+
 
 void CCreateOrder::OnSelectMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult) 
 {

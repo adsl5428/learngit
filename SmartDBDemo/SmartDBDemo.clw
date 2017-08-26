@@ -2,12 +2,12 @@
 
 [General Info]
 Version=1
-LastClass=CXinyong
-LastTemplate=CDialog
+LastClass=CSmartDBDemoDlg
+LastTemplate=CListCtrl
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "SmartDBDemo.h"
 
-ClassCount=9
+ClassCount=10
 Class1=CSmartDBDemoApp
 Class2=CSmartDBDemoDlg
 Class3=CAboutDlg
@@ -15,18 +15,19 @@ Class3=CAboutDlg
 ResourceCount=9
 Resource1=IDD_CREATE_DIALOG
 Resource2=IDR_MAINFRAME
-Resource3=IDD_DIALOG_ORDER
+Resource3=IDD_ABOUTBOX
 Resource4=IDD_SMARTDBDEMO_DIALOG
-Resource5=IDD_ABOUTBOX
-Resource6=IDD_LOGIN_DIALOG
+Resource5=IDD_LOGIN_DIALOG
+Resource6=IDD_CREATE_XINYONG
 Class4=Login
 Resource7=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
 Class5=CLoginDlg
 Class6=CCreateOrder
 Class7=CXiangxi
 Class8=COrder
-Resource8=IDD_CREATE_XINYONG
+Resource8=IDD_DIALOG_ORDER
 Class9=CXinyong
+Class10=CListCtrl_
 Resource9=IDR_MENU_MAIN
 
 [CLS:CSmartDBDemoApp]
@@ -43,7 +44,7 @@ ImplementationFile=SmartDBDemoDlg.cpp
 Filter=D
 BaseClass=CDialog
 VirtualFilter=dWC
-LastObject=CSmartDBDemoDlg
+LastObject=IDC_LIST_TABLES
 
 [CLS:CAboutDlg]
 Type=0
@@ -82,7 +83,7 @@ Control13=IDC_ADD,button,1342242816
 Control14=IDC_EDIT_FIND_NAME,edit,1350631552
 Control15=IDC_BUTTON1,button,1342242816
 Control16=IDC_BUTTON2,button,1342242816
-Control17=IDC_BUTTON3,button,1073807360
+Control17=IDC_BUTTON3,button,1342242816
 
 [MNU:IDR_MENU_MAIN]
 Type=1
@@ -125,6 +126,7 @@ ImplementationFile=Login.cpp
 BaseClass=CDialog
 Filter=D
 VirtualFilter=dWC
+LastObject=ID_FILE_CLOSE
 
 [CLS:CLoginDlg]
 Type=0
@@ -175,7 +177,7 @@ ImplementationFile=CreateOrder.cpp
 BaseClass=CDialog
 Filter=D
 VirtualFilter=dWC
-LastObject=CCreateOrder
+LastObject=IDC_LIST1
 
 [DLG:IDD_LOGIN_DIALOG]
 Type=1
@@ -193,16 +195,16 @@ ImplementationFile=Xiangxi.cpp
 BaseClass=CDialog
 Filter=D
 VirtualFilter=dWC
-LastObject=IDC_LIST_TUPIAN
+LastObject=CXiangxi
 
 [DLG:IDD_DIALOG_ORDER]
 Type=1
 Class=COrder
-ControlCount=28
+ControlCount=38
 Control1=IDC_EDIT_NAME,edit,1342242944
 Control2=IDC_EDIT_IDCARD,edit,1342242944
 Control3=IDC_EDIT_MONEY,edit,1342242944
-Control4=IDC_EDIT_LILV,edit,1342242944
+Control4=IDC_EDIT_LIXI,edit,1342242944
 Control5=IDC_EDIT_FUWUFEI,edit,1342242944
 Control6=IDC_EDIT_STARTTIME,edit,1342242944
 Control7=IDC_EDIT_ENDTIME,edit,1476460672
@@ -219,14 +221,24 @@ Control17=IDC_STATIC,static,1073872896
 Control18=IDC_STATIC,static,1342308352
 Control19=IDC_STATIC,static,1342308352
 Control20=IDC_STATIC,static,1342308352
-Control21=IDC_STATIC,static,1342308352
-Control22=IDC_BUTTON1,button,1342242816
-Control23=IDC_LIST_TUPIAN,SysListView32,1342242825
-Control24=IDC_STATUS,static,1342308353
-Control25=IDC_LIST_HUANGKUAN,SysListView32,1350631425
+Control21=IDC_BUTTON1,button,1073807360
+Control22=IDC_LIST_TUPIAN,SysListView32,1342242825
+Control23=IDC_STATUS,static,1342308353
+Control24=IDC_LIST_HUANGKUAN,SysListView32,1350631425
+Control25=IDC_STATIC,static,1342308352
 Control26=IDC_STATIC,static,1342308352
-Control27=IDC_STATIC,static,1342308352
-Control28=IDC_EDIT_LIST,edit,1082196096
+Control27=IDC_EDIT_ID,edit,1073807489
+Control28=IDC_EDIT_TYPE1,edit,1342242944
+Control29=IDC_STATIC,static,1342308352
+Control30=IDC_EDIT_JINGBANREN,edit,1342242944
+Control31=IDC_STATIC,static,1342308352
+Control32=IDC_EDIT_CHUZIREN,edit,1342242944
+Control33=IDC_EDIT_HUANKUANFANGSHI,edit,1342242944
+Control34=IDC_EDIT_JIXIZHOUQI,edit,1342242944
+Control35=IDC_EDIT_ZHANBI,edit,1342242944
+Control36=IDC_STATIC,static,1342308352
+Control37=IDC_STATIC_ZONGHUAN,static,1342308352
+Control38=IDC_EDIT_QIXIANDANWEI,edit,1342242944
 
 [CLS:COrder]
 Type=0
@@ -234,7 +246,7 @@ HeaderFile=Order.h
 ImplementationFile=Order.cpp
 BaseClass=CDialog
 Filter=D
-LastObject=ID_MENU_LINGYONG
+LastObject=COrder
 VirtualFilter=dWC
 
 [CLS:CXinyong]
@@ -243,7 +255,7 @@ HeaderFile=Xinyong.h
 ImplementationFile=Xinyong.cpp
 BaseClass=CDialog
 Filter=D
-LastObject=IDC_COMBO_JIXIRIQI
+LastObject=ID_OPTIONS_COMPACTDATABASE
 VirtualFilter=dWC
 
 [DLG:IDD_CREATE_XINYONG]
@@ -253,20 +265,20 @@ ControlCount=36
 Control1=IDC_COMBO_FENLEI,combobox,1344340227
 Control2=IDC_EDIT_NAME,edit,1342242944
 Control3=IDC_EDIT_IDCARD,edit,1342242944
-Control4=IDC_EDIT1,edit,1342242944
+Control4=IDC_EDIT_JINGBANREN,edit,1342242944
 Control5=IDC_COMBO_HUANKUAN,combobox,1344340227
 Control6=IDC_COMBO_JIXIRIQI,combobox,1344340227
 Control7=IDC_COMBO_DANWEI,combobox,1478557955
 Control8=IDC_EDIT_LILV,edit,1342242944
 Control9=IDC_EDIT_MONEY,edit,1342242944
 Control10=IDC_EDIT_FUWUFEI,edit,1342242944
-Control11=IDC_EDIT10,edit,1342242944
+Control11=IDC_EDIT_CHUZIREN,edit,1342242944
 Control12=IDC_EDIT_STARTTIME,edit,1342242944
 Control13=IDC_EDIT_QIXIAN,edit,1342242944
 Control14=IDC_BUTTON1,button,1342242816
 Control15=IDC_EDIT_BEIZHU,edit,1344344132
 Control16=IDOK,button,1342177281
-Control17=IDC_EDIT_ENDTIME,edit,1208025216
+Control17=IDC_EDIT_ENDTIME,edit,1476460672
 Control18=IDC_EDIT_HUANKUAN,edit,1073807488
 Control19=IDC_MONTHCALENDAR1,SysMonthCal32,1073807376
 Control20=IDCANCEL,button,1342242816
@@ -282,8 +294,16 @@ Control29=IDC_LIST1,SysListView32,1342242825
 Control30=IDC_STATUS,static,1342308353
 Control31=IDC_LIST_HUANGKUAN,SysListView32,1350631425
 Control32=IDC_STATIC,static,1342308352
-Control33=IDC_STATIC,static,1073872896
+Control33=IDC_STATIC,static,1342308352
 Control34=IDC_STATIC,static,1342308352
 Control35=IDC_STATIC,static,1342308352
 Control36=IDC_COMBO_QIXIANDANWEI,combobox,1478557955
+
+[CLS:CListCtrl_]
+Type=0
+HeaderFile=ListCtrl_.h
+ImplementationFile=ListCtrl_.cpp
+BaseClass=CListCtrl
+Filter=W
+VirtualFilter=FWC
 

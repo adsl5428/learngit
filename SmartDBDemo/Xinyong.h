@@ -17,6 +17,7 @@ public:
 	CXinyong(CWnd* pParent = NULL);   // standard constructor
 	void conut();
 	void liandong();
+	void countendtime();
 // Dialog Data
 	//{{AFX_DATA(CXinyong)
 	enum { IDD = IDD_CREATE_XINYONG };
@@ -33,6 +34,12 @@ public:
 	CString	m_qixian;
 	CString	m_money;
 	CString	m_lilv;
+	CString	m_beizhu;
+	CString	m_fuwufei;
+	CString	m_idcard;
+	CString	m_chuziren;
+	CString	m_jingbanren;
+	CString	m_name;
 	//}}AFX_DATA
 
 
@@ -55,6 +62,13 @@ protected:
 	afx_msg void OnSelchangeComboHuankuan();
 	afx_msg void OnChangeEditLilv();
 	afx_msg void OnChangeEditMoney();
+	afx_msg void OnChangeEditStarttime();
+	afx_msg void OnSetfocusEditStarttime();
+	afx_msg void OnKillfocusEditStarttime();
+	afx_msg void OnSelchangeMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult);
+	virtual void OnOK();
+	afx_msg void OnButton1();
+	afx_msg void OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

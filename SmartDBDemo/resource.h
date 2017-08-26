@@ -55,12 +55,22 @@
 #define IDC_LIST_HUANGKUAN              1038
 #define IDC_EDIT_ENDTIME                1039
 #define IDC_EDIT_LIST                   1040
+#define IDC_EDIT_ID                     1040
 #define IDC_COMBO_DANWEI                1042
 #define IDC_COMBO_JIXIRIQI              1043
 #define IDC_COMBO_FENLEI                1044
 #define IDC_COMBO_HUANKUAN              1045
 #define IDC_EDIT10                      1046
 #define IDC_COMBO_QIXIANDANWEI          1050
+#define IDC_EDIT_HUANKUANFANGSHI        1053
+#define IDC_EDIT_JIXIZHOUQI             1054
+#define IDC_EDIT_ZHANBI                 1055
+#define IDC_EDIT_JINGBANREN             1056
+#define IDC_EDIT_CHUZIREN               1057
+#define IDC_EDIT_TYPE1                  1058
+#define IDC_EDIT_QIXIANDANWEI           1059
+#define IDC_EDIT_LIXI                   1060
+#define IDC_STATIC_ZONGHUAN             1061
 #define ID_FILE_EXIT                    32774
 #define ID_OPTIONS_COMPACTDATABASE      32775
 #define ID_OPTIONS_REPAIRDATABASE       32776
@@ -77,7 +87,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        136
 #define _APS_NEXT_COMMAND_VALUE         32783
-#define _APS_NEXT_CONTROL_VALUE         1052
+#define _APS_NEXT_CONTROL_VALUE         1062
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

@@ -4,7 +4,10 @@
 #include "stdafx.h"
 #include "SmartDBDemo.h"
 #include "Xinyong.h"
+#include "SmartDB.h"
 
+extern CSmartDB connMain;
+extern CSmartDBRecordSet rsMain;
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -21,6 +24,12 @@ CXinyong::CXinyong(CWnd* pParent /*=NULL*/)
 	//{{AFX_DATA_INIT(CXinyong)
 	m_money = _T("");
 	m_lilv = _T("");
+	m_beizhu = _T("");
+	m_fuwufei = _T("");
+	m_idcard = _T("");
+	m_chuziren = _T("");
+	m_jingbanren = _T("");
+	m_name = _T("");
 	//}}AFX_DATA_INIT
 }
 
@@ -42,6 +51,12 @@ void CXinyong::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_QIXIAN, m_qixian);
 	DDX_Text(pDX, IDC_EDIT_MONEY, m_money);
 	DDX_Text(pDX, IDC_EDIT_LILV, m_lilv);
+	DDX_Text(pDX, IDC_EDIT_BEIZHU, m_beizhu);
+	DDX_Text(pDX, IDC_EDIT_FUWUFEI, m_fuwufei);
+	DDX_Text(pDX, IDC_EDIT_IDCARD, m_idcard);
+	DDX_Text(pDX, IDC_EDIT_CHUZIREN, m_chuziren);
+	DDX_Text(pDX, IDC_EDIT_JINGBANREN, m_jingbanren);
+	DDX_Text(pDX, IDC_EDIT_NAME, m_name);
 	//}}AFX_DATA_MAP
 }
 
@@ -54,6 +69,12 @@ BEGIN_MESSAGE_MAP(CXinyong, CDialog)
 	ON_CBN_SELCHANGE(IDC_COMBO_HUANKUAN, OnSelchangeComboHuankuan)
 	ON_EN_CHANGE(IDC_EDIT_LILV, OnChangeEditLilv)
 	ON_EN_CHANGE(IDC_EDIT_MONEY, OnChangeEditMoney)
+	ON_EN_CHANGE(IDC_EDIT_STARTTIME, OnChangeEditStarttime)
+	ON_EN_SETFOCUS(IDC_EDIT_STARTTIME, OnSetfocusEditStarttime)
+	ON_EN_KILLFOCUS(IDC_EDIT_STARTTIME, OnKillfocusEditStarttime)
+	ON_NOTIFY(MCN_SELCHANGE, IDC_MONTHCALENDAR1, OnSelchangeMonthcalendar1)
+	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, OnDblclkList1)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -143,21 +164,11 @@ void CXinyong::conut()
 
 	UpdateData(TRUE);   //控件更新到变量
 
-// 	GetDlgItemText(IDC_EDIT_MONEY,strmoney);
-// 	GetDlgItemText(IDC_EDIT_LILV,strlilv);
-// 	GetDlgItemText(IDC_EDIT_QIXIAN,strqixian);
-// 	GetDlgItemText(IDC_EDIT_STARTTIME,strstart);
+
 	if (m_money.IsEmpty() || m_lilv.IsEmpty() || m_qixian.IsEmpty() || m_starttime.IsEmpty())
 		return ;
 	m_jixiriqi.GetLBText(m_jixiriqi.GetCurSel(), strtemp);
-	if (strtemp == "日息")
-	{
-		
-	}
-	else if(strtemp == "月息")
-	{
 
-	}
 
 
 	m_danwei.GetLBText(m_danwei.GetCurSel(), strtemp);
@@ -254,6 +265,7 @@ void CXinyong::OnChangeEditQixian()
 	// with the ENM_CHANGE flag ORed into the mask.
 	
 	// TODO: Add your control notification handler code here
+	countendtime();
 	conut();
 }
 
@@ -297,4 +309,287 @@ void CXinyong::OnChangeEditMoney()
 	
 	// TODO: Add your control notification handler code here
 	conut(); 
+}
+void CXinyong::countendtime() 
+{
+	UpdateData(true);
+	if (m_starttime.IsEmpty() || m_qixian.IsEmpty())
+	{
+		return ;
+	}
+	CString strtemp;
+	float	fzhouqidanwei;
+	m_qixiandanwei.GetLBText(m_qixiandanwei.GetCurSel(), strtemp);
+	if (strtemp=="周")	
+	{	
+		fzhouqidanwei=7;
+	}
+	else if (strtemp=="月")
+	{	
+		fzhouqidanwei=30.5;
+	}
+	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+	sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+	CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+	
+	
+	// 	int    nYear1,    nMonth1,    nDate1,    nHour1,    nMin1,    nSec1;   
+	// 	sscanf(m_endtime,    "%d-%d-%d %d:%d:%d",    &nYear1,    &nMonth1,    &nDate1,    &nHour1,    &nMin1,    &nSec1);   
+	CTime   e;
+	CTimeSpan qixian(_ttoi(m_qixian)*fzhouqidanwei,0,0,0);
+	e = s+qixian;
+	m_endtime = e.Format("%Y-%m-%d %H:%M:%S");
+	 	
+	// 	m_qixian.Format("%d",qixian.GetDays());
+	UpdateData(FALSE);
+}
+
+void CXinyong::OnChangeEditStarttime() 
+{
+	// TODO: If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialog::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+	
+	// TODO: Add your control notification handler code here
+	countendtime();
+}
+
+void CXinyong::OnSetfocusEditStarttime() 
+{
+	// TODO: Add your control notification handler code here
+	m_CtrlDate.ShowWindow(SW_SHOW);
+	GetDlgItem(IDC_EDIT_BEIZHU)->ShowWindow(SW_HIDE);
+}
+
+void CXinyong::OnKillfocusEditStarttime() 
+{
+	// TODO: Add your control notification handler code here
+		m_CtrlDate.ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_EDIT_BEIZHU)->ShowWindow(SW_SHOW);
+}
+
+
+void CXinyong::OnSelchangeMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult) 
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(true);
+	CString str;  
+	CTime tm;  
+	tm=CTime::GetCurrentTime();
+	//	str=tm.Format("%H:%M:%S");  
+	str=tm.Format("12:00:00");  
+	
+	CString szStr;
+	COleDateTime m_dSelRq  ;
+	m_dSelRq = COleDateTime(((NMSELCHANGE*)pNMHDR)->stSelStart);  
+	UINT nYear,nMonth,nDay;
+	nYear   =  m_dSelRq.GetYear();
+	nMonth  =  m_dSelRq.GetMonth();
+	nDay    =  m_dSelRq.GetDay(); 
+	szStr.Format(_T("%d-%d-%d"),nYear,nMonth,nDay);
+	
+	m_starttime=szStr+" "+str;
+//	m_endtime=szStr+" "+str;
+	
+	UpdateData(false);
+	
+	m_CtrlDate.ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_EDIT_BEIZHU)->ShowWindow(SW_SHOW);
+	GetDlgItem(IDC_EDIT_QIXIAN)->SetFocus();
+	*pResult = 0;
+}
+
+void CXinyong::OnOK() 
+{
+	// TODO: Add extra validation here
+		// TODO: Add extra validation here
+	bool one=true;
+	CString strSQL;
+	CString strdanwei;
+	CString strfenlei;
+	CString strhuankuangfangshi;
+	CString strjixiriqi;
+	CString strqixiandanwei;
+
+m_danwei.GetLBText(m_danwei.GetCurSel(),strdanwei );  //千分/百分
+m_fenlei.GetLBText(m_fenlei.GetCurSel(),strfenlei );  
+m_huankuanfangshi.GetLBText(m_huankuanfangshi.GetCurSel(),strhuankuangfangshi );  
+m_jixiriqi.GetLBText(m_jixiriqi.GetCurSel(), strjixiriqi);  // 天息/月息
+m_qixiandanwei.GetLBText(m_qixiandanwei.GetCurSel(),strqixiandanwei ); // 周 / 月
+	LPTSTR idd;
+	UpdateData(TRUE);
+// 	GetDlgItemText (IDC_EDIT_BEIZHU, strbeizhu);
+// 	GetDlgItemText (IDC_EDIT_FUWUFEI, strfuwufei);
+// 	GetDlgItemText (IDC_EDIT_IDCARD, stridcard);
+// 	GetDlgItemText (IDC_EDIT_LILV,strlilv );
+// 	GetDlgItemText (IDC_EDIT_MONEY,strmoney );
+// 	GetDlgItemText (IDC_EDIT_NAME,strname );
+// 	GetDlgItemText (IDC_EDIT_QIXIAN,strqixian );
+// 	GetDlgItemText (IDC_EDIT_STARTTIME, strstarttime);
+// 	GetDlgItemText (IDC_EDIT_ENDTIME, strendtime);
+
+
+strSQL.Format("INSERT INTO orders (name,type1, money,huankuanfangshi ,qixian ,qixiandanwei,jixizhouqi,zhanbi,lixi ,fuwufei, beizhu , starttime, endtime,jingbanren,chuziren,idcard) 	  VALUES  ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s', '%s', '%s', '%s')", m_name,strfenlei,m_money,strhuankuangfangshi,m_qixian,strqixiandanwei,strjixiriqi,strdanwei, m_lilv,m_fuwufei,	  m_beizhu,m_starttime ,m_endtime,m_jingbanren,m_chuziren,m_idcard);
+
+SetDlgItemText (IDC_STATUS, "正在存入数据...");
+
+	if (connMain.IsConnected())
+	{
+		int len=m_list1.GetItemCount();//取行数
+		if (connMain.Execute (strSQL) == NULL && len>0)
+		{	
+			SetDlgItemText (IDC_STATUS, "正在存入照片...");
+			strSQL.Format("select id from orders where idcard = '%s'",m_idcard);
+			/*MessageBox(strSQL);*/
+			if (rsMain.Open (strSQL, &connMain) != RSOPEN_SUCCESS)
+			/*if (connMain.Execute (strSQL) != NULL)*/
+			{ SetDlgItemText (IDC_STATUS, "数据存入成功,照片存入失败");	return;}
+			
+			idd = (LPTSTR)rsMain.GetColumnString(0);
+
+			rsMain.Close();
+
+			CString sourpath; 
+			CString newpath; 
+			
+			strSQL="insert into pictures (order_id,path) ";
+
+			for(int row=0;row<len;row++)
+			{
+				newpath   = m_list1.GetItemText(row,1);
+				if (CopyFile(m_list1.GetItemText(row,0),m_list1.GetItemText(row,1),false))
+				{
+					m_list1.SetItemText(row, 2, "成功"); 
+					if (one)
+					{	strSQL.Format("%s select '%s' ,'%s' ",strSQL,idd,  newpath.Right( newpath.GetLength()-(newpath.ReverseFind('\\')+1) )); one=false;}
+					else
+						strSQL.Format("%s union all select '%s' ,'%s' ",strSQL,idd, newpath.Right( newpath.GetLength()-(newpath.ReverseFind('\\')+1) ) );					
+				}
+				else
+					m_list1.SetItemText(row, 2, "失败");
+			}
+
+				if (connMain.Execute (strSQL) == NULL)
+					SetDlgItemText (IDC_STATUS, "存入已全完成...");
+				else
+					SetDlgItemText (IDC_STATUS, "存入图片失败...");			
+		}
+		else
+			SetDlgItemText (IDC_STATUS, "存入数据失败...");
+		
+		one=true;
+		len=m_list_huankuan.GetItemCount();//取行数
+		if ( len>0)
+		{	
+			strSQL.Format("select id from orders where idcard = '%s'",m_idcard);
+			if (rsMain.Open (strSQL, &connMain) != RSOPEN_SUCCESS)
+			{ 	return;}			
+			idd = (LPTSTR)rsMain.GetColumnString(0);
+			rsMain.Close();		
+
+			CString temp = idd;
+			SetDlgItemText (IDC_STATUS, "正在存入还款计划...");
+		
+			strSQL="insert into huankuans (qishu , time, money ,  order_id) select ";
+			
+			for(int row=0;row<len;row++)
+			{
+				if (one)
+				{			
+					for (int lie=0;lie<3;lie++)
+					{
+						CString vaule = m_list_huankuan.GetItemText(row,lie);
+//						strSQL = strSQL+" "+vaule;	
+						strSQL.Format("%s '%s', ",strSQL,vaule);
+					}
+					strSQL.Format("%s '%s' ",strSQL,temp);
+					one = false;
+				}
+				else 
+				{	
+					strSQL.Format("%s union all select ",strSQL);
+					for (int lie=0;lie<3;lie++)
+					{
+						CString vaule = m_list_huankuan.GetItemText(row,lie);
+//						strSQL = strSQL+" "+vaule;	
+						strSQL.Format("%s '%s', ",strSQL,vaule);
+					}
+					strSQL.Format("%s '%s' ",strSQL,temp);
+				}
+			
+			}
+			}
+		if (connMain.Execute (strSQL) == NULL)
+			SetDlgItemText (IDC_STATUS, "还款计划已全完成...");
+		else
+				SetDlgItemText (IDC_STATUS, "还款计划失败...");	
+	}
+//	CDialog::OnOK();
+}
+
+void CXinyong::OnButton1() 
+{
+	// TODO: Add your control notification handler code here
+	srand((unsigned)time(NULL)); 
+	CTime m_time;  
+	CString newpath;
+	
+	CString path; 
+	CString pFileName;
+    GetModuleFileName(NULL,path.GetBufferSetLength(MAX_PATH+1),MAX_PATH); 
+    path.ReleaseBuffer(); 
+    int pos = path.ReverseFind('\\'); 
+    CString tt = path.Left(pos); 
+	
+	CString szFilters=L"图片 (*.jpg; *.png; *.bmp)|*.jpg;*.png;*.bmp||";      //定义文件过滤器  
+	//创建打开文件对话框对象，默认的文件扩展名为 
+	CFileDialog fileDlg (TRUE, "", "",OFN_FILEMUSTEXIST|OFN_ALLOWMULTISELECT, szFilters, this);  
+	//调用DoModal()函数显示打开文件对话框  
+	if( fileDlg.DoModal ()==IDOK )  
+	{    
+		POSITION pos;  
+		pos=fileDlg.GetStartPosition();//开始遍历用户选择文件列表  
+		while (pos!=NULL)  
+		{  
+			//m_list1.ResetContent();//清空列表框 m_ctlList为列表控件  
+			CString filename=fileDlg.GetNextPathName(pos);  
+			CString houzui = filename.Right(4);
+			m_time=CTime::GetCurrentTime();             //获取当前时间日期  
+			newpath.Format("%s%s%s-%d%s",tt,"\\imgs\\",m_time.Format(_T("%Y-%m-%d-%H_%M_%S")),rand(),houzui);
+			int i = m_list1.InsertItem(999, _T(""));
+			m_list1.SetItemText(i, 0, filename);                     // 设置第2列(姓名)  
+			m_list1.SetItemText(i, 1, newpath);                      // 设置第3列(年龄)  
+			m_list1.SetItemText(i, 2, _T("待入库"));                      // 设置第4列(性别)  
+			// 			if (!CopyFile(filename,newpath,false))
+			// 			{
+			// 				MessageBox(filename,_T("复制失败"),0);
+			// 			
+			// 			}
+			//			m_list1.AddString(filename);//将文件名添加到列表框 
+		}  
+	} 
+}
+
+void CXinyong::OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult) 
+{
+	// TODO: Add your control notification handler code here
+	// TODO: Add your control notification handler code here
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	NM_LISTVIEW *pNMListView=(NM_LISTVIEW *)pNMHDR;
+	int nItem=pNMListView->iItem;
+	if(nItem>=0 && nItem<m_list1.GetItemCount())    //判断双击位置是否在有数据的列表项上面
+	{
+		POSITION Pos = m_list1.GetFirstSelectedItemPosition();
+		int nSelect = -1;
+		
+		while ( Pos )
+		{
+			nSelect = m_list1.GetNextSelectedItem(Pos);    //nSelect能获得第几行
+			CString s=m_list1.GetItemText(nSelect,0);
+			ShellExecute(NULL, "open", s, NULL, NULL, SW_SHOW);
+		}
+	}
+	*pResult = 0;
 }

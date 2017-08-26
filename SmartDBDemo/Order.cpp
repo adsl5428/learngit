@@ -84,10 +84,11 @@ BOOL COrder::OnInitDialog()
 	
 	m_listhuankuan.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);      // 整行选择、网格线  
 	m_listhuankuan.InsertColumn(0, _T("id"), LVCFMT_CENTER, 1);        // 插入第2列的列名 
-	m_listhuankuan.InsertColumn(1, _T("期数"), LVCFMT_CENTER, 40);        // 插入第2列的列名  
-	m_listhuankuan.InsertColumn(2, _T("还款日"), LVCFMT_CENTER, 110);        // 插入第3列的列名         // 插入第4列的列名  
-	m_listhuankuan.InsertColumn(3, _T("计划还款"), LVCFMT_CENTER, 80);        // 插入第3列的列名         // 插入第4列的列名 
-	m_listhuankuan.InsertColumn(4, _T("实际还款"), LVCFMT_CENTER, 80);        // 插入第3列的列名         // 插入第4列的列名  
+	m_listhuankuan.InsertColumn(1, _T("期数"), LVCFMT_CENTER, 40);        // 插入第2列的列名
+	m_listhuankuan.InsertColumn(2, _T("还款日"), LVCFMT_CENTER, 110);   
+	m_listhuankuan.InsertColumn(3, _T("计划还款"), LVCFMT_CENTER, 80); 
+     
+	m_listhuankuan.InsertColumn(4, _T("实际还款"), LVCFMT_CENTER, 80);      
 	m_listhuankuan.InsertColumn(5, _T("备注"), LVCFMT_CENTER, 287);        // 插入第3列的列名         // 插入第4列的列名  
 	m_listhuankuan.InsertColumn(6, _T("订单id"), LVCFMT_CENTER, 1);        // 插入第3列的列名         // 插入第4列的列名
 	
@@ -107,8 +108,10 @@ BOOL COrder::OnInitDialog()
 	while (!rsMain.IsEOF())
 	{
 		for (i=0; i < rsMain.FieldsCount(); i++)
-		{		
-			int ikongjian[]={IDC_STATIC_ID,IDC_EDIT_NAME,IDC_EDIT_IDCARD,IDC_EDIT_MONEY,IDC_EDIT_QIXIAN,IDC_EDIT_LILV,IDC_EDIT_FUWUFEI,IDC_EDIT_BEIZHU,IDC_EDIT_STARTTIME,IDC_EDIT_ENDTIME};
+		{	
+			int ikongjian[]={IDC_STATIC_ID,IDC_EDIT_NAME,IDC_EDIT_TYPE1,IDC_EDIT_MONEY,
+				IDC_EDIT_HUANKUANFANGSHI,IDC_EDIT_QIXIAN,IDC_EDIT_QIXIANDANWEI,IDC_EDIT_JIXIZHOUQI,IDC_EDIT_ZHANBI
+				,IDC_EDIT_LIXI,IDC_EDIT_FUWUFEI,IDC_EDIT_BEIZHU,IDC_EDIT_STARTTIME,IDC_EDIT_ENDTIME,IDC_EDIT_JINGBANREN,IDC_EDIT_CHUZIREN,IDC_EDIT_IDCARD};
 			SetDlgItemText(ikongjian[i],(LPTSTR)rsMain.GetColumnString(i));
 		}
 		rsMain.MoveNext();
@@ -163,6 +166,8 @@ BOOL COrder::OnInitDialog()
 	}
 	rsMain.Close();
 
+	countallhuan();
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -201,7 +206,7 @@ void COrder::OnDblclkListHuangkuan(NMHDR* pNMHDR, LRESULT* pResult)
 	{
 		m_Row=pNMListView->iItem;//m_row为被选中行的行序号（int类型成员变量）
 		m_Col=pNMListView->iSubItem;//m_column为被选中行的列序号（int类型成员变量）
-		if (m_Col<3 || m_Col==6) return ;
+		if (m_Col<2 || m_Col==6) return ;
 		m_listhuankuan.GetSubItemRect(pNMListView->iItem, pNMListView->iSubItem,LVIR_LABEL,rc);//取得子项的矩形
 		m_listedit.SetParent(&m_listhuankuan);//转换坐标为列表框中的坐标
 		rc.left-=3;
@@ -224,11 +229,18 @@ void COrder::OnDblclkListHuangkuan(NMHDR* pNMHDR, LRESULT* pResult)
 void COrder::OnKillfocusEditList() 
 {
 	// TODO: Add your control notification handler code here
-	CString tem;
+	CString tem,tem2;
 	CString strid;
 	int iid;
 	m_listedit.GetWindowText(tem);//得到用户输入的新的内容
-	if (tem.IsEmpty()) {m_listedit.ShowWindow(SW_HIDE); return ;}
+	//if (tem.IsEmpty()) {m_listedit.ShowWindow(SW_HIDE); return ;}
+	tem2=m_listhuankuan.GetItemText(m_Row,m_Col);   //设置编辑框的新内容
+	if (tem == tem2)
+	{
+		m_listedit.ShowWindow(SW_HIDE);      //应藏编辑框
+		SetDlgItemText(IDC_STATUS,"数据无变动");
+		return ;
+	}
 
 	strid=m_listhuankuan.GetItemText(m_Row,0);   //设置编辑框的新内容
 	iid=_ttoi(strid);
@@ -248,8 +260,32 @@ void COrder::OnKillfocusEditList()
 
 
 	if (connMain.Execute (strsql) == NULL)
+	{	
+		countallhuan();
 		SetDlgItemText(IDC_STATUS,"更新成功");
+	}
 	else
 		SetDlgItemText(IDC_STATUS,"更新失败");
 }
+void COrder::countallhuan()
+{
+	int allhuan=0;
+	CString vaule;
+	int col = 4;
+	int row = m_listhuankuan.GetItemCount();
+	vaule.Format("%d",row);
+	for (int i= 0;i<row;i++)
+	{
+		vaule=m_listhuankuan.GetItemText(i,col);
+		allhuan+=_ttoi(vaule);
+	}
+	vaule.Format("%d",allhuan);
+	SetDlgItemText(IDC_STATIC_ZONGHUAN,vaule);
+} 
 
+void COrder::OnOK() 
+{
+	// TODO: Add extra validation here
+	return ;
+	//CDialog::OnOK();
+}

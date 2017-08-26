@@ -21,7 +21,7 @@ public:
 	UINT ExecuteQueryAndShow (LPCTSTR strSelectQuery);
 	CSmartDBDemoDlg(CWnd* pParent = NULL);	// standard constructor
 	bool m_login;
-	
+
 // Dialog Data
 	//{{AFX_DATA(CSmartDBDemoDlg)
 	enum { IDD = IDD_SMARTDBDEMO_DIALOG };
@@ -64,6 +64,7 @@ protected:
 	afx_msg void OnButton1();
 	afx_msg void OnButton2();
 	afx_msg void OnDblclkListData(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnColumnclickData(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnButton3();
 	afx_msg void OnMenuLingyong();
 	afx_msg void OnMenuXinyong();

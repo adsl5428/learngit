@@ -22,7 +22,9 @@ static char THIS_FILE[] = __FILE__;
 CSmartDB connMain;
 CSmartDBRecordSet rsMain;
 int orderid;
+int sort_column; // 记录点击的列
 
+bool method; // 记录比较方法
 /////////////////////////////////////////////////////////////////////////////
 // CAboutDlg dialog used for App About
 
@@ -111,6 +113,7 @@ BEGIN_MESSAGE_MAP(CSmartDBDemoDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, OnButton2)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST_DATA, OnDblclkListData)
+	ON_NOTIFY(LVN_COLUMNCLICK,IDC_LIST_DATA, OnColumnclickData)
 	ON_BN_CLICKED(IDC_BUTTON3, OnButton3)
 	ON_COMMAND(ID_MENU_LINGYONG, OnMenuLingyong)
 	ON_WM_CANCELMODE()
@@ -122,7 +125,41 @@ END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CSmartDBDemoDlg message handlers
-
+// 比较函数
+static int CALLBACK MyCompareProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
+{
+	
+	//从参数中提取所需比较lc的两行数据
+	
+	int row1= (int)lParam1;
+	int row2 =(int)lParam2;
+	CListCtrl*lc= (CListCtrl*)lParamSort;
+	
+	CString lp1= lc->GetItemText(row1,sort_column);
+	CString lp2= lc->GetItemText(row2,sort_column);
+	
+	
+	//比较，对不同的列，不同比较，注意记录前一次排序方向，下一次要相反排序
+	
+	if(sort_column<2)
+	{
+		//int型比较
+		if(method)
+			return atoi(lp1)-atoi(lp2);
+		else
+			return atoi(lp1)-atoi(lp1);
+	}
+	else
+	{
+		//文字型比较
+			if(method)
+				return lp1.CompareNoCase(lp2);
+			else
+				return lp2.CompareNoCase(lp1);
+	}
+	
+	return 0;
+ }
 BOOL CSmartDBDemoDlg::OnInitDialog()
 {
 
@@ -403,29 +440,31 @@ UINT CSmartDBDemoDlg::ExecuteQueryAndShow(LPCTSTR strSelectQuery)
 		return nRetVal;
 
 	// Add list of fields from table into list box
-// 	for (i=0; i < rsMain.FieldsCount(); i++)
-// 	{
-// 		CString strBuffer;
-// 		nType = rsMain.GetFieldType(i);
-// 		strBuffer.Format("%s (%s)", rsMain.GetFieldName(i), strTypeNames[nType]);
-// 		m_listData.InsertColumn(i, strBuffer, LVCFMT_LEFT, 60);
-// 	}
+	CString title[18]={"id","名字","类型","金额","还款方式","周","期","?息","占比","息","服务费","备注","借款日期","结束日期","经办人","借款人","身份证"};
+	int kuan[18]={20,60,60,80,80,30,40,40,40,40,60,200,100,100,60,60,60};
+	for (i=0; i < rsMain.FieldsCount(); i++)
+	{
+		CString strBuffer;
+		nType = rsMain.GetFieldType(i);
+		strBuffer.Format("%s (%s)", rsMain.GetFieldName(i), strTypeNames[nType]);
+		m_listData.InsertColumn(i, title[i], LVCFMT_LEFT, kuan[i]);
+	}
 	CString m_strDBName;
 	GetDlgItemText(IDC_EDIT_DBNAME, m_strDBName);
-	if (m_strDBName == "qin")
-	{
-		m_listData.InsertColumn(0, _T("id"), LVCFMT_LEFT, 1);        // 插入第2列的列名  
-		m_listData.InsertColumn(1, _T("名字"), LVCFMT_LEFT, 70);        // 插入第3列的列名     
-		m_listData.InsertColumn(2, _T("身份证"), LVCFMT_LEFT, 70);        // 插入第3列的列名  
-		m_listData.InsertColumn(3, _T("金额"), LVCFMT_LEFT, 70);        // 插入第3列的列名 
-		m_listData.InsertColumn(4, _T("期限"), LVCFMT_LEFT, 40);        // 插入第3列的列名 
-		m_listData.InsertColumn(6, _T("日利(千分)"), LVCFMT_LEFT,50);        // 插入第3列的列名 
-		m_listData.InsertColumn(7, _T("已还"), LVCFMT_LEFT,50);        // 插入第3列的列名 
-		m_listData.InsertColumn(8, _T("服务费"), LVCFMT_LEFT, 70);        // 插入第3列的列名
-		m_listData.InsertColumn(9, _T("备注"), LVCFMT_LEFT, 180);        // 插入第3列的列名  
-		m_listData.InsertColumn(10, _T("借款日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
-		m_listData.InsertColumn(11, _T("结束日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
-	}
+// 	if (m_strDBName == "qin")
+// 	{
+// 		m_listData.InsertColumn(0, _T("id"), LVCFMT_LEFT, 1);        // 插入第2列的列名  
+// 		m_listData.InsertColumn(1, _T("名字"), LVCFMT_LEFT, 70);        // 插入第3列的列名     
+// 		m_listData.InsertColumn(2, _T("身份证"), LVCFMT_LEFT, 70);        // 插入第3列的列名  
+// 		m_listData.InsertColumn(3, _T("金额"), LVCFMT_LEFT, 70);        // 插入第3列的列名 
+// 		m_listData.InsertColumn(4, _T("期限"), LVCFMT_LEFT, 40);        // 插入第3列的列名 
+// 		m_listData.InsertColumn(6, _T("日利(千分)"), LVCFMT_LEFT,50);        // 插入第3列的列名 
+// 		m_listData.InsertColumn(7, _T("已还"), LVCFMT_LEFT,50);        // 插入第3列的列名 
+// 		m_listData.InsertColumn(8, _T("服务费"), LVCFMT_LEFT, 70);        // 插入第3列的列名
+// 		m_listData.InsertColumn(9, _T("备注"), LVCFMT_LEFT, 180);        // 插入第3列的列名  
+// 		m_listData.InsertColumn(10, _T("借款日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
+// 		m_listData.InsertColumn(11, _T("结束日期"), LVCFMT_LEFT, 120);        // 插入第3列的列名 
+// 	}
 	LVITEM lvItem;
 
 	INT nRecNum=0;
@@ -531,8 +570,10 @@ void CSmartDBDemoDlg::OnHelpAboutsmartsb()
 void CSmartDBDemoDlg::OnAdd() 
 {
 	// TODO: Add your control notification handler code here
-	CCreateOrder createorder;
-	createorder.DoModal();
+	CXinyong xinyong;
+	xinyong.DoModal();
+// 	CCreateOrder createorder;
+// 	createorder.DoModal();
 }
 
 void CSmartDBDemoDlg::OnButton1() 
@@ -620,7 +661,23 @@ void CSmartDBDemoDlg::OnButton2()
 		strQuery.Format("SELECT * FROM %s", "orders");
 		ExecuteQueryAndShow (strQuery);
 }
+void CSmartDBDemoDlg::OnColumnclickData(NMHDR*pNMHDR, LRESULT*pResult)
+{
 
+	LPNMLISTVIEW pNMLV =reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	// TODO:在此添加控件通知处理程序代码
+	sort_column = pNMLV->iSubItem;//点击的列
+	
+	int count=m_listData.GetItemCount();
+	
+	for (int i=0;i<count;i++)
+		m_listData.SetItemData(i,i); // 每行的比较关键字，此处为列序号（点击的列号），可以设置为其他比较函数的第一二个参数
+	
+	m_listData.SortItems(MyCompareProc,(DWORD_PTR)&m_listData);//排序第二个参数是比较函数的第三个参数
+	
+	method = !method;
+	*pResult=0;
+}
 void CSmartDBDemoDlg::OnDblclkListData(NMHDR* pNMHDR, LRESULT* pResult) 
 {
 	// TODO: Add your control notification handler code here
@@ -648,11 +705,11 @@ void CSmartDBDemoDlg::OnDblclkListData(NMHDR* pNMHDR, LRESULT* pResult)
 void CSmartDBDemoDlg::OnButton3() 
 {
 	// TODO: Add your control notification handler code here
-	CTime current_time = CTime::GetCurrentTime();
-    CTimeSpan tmspan(7,0,0,0); 
-    CTime t = current_time + tmspan ;
-    CString str = t.Format("%Y-%m-%d %H:%M:%S");
-    AfxMessageBox(str);
+	CString strQuery;
+	CString strname;
+	GetDlgItemText(IDC_EDIT_FIND_NAME,strname);
+	strQuery.Format(_T("SELECT * FROM %s "),_T("orders"));
+	ExecuteQueryAndShow (strQuery);
 }
 
 void CSmartDBDemoDlg::OnMenuLingyong() 

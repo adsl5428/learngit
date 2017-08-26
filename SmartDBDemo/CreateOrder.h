@@ -49,7 +49,6 @@ protected:
 	afx_msg void OnButton1();
 	afx_msg void OnClickList1(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnDoubleclickedButton1();
-	afx_msg void OnGetdaystateMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnSelectMonthcalendar1(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnSetfocusEditStarttime();
 	afx_msg void OnKillfocusEditStarttime();

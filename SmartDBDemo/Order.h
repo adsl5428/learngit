@@ -17,6 +17,7 @@ public:
 	COrder(CWnd* pParent = NULL);   // standard constructor
 	int m_Col;
 	int m_Row;
+	void countallhuan();
 // Dialog Data
 	//{{AFX_DATA(COrder)
 	enum { IDD = IDD_DIALOG_ORDER };
@@ -44,6 +45,7 @@ protected:
 	afx_msg void OnDblclkListTupian(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnDblclkListHuangkuan(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnKillfocusEditList();
+	virtual void OnOK();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
