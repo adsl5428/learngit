@@ -12,7 +12,21 @@ vue cli
 vue route
 vue axios
 
+ show variables like '%character%';  查看数据库编码
+
 zip -r _____.zip /home/wwwroot/xahot
+
+开启  proc_open,proc_close,proc_nice,proc_terminate,leak,proc_get_status 函数
+php.ini
+linux下用 /disable_functions 查找 把上面  那些删掉  
+
+laravel  nginx 静态配置
+
+location / {
+#try_files $uri $uri/ =404;
+try_files $uri $uri/ /index.php?$query_string;
+}
+
 
 laravel 
 url('xxxx','xxx')   只能接一个参数 
@@ -119,6 +133,7 @@ composer 报proc_open(): fork failed errors错误解决方法
 /sbin/mkswap /var/swap.1
 /sbin/swapon /var/swap.1
 
+https://www.vpser.net/security/linux-iptables.html  //防火墙配置 centos7  lnmp 安装后 必须
 
 linux 安装composer
 机器要安装php
@@ -445,7 +460,8 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
 穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
 
 要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
-
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
 ssh-keygen -t rsa -C "youremail@example.com"   创建ssh key, 在用户主目录下  有公key , 私key
 
 应该要在远程 建立一个 对应的项目
