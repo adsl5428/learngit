@@ -12,6 +12,12 @@ vue cli
 vue route
 vue axios
 
+下载镜像 docker pull registry.cn-hangzhou.aliyuncs.com/careyjike/lnmp:v1
+
+启动镜像 docker run -dti -v /wwwroot:/wdata/www -p 80:80 -p 3309:3306 --restart=always --name=lnmp registry.cn-hangzhou.aliyuncs.com/xiaoer_docker/php7-laravel5:1.0.6
+
+docker exec -it __容器名__ bash   进入容器
+
  show variables like '%character%';  查看数据库编码
 
 zip -r _____.zip /home/wwwroot/xahot
