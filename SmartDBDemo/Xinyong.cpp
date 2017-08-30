@@ -216,6 +216,12 @@ void CXinyong::conut()
 		xianxihouben = true;
 	}
 		
+
+	if (iqishu==1)    //只有一期的的情况
+	{
+	}
+
+	else{
 	int i=1;
 	for (;i<=iqishu;i++)
 	{
@@ -255,6 +261,8 @@ void CXinyong::conut()
 		strtemp.Format("%0.0f",qihuankuan+imoney);
 		m_list_huankuan.SetItemText(x, 2, strtemp);              //计划还款金额
 	}
+	}
+
 } 
 
 void CXinyong::OnChangeEditQixian() 
