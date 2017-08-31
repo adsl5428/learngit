@@ -16,8 +16,10 @@ class CXinyong : public CDialog
 public:
 	CXinyong(CWnd* pParent = NULL);   // standard constructor
 	void conut();
+	void conut2();
 	void liandong();
 	void countendtime();
+	CString m_last;
 // Dialog Data
 	//{{AFX_DATA(CXinyong)
 	enum { IDD = IDD_CREATE_XINYONG };
@@ -71,6 +73,12 @@ protected:
 	afx_msg void OnButton1();
 	afx_msg void OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnChangeEditXuhuankuan();
+	afx_msg void OnEditchangeComboQixiandanwei();
+	afx_msg void OnEditchangeComboDanwei();
+	afx_msg void OnSelchangeComboDanwei();
+	afx_msg void OnSelchangeComboQixiandanwei();
+	afx_msg void OnSetfocusEditXuhuankuan();
+	afx_msg void OnSetfocusEditLilv();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

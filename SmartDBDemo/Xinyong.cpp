@@ -78,6 +78,12 @@ BEGIN_MESSAGE_MAP(CXinyong, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, OnDblclkList1)
 	ON_EN_CHANGE(IDC_EDIT_XUHUANKUAN, OnChangeEditXuhuankuan)
+	ON_CBN_EDITCHANGE(IDC_COMBO_QIXIANDANWEI, OnEditchangeComboQixiandanwei)
+	ON_CBN_EDITCHANGE(IDC_COMBO_DANWEI, OnEditchangeComboDanwei)
+	ON_CBN_SELCHANGE(IDC_COMBO_DANWEI, OnSelchangeComboDanwei)
+	ON_CBN_SELCHANGE(IDC_COMBO_QIXIANDANWEI, OnSelchangeComboQixiandanwei)
+	ON_EN_SETFOCUS(IDC_EDIT_XUHUANKUAN, OnSetfocusEditXuhuankuan)
+	ON_EN_SETFOCUS(IDC_EDIT_LILV, OnSetfocusEditLilv)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -159,65 +165,77 @@ void CXinyong::liandong()
 }
 void CXinyong::conut()
 {
-	float fzhouqililv;
-	int imoney,itianshu,idanwei,izhouqidanwei,iqishu,ixuhuankuan;
+	if (m_last == "huankuan")
+	{
+		conut2();
+		return ;
+	}
+	float fzhouqililv,frixi,fzhouqidanwei;
+	int imoney,itianshu,idanwei,iqishu;
 	CString strtemp;
 	bool xianxihouben=false;
-
+	
 
 	UpdateData(TRUE);   //控件更新到变量
 
 
-	if (m_money.IsEmpty() || m_xuhuankuan.IsEmpty() || m_qixian.IsEmpty() || m_starttime.IsEmpty())
+	if (m_money.IsEmpty() || m_lilv.IsEmpty() || m_qixian.IsEmpty() || m_starttime.IsEmpty())
 		return ;
-
-	iqishu=_ttoi(m_qixian);
-	imoney = _ttoi(m_money);
-	ixuhuankuan = _ttoi(m_xuhuankuan);
-	
-	if (ixuhuankuan<imoney) return;
-	
-
-// 	MessageBox(m_xuhuankuan);
-// 	MessageBox(m_money);
-
-	
-
-	//MessageBox(m_lilv);
-
-/*	m_jixiriqi.GetLBText(m_jixiriqi.GetCurSel(), strtemp);*/
-
+	frixi=atof(m_lilv);
 	m_danwei.GetLBText(m_danwei.GetCurSel(), strtemp);
 	if (strtemp=="百分")
+	{	
+		frixi=atof(m_lilv)*(float)10;
 		idanwei=100;
+	}
 	else if (strtemp=="千分")
+	{	
 		idanwei=1000;
+	}
 
-	m_lilv.Format("%f",(float)(ixuhuankuan-imoney)/(float)iqishu/(float)imoney*(float)idanwei);		//1个单位周期利率
+
+	m_jixiriqi.GetLBText(m_jixiriqi.GetCurSel(), strtemp);
+	if (strtemp=="月息")
+	{
+		frixi=frixi/(float)30.5;
+	}
 
 
-	UpdateData(false);
+// 	m_danwei.GetLBText(m_danwei.GetCurSel(), strtemp);
+// 	if (strtemp=="百分")
+// 		idanwei=100;
+// 	else if (strtemp=="千分")
+// 		idanwei=1000;
+
+
 	m_list_huankuan.DeleteAllItems();					// 全部清空
 	imoney = _ttoi(m_money);
-	itianshu = _ttoi(m_qixian)*izhouqidanwei;
+	itianshu = _ttoi(m_qixian)*fzhouqidanwei;
 
 	m_qixiandanwei.GetLBText(m_qixiandanwei.GetCurSel(), strtemp);
 	if (strtemp=="周")	
 	{	
-		izhouqidanwei=7;
-		fzhouqililv = (float)atof(m_lilv)/idanwei*7;
+		fzhouqidanwei = 7;
+		fzhouqililv = frixi*(float)7;
 	}
 	else if (strtemp=="月")
 	{	
-		izhouqidanwei=30;
-		fzhouqililv = (float)atof(m_lilv)/idanwei;
+		fzhouqidanwei = 30.5;
+		fzhouqililv = frixi*(float)30.5;
 	}
 //	msgint((int)fzhouqililv);
 	
 
+	iqishu=_ttoi(m_qixian);
+
+
 	float qihuankuan;
 
-	
+	fzhouqililv = fzhouqililv/(float)1000;
+
+	m_xuhuankuan.Format("%0.0f",imoney+imoney*fzhouqililv*iqishu);
+	UpdateData(false);
+
 
 	m_huankuanfangshi.GetLBText(m_huankuanfangshi.GetCurSel(), strtemp);
 	if (strtemp=="等额本息")
@@ -233,7 +251,8 @@ void CXinyong::conut()
 	}
 		
 
-	if (iqishu==1)    //只有一期的的情况
+
+	if (iqishu==1 || iqishu ==0)    //只有一期的的情况
 	{
 		int x = m_list_huankuan.InsertItem(999, _T(""));
 		strtemp.Format("%d",1);
@@ -244,20 +263,17 @@ void CXinyong::conut()
 		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
 
 
-		CTimeSpan m_timespan(izhouqidanwei,0,0,0); // 
+		CTimeSpan m_timespan(fzhouqidanwei,0,0,0); // 
 		s=s+m_timespan;
 		
 		strtemp = s.Format("%Y-%m-%d");
 		m_list_huankuan.SetItemText(x, 1, strtemp);               //还款日
 		
-		strtemp.Format("%0.0f",qihuankuan);
-		m_list_huankuan.SetItemText(x, 2, strtemp);              //计划还款金额
-
+		m_list_huankuan.SetItemText(x, 2, m_xuhuankuan);              //计划还款金额
 
 	}
 
-	else
-	{
+	else{
 	int i=1;
 	for (;i<=iqishu;i++)
 	{
@@ -270,7 +286,7 @@ void CXinyong::conut()
 		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
 
 
-		CTimeSpan m_timespan(izhouqidanwei*(i-1),0,0,0); // 
+		CTimeSpan m_timespan(fzhouqidanwei*(i-1),0,0,0); // 3天，4小时，5分，6秒
 		s=s+m_timespan;
 
 		strtemp = s.Format("%Y-%m-%d");
@@ -286,7 +302,7 @@ void CXinyong::conut()
 		strtemp.Format("%d",iqishu+1);
 		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
 		
-		CTimeSpan m_timespan(izhouqidanwei*(i-1),0,0,0); // 3天，4小时，5分，6秒
+		CTimeSpan m_timespan(fzhouqidanwei*(i-1),0,0,0); // 3天，4小时，5分，6秒
 		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
 		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
 		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
@@ -646,5 +662,204 @@ void CXinyong::OnChangeEditXuhuankuan()
 	// with the ENM_CHANGE flag ORed into the mask.
 	
 	// TODO: Add your control notification handler code here
+	conut2();
+}
+
+void CXinyong::OnEditchangeComboQixiandanwei() 
+{	conut();}
+
+void CXinyong::OnEditchangeComboDanwei() 
+{	conut();}
+
+void CXinyong::OnSelchangeComboDanwei() 
+{
+	// TODO: Add your control notification handler code here
 	conut();
+}
+
+void CXinyong::OnSelchangeComboQixiandanwei() 
+{
+	// TODO: Add your control notification handler code here
+	conut();
+}
+void CXinyong::conut2()
+{
+
+	float fzhouqililv,frixi,fzhouqidanwei;
+	int imoney,itianshu,idanwei,iqishu,ixuhuankuan;
+	CString strtemp;
+	bool xianxihouben=false;
+	
+
+	UpdateData(TRUE);   //控件更新到变量
+
+
+	if (m_money.IsEmpty() || m_xuhuankuan.IsEmpty() || m_qixian.IsEmpty() || m_starttime.IsEmpty())
+		return ;
+	iqishu=_ttoi(m_qixian);
+	imoney = _ttoi(m_money);
+	itianshu = _ttoi(m_qixian)*fzhouqidanwei;
+	ixuhuankuan = _ttoi(m_xuhuankuan);
+	if (ixuhuankuan < imoney) return; 
+
+	//算出日利息
+	frixi = ixuhuankuan-imoney;    //利息
+	frixi = frixi/iqishu/imoney;			//每期利率 
+	m_qixiandanwei.GetLBText(m_qixiandanwei.GetCurSel(), strtemp);
+	if (strtemp=="周")		
+		fzhouqidanwei = 7;
+	else if (strtemp=="月")	
+		fzhouqidanwei = 30.5;
+	frixi = frixi/fzhouqidanwei;// 每天 利率
+	m_danwei.GetLBText(m_danwei.GetCurSel(), strtemp);
+
+	if (strtemp=="百分")	
+		frixi=frixi*(float)100;
+	else if(strtemp=="千分")
+		frixi=frixi*(float)1000;
+	m_jixiriqi.GetLBText(m_jixiriqi.GetCurSel(), strtemp);
+	if (strtemp=="月息")
+	{
+		frixi=frixi*(float)30.5;
+	}
+
+	m_lilv.Format("%f",frixi);
+	UpdateData(false);
+
+	frixi=atof(m_lilv);
+	m_danwei.GetLBText(m_danwei.GetCurSel(), strtemp);
+	if (strtemp=="百分")
+	{	
+		frixi=atof(m_lilv)*(float)10;
+		idanwei=100;
+	}
+	else if (strtemp=="千分")
+	{	
+		idanwei=1000;
+	}
+
+
+	m_jixiriqi.GetLBText(m_jixiriqi.GetCurSel(), strtemp);
+	if (strtemp=="月息")
+	{
+		frixi=frixi/(float)30.5;
+	}
+
+
+// 	m_danwei.GetLBText(m_danwei.GetCurSel(), strtemp);
+// 	if (strtemp=="百分")
+// 		idanwei=100;
+// 	else if (strtemp=="千分")
+// 		idanwei=1000;
+
+
+	m_list_huankuan.DeleteAllItems();					// 全部清空
+
+	m_qixiandanwei.GetLBText(m_qixiandanwei.GetCurSel(), strtemp);
+	if (strtemp=="周")	
+	{	
+		fzhouqidanwei = 7;
+		fzhouqililv = frixi*(float)7;
+	}
+	else if (strtemp=="月")
+	{	
+		fzhouqidanwei = 30.5;
+		fzhouqililv = frixi*(float)30.5;
+	}
+//	msgint((int)fzhouqililv);
+
+	float qihuankuan;
+
+	fzhouqililv = fzhouqililv/(float)1000;
+
+
+	m_huankuanfangshi.GetLBText(m_huankuanfangshi.GetCurSel(), strtemp);
+	if (strtemp=="等额本息")
+	{
+		qihuankuan = ((imoney*fzhouqililv*iqishu)+imoney)/iqishu;
+//		msgint((int)qihuankuan);
+	}
+	else if (strtemp=="先息后本")
+	{
+		qihuankuan = imoney*fzhouqililv;
+		iqishu--;
+		xianxihouben = true;
+	}
+		
+
+	if (iqishu==1 || iqishu ==0)    //只有一期的的情况
+	{
+		int x = m_list_huankuan.InsertItem(999, _T(""));
+		strtemp.Format("%d",1);
+		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
+
+		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+
+
+		CTimeSpan m_timespan(fzhouqidanwei,0,0,0); // 
+		s=s+m_timespan;
+		
+		strtemp = s.Format("%Y-%m-%d");
+		m_list_huankuan.SetItemText(x, 1, strtemp);               //还款日
+		
+		m_list_huankuan.SetItemText(x, 2, m_xuhuankuan);              //计划还款金额
+
+	}
+
+	else{
+	int i=1;
+	for (;i<=iqishu;i++)
+	{
+		int x = m_list_huankuan.InsertItem(999, _T(""));
+		strtemp.Format("%d",i);
+		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
+		
+		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+
+
+		CTimeSpan m_timespan(fzhouqidanwei*(i-1),0,0,0); // 3天，4小时，5分，6秒
+		s=s+m_timespan;
+
+		strtemp = s.Format("%Y-%m-%d");
+		m_list_huankuan.SetItemText(x, 1, strtemp);               //还款日
+		
+		strtemp.Format("%0.0f",qihuankuan);
+		m_list_huankuan.SetItemText(x, 2, strtemp);              //计划还款金额
+	}
+
+	if (xianxihouben)
+	{
+		int x = m_list_huankuan.InsertItem(999, _T(""));
+		strtemp.Format("%d",iqishu+1);
+		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
+		
+		CTimeSpan m_timespan(fzhouqidanwei*(i-1),0,0,0); // 3天，4小时，5分，6秒
+		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+		s=s+m_timespan;
+		strtemp = s.Format("%Y-%m-%d");
+		m_list_huankuan.SetItemText(x, 1, strtemp);               //还款日
+		
+		strtemp.Format("%0.0f",qihuankuan+imoney);
+		m_list_huankuan.SetItemText(x, 2, strtemp);              //计划还款金额
+	}
+	}
+
+} 
+
+void CXinyong::OnSetfocusEditXuhuankuan() 
+{
+	// TODO: Add your control notification handler code here
+	m_last = "huankuan";
+}
+
+void CXinyong::OnSetfocusEditLilv() 
+{
+	// TODO: Add your control notification handler code here
+	m_last = "lilv";
 }

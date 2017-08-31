@@ -6,13 +6,8 @@
 --------------------Configuration: SmartDBDemo - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\admin\AppData\Local\Temp\RSP9731.tmp" with contents
-[
-/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Release/" /Fp"Release/SmartDBDemo.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
-"C:\Users\admin\learngit\SmartDBDemo\Xinyong.cpp"
-]
-Creating command line "cl.exe @C:\Users\admin\AppData\Local\Temp\RSP9731.tmp" 
-Creating temporary file "C:\Users\admin\AppData\Local\Temp\RSP9732.tmp" with contents
+Creating command line "rc.exe /l 0x409 /fo"Release/SmartDBDemo.res" /d "NDEBUG" /d "_AFXDLL" "C:\Users\Administrator\learngit\SmartDBDemo\SmartDBDemo.rc"" 
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSPA96F.tmp" with contents
 [
 /nologo /subsystem:windows /incremental:no /pdb:"Release/SmartDBDemo.pdb" /machine:I386 /out:"Release/SmartDBDemo.exe" 
 .\Release\CreateOrder.obj
@@ -25,16 +20,10 @@ Creating temporary file "C:\Users\admin\AppData\Local\Temp\RSP9732.tmp" with con
 .\Release\Xinyong.obj
 .\Release\SmartDBDemo.res
 ]
-Creating command line "link.exe @C:\Users\admin\AppData\Local\Temp\RSP9732.tmp"
+Creating command line "link.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSPA96F.tmp"
 <h3>Output Window</h3>
-Compiling...
-Xinyong.cpp
-C:\Users\admin\learngit\SmartDBDemo\Xinyong.cpp(385) : warning C4244: 'argument' : conversion from 'float' to 'long', possible loss of data
-C:\Users\admin\learngit\SmartDBDemo\Xinyong.cpp(201) : warning C4700: local variable 'izhouqidanwei' used without having been initialized
+Compiling resources...
 Linking...
-Creating command line "bscmake.exe /nologo /o"Release/SmartDBDemo.bsc"  .\Release\StdAfx.sbr .\Release\CreateOrder.sbr .\Release\LoginDlg.sbr .\Release\Order.sbr .\Release\SmartDB.sbr .\Release\SmartDBDemo.sbr .\Release\SmartDBDemoDlg.sbr .\Release\Xinyong.sbr"
-Creating browse info file...
-<h3>Output Window</h3>
 
 
 

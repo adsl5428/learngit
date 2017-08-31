@@ -15,17 +15,17 @@ Class3=CAboutDlg
 ResourceCount=9
 Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
-Resource3=IDD_CREATE_DIALOG
-Resource4=IDD_CREATE_XINYONG
-Resource5=IDD_LOGIN_DIALOG
-Resource6=IDD_DIALOG_ORDER
+Resource3=IDD_CREATE_XINYONG
+Resource4=IDD_LOGIN_DIALOG
+Resource5=IDD_DIALOG_ORDER
+Resource6=IDD_SMARTDBDEMO_DIALOG
 Class4=Login
 Resource7=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
 Class5=CLoginDlg
 Class6=CCreateOrder
 Class7=CXiangxi
 Class8=COrder
-Resource8=IDD_SMARTDBDEMO_DIALOG
+Resource8=IDD_CREATE_DIALOG
 Class9=CXinyong
 Class10=CListCtrl_
 Resource9=IDR_MENU_MAIN
@@ -240,7 +240,7 @@ Control36=IDC_STATIC,static,1342308352
 Control37=IDC_STATIC_ZONGHUAN,static,1342308352
 Control38=IDC_EDIT_QIXIANDANWEI,edit,1342242944
 Control39=IDC_STATIC,static,1342308352
-Control40=IDC_EDIT1,edit,1342242944
+Control40=IDC_EDIT_XUHUANKUAN,edit,1342242944
 
 [CLS:COrder]
 Type=0
@@ -257,7 +257,7 @@ HeaderFile=Xinyong.h
 ImplementationFile=Xinyong.cpp
 BaseClass=CDialog
 Filter=D
-LastObject=IDC_EDIT_XUHUANKUAN
+LastObject=IDC_EDIT_LILV
 VirtualFilter=dWC
 
 [DLG:IDD_CREATE_XINYONG]
