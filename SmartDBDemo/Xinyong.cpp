@@ -30,6 +30,7 @@ CXinyong::CXinyong(CWnd* pParent /*=NULL*/)
 	m_chuziren = _T("");
 	m_jingbanren = _T("");
 	m_name = _T("");
+	m_xuhuankuan = _T("");
 	//}}AFX_DATA_INIT
 }
 
@@ -57,6 +58,7 @@ void CXinyong::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_CHUZIREN, m_chuziren);
 	DDX_Text(pDX, IDC_EDIT_JINGBANREN, m_jingbanren);
 	DDX_Text(pDX, IDC_EDIT_NAME, m_name);
+	DDX_Text(pDX, IDC_EDIT_XUHUANKUAN, m_xuhuankuan);
 	//}}AFX_DATA_MAP
 }
 
@@ -75,6 +77,7 @@ BEGIN_MESSAGE_MAP(CXinyong, CDialog)
 	ON_NOTIFY(MCN_SELCHANGE, IDC_MONTHCALENDAR1, OnSelchangeMonthcalendar1)
 	ON_BN_CLICKED(IDC_BUTTON1, OnButton1)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, OnDblclkList1)
+	ON_EN_CHANGE(IDC_EDIT_XUHUANKUAN, OnChangeEditXuhuankuan)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -157,7 +160,7 @@ void CXinyong::liandong()
 void CXinyong::conut()
 {
 	float fzhouqililv;
-	int imoney,itianshu,idanwei,izhouqidanwei,iqishu;
+	int imoney,itianshu,idanwei,izhouqidanwei,iqishu,ixuhuankuan;
 	CString strtemp;
 	bool xianxihouben=false;
 
@@ -165,11 +168,24 @@ void CXinyong::conut()
 	UpdateData(TRUE);   //¿Ø¼þ¸üÐÂµ½±äÁ¿
 
 
-	if (m_money.IsEmpty() || m_lilv.IsEmpty() || m_qixian.IsEmpty() || m_starttime.IsEmpty())
+	if (m_money.IsEmpty() || m_xuhuankuan.IsEmpty() || m_qixian.IsEmpty() || m_starttime.IsEmpty())
 		return ;
-	m_jixiriqi.GetLBText(m_jixiriqi.GetCurSel(), strtemp);
 
+	iqishu=_ttoi(m_qixian);
+	imoney = _ttoi(m_money);
+	ixuhuankuan = _ttoi(m_xuhuankuan);
+	
+	if (ixuhuankuan<imoney) return;
+	
 
+// 	MessageBox(m_xuhuankuan);
+// 	MessageBox(m_money);
+
+	
+
+	//MessageBox(m_lilv);
+
+/*	m_jixiriqi.GetLBText(m_jixiriqi.GetCurSel(), strtemp);*/
 
 	m_danwei.GetLBText(m_danwei.GetCurSel(), strtemp);
 	if (strtemp=="°Ù·Ö")
@@ -177,7 +193,10 @@ void CXinyong::conut()
 	else if (strtemp=="Ç§·Ö")
 		idanwei=1000;
 
+	m_lilv.Format("%f",(float)(ixuhuankuan-imoney)/(float)iqishu/(float)imoney*(float)idanwei);		//1¸öµ¥Î»ÖÜÆÚÀûÂÊ
 
+
+	UpdateData(false);
 	m_list_huankuan.DeleteAllItems();					// È«²¿Çå¿Õ
 	imoney = _ttoi(m_money);
 	itianshu = _ttoi(m_qixian)*izhouqidanwei;
@@ -195,9 +214,6 @@ void CXinyong::conut()
 	}
 //	msgint((int)fzhouqililv);
 	
-
-	iqishu=_ttoi(m_qixian);
-
 
 	float qihuankuan;
 
@@ -219,9 +235,29 @@ void CXinyong::conut()
 
 	if (iqishu==1)    //Ö»ÓÐÒ»ÆÚµÄµÄÇé¿ö
 	{
+		int x = m_list_huankuan.InsertItem(999, _T(""));
+		strtemp.Format("%d",1);
+		m_list_huankuan.SetItemText(x, 0, strtemp);      //ÆÚÊý
+
+		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+
+
+		CTimeSpan m_timespan(izhouqidanwei,0,0,0); // 
+		s=s+m_timespan;
+		
+		strtemp = s.Format("%Y-%m-%d");
+		m_list_huankuan.SetItemText(x, 1, strtemp);               //»¹¿îÈÕ
+		
+		strtemp.Format("%0.0f",qihuankuan);
+		m_list_huankuan.SetItemText(x, 2, strtemp);              //¼Æ»®»¹¿î½ð¶î
+
+
 	}
 
-	else{
+	else
+	{
 	int i=1;
 	for (;i<=iqishu;i++)
 	{
@@ -234,7 +270,7 @@ void CXinyong::conut()
 		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
 
 
-		CTimeSpan m_timespan(izhouqidanwei*(i-1),0,0,0); // 3Ìì£¬4Ð¡Ê±£¬5·Ö£¬6Ãë
+		CTimeSpan m_timespan(izhouqidanwei*(i-1),0,0,0); // 
 		s=s+m_timespan;
 
 		strtemp = s.Format("%Y-%m-%d");
@@ -438,7 +474,7 @@ m_qixiandanwei.GetLBText(m_qixiandanwei.GetCurSel(),strqixiandanwei ); // ÖÜ / Ô
 // 	GetDlgItemText (IDC_EDIT_ENDTIME, strendtime);
 
 
-strSQL.Format("INSERT INTO orders (name,type1, money,huankuanfangshi ,qixian ,qixiandanwei,jixizhouqi,zhanbi,lixi ,fuwufei, beizhu , starttime, endtime,jingbanren,chuziren,idcard) 	  VALUES  ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s', '%s', '%s', '%s')", m_name,strfenlei,m_money,strhuankuangfangshi,m_qixian,strqixiandanwei,strjixiriqi,strdanwei, m_lilv,m_fuwufei,	  m_beizhu,m_starttime ,m_endtime,m_jingbanren,m_chuziren,m_idcard);
+strSQL.Format("INSERT INTO orders (name,type1, money,huankuanfangshi ,qixian ,qixiandanwei,jixizhouqi,zhanbi,lixi ,fuwufei, beizhu , starttime, endtime,jingbanren,chuziren,idcard,xuhuankuan) 	  VALUES  ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s', '%s', '%s', '%s' ,'%s')", m_name,strfenlei,m_money,strhuankuangfangshi,m_qixian,strqixiandanwei,strjixiriqi,strdanwei, m_lilv,m_fuwufei,	  m_beizhu,m_starttime ,m_endtime,m_jingbanren,m_chuziren,m_idcard,m_xuhuankuan);
 
 SetDlgItemText (IDC_STATUS, "ÕýÔÚ´æÈëÊý¾Ý...");
 
@@ -600,4 +636,15 @@ void CXinyong::OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult)
 		}
 	}
 	*pResult = 0;
+}
+
+void CXinyong::OnChangeEditXuhuankuan() 
+{
+	// TODO: If this is a RICHEDIT control, the control will not
+	// send this notification unless you override the CDialog::OnInitDialog()
+	// function and call CRichEditCtrl().SetEventMask()
+	// with the ENM_CHANGE flag ORed into the mask.
+	
+	// TODO: Add your control notification handler code here
+	conut();
 }

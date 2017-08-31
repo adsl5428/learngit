@@ -429,12 +429,12 @@ void CCreateOrder::count()
 //	int zhouhuankuan = zonghuankua;
 	
 
-	if(qishu==1)
-	{
-		int x = m_list_huankuan.InsertItem(999, _T(""));
-		strtemp.Format("%d",1);
-		m_list_huankuan.SetItemText(x, 0, strtemp); 
-	}
+// 	if(qishu==1)
+// 	{
+// 		int x = m_list_huankuan.InsertItem(999, _T(""));
+// 		strtemp.Format("%d",1);
+// 		m_list_huankuan.SetItemText(x, 0, strtemp); 
+// 	}
 
 	
 	int i=1;

@@ -40,6 +40,7 @@ public:
 	CString	m_chuziren;
 	CString	m_jingbanren;
 	CString	m_name;
+	CString	m_xuhuankuan;
 	//}}AFX_DATA
 
 
@@ -69,6 +70,7 @@ protected:
 	virtual void OnOK();
 	afx_msg void OnButton1();
 	afx_msg void OnDblclkList1(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnChangeEditXuhuankuan();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

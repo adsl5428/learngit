@@ -2,7 +2,7 @@
 
 [General Info]
 Version=1
-LastClass=CSmartDBDemoDlg
+LastClass=CXinyong
 LastTemplate=CListCtrl
 NewFileInclude1=#include "stdafx.h"
 NewFileInclude2=#include "SmartDBDemo.h"
@@ -13,19 +13,19 @@ Class2=CSmartDBDemoDlg
 Class3=CAboutDlg
 
 ResourceCount=9
-Resource1=IDD_LOGIN_DIALOG
+Resource1=IDD_ABOUTBOX
 Resource2=IDR_MAINFRAME
-Resource3=IDD_CREATE_XINYONG
-Resource4=IDD_ABOUTBOX
-Resource5=IDD_DIALOG_ORDER
-Resource6=IDD_SMARTDBDEMO_DIALOG
+Resource3=IDD_CREATE_DIALOG
+Resource4=IDD_CREATE_XINYONG
+Resource5=IDD_LOGIN_DIALOG
+Resource6=IDD_DIALOG_ORDER
 Class4=Login
 Resource7=IDD_SMARTDBDEMO_DIALOG (English (U.S.))
 Class5=CLoginDlg
 Class6=CCreateOrder
 Class7=CXiangxi
 Class8=COrder
-Resource8=IDD_CREATE_DIALOG
+Resource8=IDD_SMARTDBDEMO_DIALOG
 Class9=CXinyong
 Class10=CListCtrl_
 Resource9=IDR_MENU_MAIN
@@ -200,7 +200,7 @@ LastObject=CXiangxi
 [DLG:IDD_DIALOG_ORDER]
 Type=1
 Class=COrder
-ControlCount=38
+ControlCount=40
 Control1=IDC_EDIT_NAME,edit,1342242944
 Control2=IDC_EDIT_IDCARD,edit,1342242944
 Control3=IDC_EDIT_MONEY,edit,1342242944
@@ -239,6 +239,8 @@ Control35=IDC_EDIT_ZHANBI,edit,1342242944
 Control36=IDC_STATIC,static,1342308352
 Control37=IDC_STATIC_ZONGHUAN,static,1342308352
 Control38=IDC_EDIT_QIXIANDANWEI,edit,1342242944
+Control39=IDC_STATIC,static,1342308352
+Control40=IDC_EDIT1,edit,1342242944
 
 [CLS:COrder]
 Type=0
@@ -255,20 +257,20 @@ HeaderFile=Xinyong.h
 ImplementationFile=Xinyong.cpp
 BaseClass=CDialog
 Filter=D
-LastObject=ID_OPTIONS_COMPACTDATABASE
+LastObject=IDC_EDIT_XUHUANKUAN
 VirtualFilter=dWC
 
 [DLG:IDD_CREATE_XINYONG]
 Type=1
 Class=CXinyong
-ControlCount=36
+ControlCount=38
 Control1=IDC_COMBO_FENLEI,combobox,1344340227
 Control2=IDC_EDIT_NAME,edit,1342242944
 Control3=IDC_EDIT_IDCARD,edit,1342242944
 Control4=IDC_EDIT_JINGBANREN,edit,1342242944
 Control5=IDC_COMBO_HUANKUAN,combobox,1344340227
 Control6=IDC_COMBO_JIXIRIQI,combobox,1344340227
-Control7=IDC_COMBO_DANWEI,combobox,1478557955
+Control7=IDC_COMBO_DANWEI,combobox,1344340227
 Control8=IDC_EDIT_LILV,edit,1342242944
 Control9=IDC_EDIT_MONEY,edit,1342242944
 Control10=IDC_EDIT_FUWUFEI,edit,1342242944
@@ -297,7 +299,9 @@ Control32=IDC_STATIC,static,1342308352
 Control33=IDC_STATIC,static,1342308352
 Control34=IDC_STATIC,static,1342308352
 Control35=IDC_STATIC,static,1342308352
-Control36=IDC_COMBO_QIXIANDANWEI,combobox,1478557955
+Control36=IDC_COMBO_QIXIANDANWEI,combobox,1344340227
+Control37=IDC_EDIT_XUHUANKUAN,edit,1342242944
+Control38=IDC_STATIC,static,1342308352
 
 [CLS:CListCtrl_]
 Type=0

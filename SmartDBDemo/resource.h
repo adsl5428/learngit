@@ -71,6 +71,7 @@
 #define IDC_EDIT_QIXIANDANWEI           1059
 #define IDC_EDIT_LIXI                   1060
 #define IDC_STATIC_ZONGHUAN             1061
+#define IDC_EDIT_XUHUANKUAN             1062
 #define ID_FILE_EXIT                    32774
 #define ID_OPTIONS_COMPACTDATABASE      32775
 #define ID_OPTIONS_REPAIRDATABASE       32776
@@ -87,7 +88,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        136
 #define _APS_NEXT_COMMAND_VALUE         32783
-#define _APS_NEXT_CONTROL_VALUE         1062
+#define _APS_NEXT_CONTROL_VALUE         1063
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

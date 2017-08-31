@@ -440,8 +440,8 @@ UINT CSmartDBDemoDlg::ExecuteQueryAndShow(LPCTSTR strSelectQuery)
 		return nRetVal;
 
 	// Add list of fields from table into list box
-	CString title[18]={"id","名字","类型","金额","还款方式","周","期","?息","占比","息","服务费","备注","借款日期","结束日期","经办人","借款人","身份证"};
-	int kuan[18]={20,60,60,80,80,30,40,40,40,40,60,200,100,100,60,60,60};
+	CString title[18]={"id","名字","类型","金额","还款方式","周","期","?息","占比","息","服务费","备注","借款日期","结束日期","经办人","借款人","身份证","需还款"};
+	int kuan[18]={20,60,60,80,80,30,40,40,40,40,60,200,100,100,60,60,60,80};
 	for (i=0; i < rsMain.FieldsCount(); i++)
 	{
 		CString strBuffer;
