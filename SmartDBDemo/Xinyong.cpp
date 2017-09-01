@@ -124,7 +124,7 @@ BOOL CXinyong::OnInitDialog()
 	m_list1.InsertColumn(0, _T("源文件(点击查看)"), LVCFMT_LEFT, 330);        // 插入第2列的列名  
 	m_list1.InsertColumn(1, _T("目标文件"), LVCFMT_LEFT, 190);        // 插入第3列的列名         // 插入第4列的列名  
 	m_list1.InsertColumn(2, _T("状态"), LVCFMT_LEFT, 70);        // 插入第3列的列名         // 插入第4列的列名  
-	
+
 	m_list_huankuan.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES);      // 整行选择、网格线  
 	m_list_huankuan.InsertColumn(0, _T("期数"), LVCFMT_CENTER, 40);        // 插入第2列的列名  
 	m_list_huankuan.InsertColumn(1, _T("还款日"), LVCFMT_CENTER, 110);        // 插入第3列的列名         // 插入第4列的列名  
@@ -132,11 +132,11 @@ BOOL CXinyong::OnInitDialog()
 	m_list_huankuan.InsertColumn(3, _T("实际还款"), LVCFMT_CENTER, 80);        // 插入第3列的列名         // 插入第4列的列名  
 	m_list_huankuan.InsertColumn(4, _T("备注"), LVCFMT_CENTER, 287);        // 插入第3列的列名         // 插入第4列的列名  
 
-	SetDlgItemText(IDC_EDIT_IDCARD,"6666");
-	SetDlgItemText(IDC_EDIT_MONEY,"100000");
-	SetDlgItemText(IDC_EDIT_LILV,"5");
+// 	SetDlgItemText(IDC_EDIT_IDCARD,"6666");
+// 	SetDlgItemText(IDC_EDIT_MONEY,"100000");
+// 	SetDlgItemText(IDC_EDIT_LILV,"5");
 	SetDlgItemText(IDC_EDIT_STARTTIME,str);
-	SetDlgItemText(IDC_EDIT_QIXIAN,"16");
+// 	SetDlgItemText(IDC_EDIT_QIXIAN,"16");
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -268,7 +268,6 @@ void CXinyong::conut()
 		
 		strtemp = s.Format("%Y-%m-%d");
 		m_list_huankuan.SetItemText(x, 1, strtemp);               //还款日
-		
 		m_list_huankuan.SetItemText(x, 2, m_xuhuankuan);              //计划还款金额
 
 	}
@@ -286,7 +285,7 @@ void CXinyong::conut()
 		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
 
 
-		CTimeSpan m_timespan(fzhouqidanwei*(i-1),0,0,0); // 3天，4小时，5分，6秒
+		CTimeSpan m_timespan(fzhouqidanwei*i,0,0,0); // 3天，4小时，5分，6秒
 		s=s+m_timespan;
 
 		strtemp = s.Format("%Y-%m-%d");
@@ -302,7 +301,7 @@ void CXinyong::conut()
 		strtemp.Format("%d",iqishu+1);
 		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
 		
-		CTimeSpan m_timespan(fzhouqidanwei*(i-1),0,0,0); // 3天，4小时，5分，6秒
+		CTimeSpan m_timespan(fzhouqidanwei*i,0,0,0); // 3天，4小时，5分，6秒
 		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
 		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
 		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
@@ -821,7 +820,7 @@ void CXinyong::conut2()
 		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
 
 
-		CTimeSpan m_timespan(fzhouqidanwei*(i-1),0,0,0); // 3天，4小时，5分，6秒
+		CTimeSpan m_timespan(fzhouqidanwei*i,0,0,0); // 3天，4小时，5分，6秒
 		s=s+m_timespan;
 
 		strtemp = s.Format("%Y-%m-%d");
@@ -837,7 +836,7 @@ void CXinyong::conut2()
 		strtemp.Format("%d",iqishu+1);
 		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
 		
-		CTimeSpan m_timespan(fzhouqidanwei*(i-1),0,0,0); // 3天，4小时，5分，6秒
+		CTimeSpan m_timespan(fzhouqidanwei*i,0,0,0); // 3天，4小时，5分，6秒
 		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
 		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
 		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
@@ -863,3 +862,4 @@ void CXinyong::OnSetfocusEditLilv()
 	// TODO: Add your control notification handler code here
 	m_last = "lilv";
 }
+
