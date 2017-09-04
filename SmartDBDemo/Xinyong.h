@@ -15,11 +15,12 @@ class CXinyong : public CDialog
 // Construction
 public:
 	CXinyong(CWnd* pParent = NULL);   // standard constructor
-	void conut();
-	void conut2();
+	void count();
+	void count2();
 	void liandong();
 	void countendtime();
 	CString m_last;
+	CTime nextday(CTime cur,float zhouqi);
 // Dialog Data
 	//{{AFX_DATA(CXinyong)
 	enum { IDD = IDD_CREATE_XINYONG };

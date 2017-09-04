@@ -163,11 +163,11 @@ void CXinyong::liandong()
 	}
 
 }
-void CXinyong::conut()
+void CXinyong::count()
 {
 	if (m_last == "huankuan")
 	{
-		conut2();
+		count2();
 		return ;
 	}
 	float fzhouqililv,frixi,fzhouqidanwei;
@@ -251,6 +251,9 @@ void CXinyong::conut()
 	}
 		
 
+	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+	sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+	CTime   curday(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
 
 	if (iqishu==1 || iqishu ==0)    //只有一期的的情况
 	{
@@ -258,18 +261,13 @@ void CXinyong::conut()
 		strtemp.Format("%d",1);
 		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
 
-		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
-		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
-		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
-
-
-		CTimeSpan m_timespan(fzhouqidanwei,0,0,0); // 
-		s=s+m_timespan;
+		CTime nextday1= nextday(curday,fzhouqidanwei);
 		
-		strtemp = s.Format("%Y-%m-%d");
+		strtemp = nextday1.Format("%Y-%m-%d");
 		m_list_huankuan.SetItemText(x, 1, strtemp);               //还款日
 		m_list_huankuan.SetItemText(x, 2, m_xuhuankuan);              //计划还款金额
-
+		
+		curday = nextday1;
 	}
 
 	else{
@@ -280,19 +278,15 @@ void CXinyong::conut()
 		strtemp.Format("%d",i);
 		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
 		
-		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
-		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
-		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
-
-
-		CTimeSpan m_timespan(fzhouqidanwei*i,0,0,0); // 3天，4小时，5分，6秒
-		s=s+m_timespan;
-
-		strtemp = s.Format("%Y-%m-%d");
+		CTime nextday1= nextday(curday,fzhouqidanwei);
+		
+		strtemp = nextday1.Format("%Y-%m-%d");
 		m_list_huankuan.SetItemText(x, 1, strtemp);               //还款日
 		
 		strtemp.Format("%0.0f",qihuankuan);
 		m_list_huankuan.SetItemText(x, 2, strtemp);              //计划还款金额
+
+		curday = nextday1;
 	}
 
 	if (xianxihouben)
@@ -301,12 +295,9 @@ void CXinyong::conut()
 		strtemp.Format("%d",iqishu+1);
 		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
 		
-		CTimeSpan m_timespan(fzhouqidanwei*i,0,0,0); // 3天，4小时，5分，6秒
-		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
-		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
-		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
-		s=s+m_timespan;
-		strtemp = s.Format("%Y-%m-%d");
+		CTime nextday1= nextday(curday,fzhouqidanwei);
+
+		strtemp = nextday1.Format("%Y-%m-%d");
 		m_list_huankuan.SetItemText(x, 1, strtemp);               //还款日
 		
 		strtemp.Format("%0.0f",qihuankuan+imoney);
@@ -325,27 +316,27 @@ void CXinyong::OnChangeEditQixian()
 	
 	// TODO: Add your control notification handler code here
 	countendtime();
-	conut();
+	count();
 }
 
 
 void CXinyong::OnEditchangeComboJixiriqi() 
 {
 	// TODO: Add your control notification handler code here
-conut();
+count();
 }
 
 void CXinyong::OnSelchangeComboJixiriqi() 
 {
 	// TODO: Add your control notification handler code here
 	liandong();
-	conut();
+	count();
 }
 
 void CXinyong::OnSelchangeComboHuankuan() 
 {
 	// TODO: Add your control notification handler code here
-	conut();
+	count();
 }
 
 void CXinyong::OnChangeEditLilv() 
@@ -356,7 +347,7 @@ void CXinyong::OnChangeEditLilv()
 	// with the ENM_CHANGE flag ORed into the mask.
 	
 	// TODO: Add your control notification handler code here
-	conut();
+	count();
 }
 
 void CXinyong::OnChangeEditMoney() 
@@ -367,7 +358,7 @@ void CXinyong::OnChangeEditMoney()
 	// with the ENM_CHANGE flag ORed into the mask.
 	
 	// TODO: Add your control notification handler code here
-	conut(); 
+	count(); 
 }
 void CXinyong::countendtime() 
 {
@@ -412,6 +403,7 @@ void CXinyong::OnChangeEditStarttime()
 	
 	// TODO: Add your control notification handler code here
 	countendtime();
+	count();
 }
 
 void CXinyong::OnSetfocusEditStarttime() 
@@ -661,27 +653,27 @@ void CXinyong::OnChangeEditXuhuankuan()
 	// with the ENM_CHANGE flag ORed into the mask.
 	
 	// TODO: Add your control notification handler code here
-	conut2();
+	count2();
 }
 
 void CXinyong::OnEditchangeComboQixiandanwei() 
-{	conut();}
+{	count();}
 
 void CXinyong::OnEditchangeComboDanwei() 
-{	conut();}
+{	count();}
 
 void CXinyong::OnSelchangeComboDanwei() 
 {
 	// TODO: Add your control notification handler code here
-	conut();
+	count();
 }
 
 void CXinyong::OnSelchangeComboQixiandanwei() 
 {
 	// TODO: Add your control notification handler code here
-	conut();
+	count();
 }
-void CXinyong::conut2()
+void CXinyong::count2()
 {
 
 	float fzhouqililv,frixi,fzhouqidanwei;
@@ -745,13 +737,6 @@ void CXinyong::conut2()
 	}
 
 
-// 	m_danwei.GetLBText(m_danwei.GetCurSel(), strtemp);
-// 	if (strtemp=="百分")
-// 		idanwei=100;
-// 	else if (strtemp=="千分")
-// 		idanwei=1000;
-
-
 	m_list_huankuan.DeleteAllItems();					// 全部清空
 
 	m_qixiandanwei.GetLBText(m_qixiandanwei.GetCurSel(), strtemp);
@@ -786,21 +771,22 @@ void CXinyong::conut2()
 	}
 		
 
+
+	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+	sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
+	CTime   curday(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+
+
 	if (iqishu==1 || iqishu ==0)    //只有一期的的情况
 	{
 		int x = m_list_huankuan.InsertItem(999, _T(""));
 		strtemp.Format("%d",1);
 		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
 
-		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
-		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
-		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
-
-
-		CTimeSpan m_timespan(fzhouqidanwei,0,0,0); // 
-		s=s+m_timespan;
+		CTime nextday1= nextday(curday,fzhouqidanwei);
+			
 		
-		strtemp = s.Format("%Y-%m-%d");
+		strtemp = nextday1.Format("%Y-%m-%d");
 		m_list_huankuan.SetItemText(x, 1, strtemp);               //还款日
 		
 		m_list_huankuan.SetItemText(x, 2, m_xuhuankuan);              //计划还款金额
@@ -815,19 +801,15 @@ void CXinyong::conut2()
 		strtemp.Format("%d",i);
 		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
 		
-		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
-		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
-		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
-
-
-		CTimeSpan m_timespan(fzhouqidanwei*i,0,0,0); // 3天，4小时，5分，6秒
-		s=s+m_timespan;
-
-		strtemp = s.Format("%Y-%m-%d");
+		CTime nextday1= nextday(curday,fzhouqidanwei);
+		
+		strtemp = nextday1.Format("%Y-%m-%d");
 		m_list_huankuan.SetItemText(x, 1, strtemp);               //还款日
 		
 		strtemp.Format("%0.0f",qihuankuan);
 		m_list_huankuan.SetItemText(x, 2, strtemp);              //计划还款金额
+
+		curday = nextday1;
 	}
 
 	if (xianxihouben)
@@ -836,16 +818,17 @@ void CXinyong::conut2()
 		strtemp.Format("%d",iqishu+1);
 		m_list_huankuan.SetItemText(x, 0, strtemp);      //期数
 		
-		CTimeSpan m_timespan(fzhouqidanwei*i,0,0,0); // 3天，4小时，5分，6秒
-		int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
-		sscanf(m_starttime,    "%d-%d-%d    %d:%d:%d",    &nYear,    &nMonth,    &nDate,    &nHour,    &nMin,    &nSec);   
-		CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
-		s=s+m_timespan;
-		strtemp = s.Format("%Y-%m-%d");
+		
+		CTime nextday1= nextday(curday,fzhouqidanwei);
+
+
+		strtemp = nextday1.Format("%Y-%m-%d");
 		m_list_huankuan.SetItemText(x, 1, strtemp);               //还款日
 		
 		strtemp.Format("%0.0f",qihuankuan+imoney);
 		m_list_huankuan.SetItemText(x, 2, strtemp);              //计划还款金额
+
+		curday = nextday1;
 	}
 	}
 
@@ -863,3 +846,38 @@ void CXinyong::OnSetfocusEditLilv()
 	m_last = "lilv";
 }
 
+CTime CXinyong::nextday(CTime cur,float zhouqi)
+{
+	if ((float)7 == zhouqi)
+	{
+		CTimeSpan sevenday(7,0,0,0); //
+		return cur+sevenday;
+	}
+	int    nYear,    nMonth,    nDate,    nHour,    nMin,    nSec;   
+	nYear = cur.GetYear();
+	nMonth = cur.GetMonth();
+	nDate = cur.GetDay();
+	nHour=cur.GetHour();
+	nMin=cur.GetMinute();
+	nSec = cur.GetSecond();
+
+	if (nMonth == 12)
+	{
+		nMonth = 1;
+		nYear += 1;
+	}
+	else
+		nMonth +=1;
+	nDate=1;
+	CTimeSpan oneday(1,0,0,0); //
+	CTime   s(nYear,    nMonth,    nDate,    nHour,    nMin,    nSec);
+	s = s-oneday;
+
+	nDate = s.GetDay();
+	CTimeSpan yueday(nDate,0,0,0); //
+
+	cur=cur+yueday;
+
+	CString d=cur.Format("%Y-%m-%d");
+	return cur;
+}
