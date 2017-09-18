@@ -12,6 +12,7 @@ vue cli
 vue route
 vue axios
 
+linux挂载windows共享文件夹设置0777权限			    //同下	
 https://wenku.baidu.com/view/a2a679d4964bcf84b8d57bbd.html   linux挂载windows共享文件夹设置0777权限  
 
 http://blog.csdn.net/ozhengtuojiasuo/article/details/53811191  安装php拓展 比如 mbstring
