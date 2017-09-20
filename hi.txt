@@ -12,6 +12,22 @@ vue cli
 vue route
 vue axios
 
+http://blog.csdn.net/virusfu/article/details/54926360  //阿里云申请云盾免费SSL证书（https）
+
+//如果不是阿里云的域名, 需要到那里 按照 说明 添加一个 解析 
+
+添加一个server 复制 http的server , 修改监听为端口为443, 添加 下面 三个 ssl 的设置,其他一样
+listen       443;
+ssl on;
+    
+ssl_certificate /alidata/server/nginx-1.4.4/conf/ssl/214268864480991.pem;
+    
+ssl_certificate_key /alidata/server/nginx-1.4.4/conf/ssl/214268864480991.key;
+	
+
+
+rewrite ^(.*)$  https://$host$1 permanent;  //http 部分加上这句. 强制重定向到 https
+
 linux挂载windows共享文件夹设置0777权限			    //同下	
 https://wenku.baidu.com/view/a2a679d4964bcf84b8d57bbd.html   linux挂载windows共享文件夹设置0777权限  
 
