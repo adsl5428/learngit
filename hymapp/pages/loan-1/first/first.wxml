@@ -1,0 +1,74 @@
+<view class="page">
+    <view class="hd">
+        <view class="page_title">丰纳金融</view>
+    </view>
+
+<view class="weui-cells__title">基本情况</view>
+
+<view class="weui-cells weui-cells_after-title">
+     <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+              <view class="weui-label">名字</view>
+          </view>
+          <view class="weui-cell__bd">
+              <input class="weui-input" id="nameid" name="name" placeholder="借款人姓名"/>
+          </view>
+      </view>
+
+
+      <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+              <view class="weui-label">身份证</view>
+          </view>
+          <view class="weui-cell__bd">
+              <input class="weui-input" id="cardid" name="card" placeholder="借款人身份证"/>
+          </view>
+      </view>
+
+
+      <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+              <view class="weui-label">借款额</view>
+          </view>
+          <view class="weui-cell__bd">
+              <input class="weui-input" placeholder="申请借款金额" />
+          </view>
+          <view class="weui-cell__ft">
+              <view class="weui-vcode-btn">万元</view>
+          </view>
+      </view>
+
+
+  </view>
+
+    <view class="weui-cells__title">其他情况</view>
+      <view class="weui-cells weui-cells_after-title">
+          <checkbox-group bindchange="checkboxChange">
+              <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="value">
+                  <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}"/>
+
+                  <view class="weui-cell__hd weui-check__hd_in-checkbox">
+                      <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+                      <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+                  </view>
+                  <view class="weui-cell__bd">{{item.name}}</view>
+              </label>
+          </checkbox-group>
+      </view>
+      
+
+        <view class="weui-cells__title">客户情况及需求描述</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea  class="weui-textarea" placeholder="详细真实的描述，有利于我们帮您快速匹配出合适的解决方案。" style="height: 4.2em" />
+                    
+                </view>
+            </view>
+        </view>
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="showTopTips">确定</button>
+        </view>
+<view class="weui-cells__title">　</view>
+</view>
+        

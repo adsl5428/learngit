@@ -1,0 +1,21 @@
+{
+  "pages":[
+    "pages/join/join",
+    "pages/index/index",
+    "pages/msg/msg_success",
+    "pages/msg/msg_fail",
+    "pages/upload/upload",
+    "pages/loan-1/loan-1",
+    "pages/loan-1/first/first",
+    "pages/loan-1/second/second",
+
+    "pages/finish/finish",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  }
+}
