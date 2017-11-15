@@ -68,7 +68,15 @@ location / {
 #try_files $uri $uri/ =404;
 try_files $uri $uri/ /index.php?$query_string;
 }
-
+        location / {  
+            index  index.html index.htm index.php;  
+            autoindex  on;  
+            # 伪静态配置  
+            if (!-e $request_filename) {  
+                rewrite  ^(.*)$  /index.php?s=$1  last;  
+                break;  
+            }  
+        } 
 
 laravel 
 url('xxxx','xxx')   只能接一个参数 
