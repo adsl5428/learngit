@@ -510,9 +510,9 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
 穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
 
 要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
-$ git config --global user.name "Your Name"
-$ git config --global user.email "email@example.com"
-ssh-keygen -t rsa -C "youremail@example.com"   创建ssh key, 在用户主目录下  有公key , 私key
+$ git config --global user.name "lihongcheng"
+$ git config --global user.email "1519492056@qq.com"
+ssh-keygen -t rsa -C "1519492056@qq.com"   创建ssh key, 在用户主目录下  有公key , 私key
 
 应该要在远程 建立一个 对应的项目
 git remote add origin git@github.com:________/learngit.git   origin 远程目录文件夹名称,______github账号
